@@ -1159,13 +1159,8 @@ footer a:hover {
 /* Line Chart */
 .line-chart {
   width: 100%;
-  height: 200px;
-  position: relative;
-}
-
-.line-chart svg {
-  width: 100%;
-  height: 100%;
+  height: auto;
+  display: block;
   overflow: visible;
 }
 
@@ -1472,13 +1467,34 @@ footer a:hover {
     gap: 1rem;
   }
 
+  /* Heatmap - horizontal scroll on mobile */
+  .heatmap-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .heatmap-months {
+    min-width: 700px;
+  }
+
   .heatmap {
     justify-content: flex-start;
+    min-width: 700px;
   }
 
   .heatmap-cell {
     width: 10px;
     height: 10px;
+  }
+
+  /* Line chart - ensure it scales down */
+  .line-chart {
+    min-height: 150px;
+  }
+
+  .viz-card {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Compact stats banner on mobile */

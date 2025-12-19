@@ -32,10 +32,10 @@ export function renderMonthlyTrend(): string {
   const values = Object.values(monthlyData);
   const maxValue = Math.max(...values, 1);
   
-  // SVG dimensions
-  const width = 400;
-  const height = 150;
-  const padding = { top: 20, right: 20, bottom: 30, left: 40 };
+  // SVG dimensions - wider to fill container
+  const width = 800;
+  const height = 180;
+  const padding = { top: 20, right: 30, bottom: 35, left: 50 };
   const chartWidth = width - padding.left - padding.right;
   const chartHeight = height - padding.top - padding.bottom;
   
@@ -79,7 +79,7 @@ export function renderMonthlyTrend(): string {
     <div class="viz-card viz-card-wide" role="region" aria-label="Monthly activity trend chart">
       <h3>Monthly Activity Trend</h3>
       <p class="sr-only">Chart showing ${totalCommits} total commits over ${months.length} months, averaging ${avgCommits} commits per month.</p>
-      <svg viewBox="0 0 ${width} ${height}" class="line-chart" role="img" aria-label="Line chart of monthly commit activity">
+      <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="line-chart" role="img" aria-label="Line chart of monthly commit activity">
         ${gridLines}
         <path d="${areaPath}" class="chart-area"/>
         <path d="${linePath}" class="chart-line"/>
