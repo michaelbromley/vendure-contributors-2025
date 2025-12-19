@@ -197,6 +197,7 @@ body {
   font-weight: 700;
   color: #17C1BC;
   display: block;
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-card .label {

@@ -53,15 +53,15 @@ function renderPage(members: CommunityMember[]): string {
     <main id="main-content">
       <div class="stats-banner" role="region" aria-label="Summary statistics">
         <div class="stat-card">
-          <span class="number">${members.length}</span>
+          <span class="number counter" data-target="${members.length}">0</span>
           <span class="label">Contributors</span>
         </div>
         <div class="stat-card">
-          <span class="number">${totalCommits.toLocaleString()}</span>
+          <span class="number counter" data-target="${totalCommits}">0</span>
           <span class="label">Commits</span>
         </div>
         <div class="stat-card">
-          <span class="number">${totalIssues}</span>
+          <span class="number counter" data-target="${totalIssues}">0</span>
           <span class="label">Issues Opened</span>
         </div>
       </div>
@@ -224,6 +224,45 @@ function setupEventListeners(): void {
 }
 
 // =====================================================
+// COUNTER ANIMATION
+// =====================================================
+
+function animateCounters(): void {
+  const counters = document.querySelectorAll('.counter');
+  const duration = 4000; // 4 seconds
+  const frameDuration = 1000 / 60; // 60fps
+  const totalFrames = Math.round(duration / frameDuration);
+  
+  counters.forEach(counter => {
+    const target = parseInt(counter.getAttribute('data-target') || '0', 10);
+    let frame = 0;
+    
+    // Easing function - easeOutExpo for that mechanical counter feel
+    const easeOutExpo = (t: number): number => {
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    };
+    
+    const animate = () => {
+      frame++;
+      const progress = easeOutExpo(frame / totalFrames);
+      const currentValue = Math.round(target * progress);
+      
+      counter.textContent = currentValue.toLocaleString();
+      
+      if (frame < totalFrames) {
+        requestAnimationFrame(animate);
+      } else {
+        // Ensure we end on the exact target value
+        counter.textContent = target.toLocaleString();
+      }
+    };
+    
+    // Start animation with a slight delay for each counter
+    requestAnimationFrame(animate);
+  });
+}
+
+// =====================================================
 // INITIALIZATION
 // =====================================================
 
@@ -257,6 +296,9 @@ function init(): void {
     setupEventListeners();
     initSnowflakes();
     loadWorldMap();
+    
+    // Animate the stat counters
+    setTimeout(animateCounters, 300);
     
     // Initial celebration confetti
     setTimeout(launchConfetti, 500);
