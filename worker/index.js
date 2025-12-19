@@ -1,8 +1,20 @@
-// Cloudflare Pages Function to proxy GitHub API requests
-// Routes: /api/github?path=repos/owner/repo/commits&since=...
+// Cloudflare Worker to serve static assets and proxy GitHub API requests
 
-export async function onRequest(context) {
-  const { request, env } = context;
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    
+    // Handle GitHub API proxy requests
+    if (url.pathname === '/api/github') {
+      return handleGitHubProxy(request, env);
+    }
+    
+    // Everything else is handled by static assets (configured in wrangler.jsonc)
+    return env.ASSETS.fetch(request);
+  }
+};
+
+async function handleGitHubProxy(request, env) {
   const url = new URL(request.url);
   
   // Get the GitHub API path from query param
@@ -21,10 +33,10 @@ export async function onRequest(context) {
   // Build headers for GitHub API
   const headers = {
     'Accept': 'application/vnd.github.v3+json',
-    'User-Agent': 'gh-vis-cloudflare-worker',
+    'User-Agent': 'vendure-2025-contributors',
   };
   
-  // Add auth token if available (set via CF dashboard)
+  // Add auth token if available (set via wrangler secret)
   if (env.GITHUB_TOKEN) {
     headers['Authorization'] = `Bearer ${env.GITHUB_TOKEN}`;
   }
@@ -48,9 +60,7 @@ export async function onRequest(context) {
   } catch (error) {
     return new Response(JSON.stringify({ error: 'Failed to fetch from GitHub API' }), {
       status: 500,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 }

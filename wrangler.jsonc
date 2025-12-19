@@ -1,0 +1,9 @@
+{
+  "name": "vendure-2025",
+  "compatibility_date": "2025-04-01",
+  "main": "./worker/index.js",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  }
+}
