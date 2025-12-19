@@ -38,8 +38,11 @@ const REPO_OWNER = 'vendure-ecommerce';
 const REPO_NAME = 'vendure';
 
 // GitHub token for local dev (optional - higher rate limits)
-// In production on Cloudflare, this will be undefined and use unauthenticated rates
 const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+
+// Use proxy in production, direct API in dev
+const IS_PROD = import.meta.env.PROD;
+const GITHUB_API_BASE = IS_PROD ? '/api/github' : 'https://api.github.com';
 
 // Core maintainers to filter out (focus on external contributors)
 const MAINTAINERS = ['michaelbromley', 'dlhck', 'github-actions[bot]'];
@@ -508,14 +511,14 @@ async function fetchContributorsFrom2025(): Promise<Contributor[]> {
   let hasMore = true;
   
   while (hasMore) {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/commits?since=${since}&until=${until}&per_page=${perPage}&page=${page}`;
+    const url = `${GITHUB_API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/commits?since=${since}&until=${until}&per_page=${perPage}&page=${page}`;
     
     const headers: HeadersInit = {
       'Accept': 'application/vnd.github.v3+json'
     };
     
-    // Use token if available (local dev only)
-    if (GITHUB_TOKEN && GITHUB_TOKEN !== 'your_token_here') {
+    // Use token if available (local dev only - prod uses server-side proxy)
+    if (!IS_PROD && GITHUB_TOKEN && GITHUB_TOKEN !== 'your_token_here') {
       headers['Authorization'] = `Bearer ${GITHUB_TOKEN}`;
     }
     
