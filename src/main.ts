@@ -274,9 +274,7 @@ function renderContributionTimeline(commits: ContributionDetail[]): string {
 }
 
 function renderRecentCommits(commits: ContributionDetail[]): string {
-  const recent = commits.slice(0, 5);
-  
-  const commitList = recent.map(commit => {
+  const commitList = commits.map(commit => {
     const date = new Date(commit.date);
     const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     const message = commit.message.split('\n')[0].substring(0, 60);
@@ -295,7 +293,7 @@ function renderRecentCommits(commits: ContributionDetail[]): string {
   
   return `
     <div class="recent-commits">
-      <h3>Recent Contributions</h3>
+      <h3>All Contributions (${commits.length})</h3>
       <div class="commit-list">
         ${commitList}
       </div>

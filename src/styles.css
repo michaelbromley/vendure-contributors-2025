@@ -554,6 +554,28 @@ canvas.confetti-canvas {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(23, 193, 188, 0.5) transparent;
+}
+
+.commit-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.commit-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.commit-list::-webkit-scrollbar-thumb {
+  background: rgba(23, 193, 188, 0.5);
+  border-radius: 3px;
+}
+
+.commit-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(23, 193, 188, 0.7);
 }
 
 .commit-item {
@@ -571,7 +593,6 @@ canvas.confetti-canvas {
 .commit-item:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(23, 193, 188, 0.3);
-  transform: translateX(5px);
 }
 
 .commit-dot {
