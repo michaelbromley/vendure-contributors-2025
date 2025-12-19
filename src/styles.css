@@ -1133,6 +1133,129 @@ footer a:hover {
   font-size: 0.7rem;
 }
 
+/* World Map */
+.world-map-section {
+  text-align: center;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.world-map-section h2 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.world-map-section .section-subtitle {
+  color: #a8d8ea;
+  margin-bottom: 1.5rem;
+}
+
+.world-map-container {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.world-map-wrapper {
+  flex: 1;
+  min-width: 300px;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.world-map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.world-map-svg path {
+  fill: rgba(255, 255, 255, 0.08);
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 0.5;
+  transition: fill 0.3s ease;
+}
+
+.world-map-svg path:hover {
+  fill: rgba(23, 193, 188, 0.2);
+}
+
+.map-dots-overlay {
+  pointer-events: all;
+}
+
+.map-dot-glow {
+  fill: rgba(23, 193, 188, 0.3);
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.map-dot {
+  fill: #17C1BC;
+  stroke: #fff;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: fill 0.3s ease, filter 0.3s ease, r 0.2s ease;
+  filter: drop-shadow(0 0 4px rgba(23, 193, 188, 0.6));
+}
+
+.map-dot:hover {
+  fill: #5eead4;
+  filter: drop-shadow(0 0 8px rgba(23, 193, 188, 0.9));
+}
+
+.map-legend {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 180px;
+}
+
+.map-legend h4 {
+  color: #a8d8ea;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.country-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.country-stat:last-child {
+  border-bottom: none;
+}
+
+.country-name {
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.country-count {
+  color: #17C1BC;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: rgba(23, 193, 188, 0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+}
+
 /* Responsive adjustments for visualizations */
 @media (max-width: 768px) {
   .viz-grid {

@@ -2,6 +2,19 @@ import './styles.css';
 import confetti from 'canvas-confetti';
 import contributorsData from './data/contributors-2025.json';
 import issueContributorsData from './data/issue-contributors-2025.json';
+import locationData from './data/contributor-locations-geocoded.json';
+
+interface LocationContributor {
+  login: string;
+  name: string | null;
+  location: string | null;
+  avatar_url: string;
+  html_url: string;
+  commitCount: number;
+  issueCount: number;
+  coords: { lat: number; lng: number } | null;
+  country: string | null;
+}
 
 interface CommitDetail {
   sha: string;
@@ -462,6 +475,74 @@ function renderMonthlyTrend(): string {
 }
 
 // =====================================================
+// WORLD MAP VISUALIZATION
+// =====================================================
+
+function renderWorldMap(): string {
+  const contributors = locationData as LocationContributor[];
+  const withCoords = contributors.filter(c => c.coords !== null);
+  
+  // Group contributors by approximate location to handle overlaps
+  const locationGroups = new Map<string, LocationContributor[]>();
+  withCoords.forEach(c => {
+    const key = `${Math.round(c.coords!.lat / 3) * 3},${Math.round(c.coords!.lng / 3) * 3}`;
+    if (!locationGroups.has(key)) {
+      locationGroups.set(key, []);
+    }
+    locationGroups.get(key)!.push(c);
+  });
+  
+  // Country stats for the legend
+  const countryCounts: Record<string, { count: number; contributions: number }> = {};
+  withCoords.forEach(c => {
+    const country = c.country || 'Unknown';
+    if (!countryCounts[country]) {
+      countryCounts[country] = { count: 0, contributions: 0 };
+    }
+    countryCounts[country].count++;
+    countryCounts[country].contributions += c.commitCount + c.issueCount;
+  });
+  
+  const topCountries = Object.entries(countryCounts)
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, 8);
+  
+  const countryLegend = topCountries.map(([country, data]) => `
+    <div class="country-stat">
+      <span class="country-name">${country}</span>
+      <span class="country-count">${data.count}</span>
+    </div>
+  `).join('');
+  
+  return `
+    <section class="world-map-section">
+      <h2>Global Community</h2>
+      <p class="section-subtitle">${withCoords.length} contributors from ${Object.keys(countryCounts).length} countries</p>
+      
+      <div class="world-map-container">
+        <div class="world-map-wrapper" id="world-map-wrapper">
+          <!-- Map will be loaded here -->
+        </div>
+        
+        <div class="map-legend">
+          <h4>Top Countries</h4>
+          ${countryLegend}
+        </div>
+      </div>
+      
+      <div id="map-dots-data" style="display:none;">${JSON.stringify(Array.from(locationGroups.entries()).map(([_, group]) => {
+        const avgLat = group.reduce((sum, c) => sum + c.coords!.lat, 0) / group.length;
+        const avgLng = group.reduce((sum, c) => sum + c.coords!.lng, 0) / group.length;
+        const totalContributions = group.reduce((sum, c) => sum + c.commitCount + c.issueCount, 0);
+        const names = group.slice(0, 3).map(c => c.name || c.login).join(', ') + 
+                      (group.length > 3 ? ` +${group.length - 3} more` : '');
+        return { lat: avgLat, lng: avgLng, names, country: group[0].country, count: group.length, contributions: totalContributions };
+      }))}</div>
+    </section>
+  `;
+}
+
+// =====================================================
 // DATA LOADING & MERGING
 // =====================================================
 
@@ -746,6 +827,8 @@ function renderPage(): string {
       </div>
     </section>
     
+    ${renderWorldMap()}
+    
     <section class="contributors-section">
       <h2>Community Leaderboard</h2>
       <p class="section-subtitle">Ranked by contributions (commits weighted 3x, issues 1x)</p>
@@ -940,6 +1023,97 @@ function setupEventListeners() {
   });
 }
 
+async function loadWorldMap() {
+  const wrapper = document.getElementById('world-map-wrapper');
+  if (!wrapper) return;
+  
+  try {
+    // Fetch the SVG map
+    const response = await fetch('/src/assets/world-map.svg');
+    const svgText = await response.text();
+    
+    // Parse and insert the SVG
+    const parser = new DOMParser();
+    const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+    const svgElement = svgDoc.querySelector('svg');
+    
+    if (svgElement) {
+      svgElement.classList.add('world-map-svg');
+      // Add viewBox so the SVG scales properly with its content including our dots
+      svgElement.setAttribute('viewBox', '0 0 1009.6727 665.96301');
+      wrapper.appendChild(svgElement);
+      
+      // Now add the dots overlay
+      const dotsDataEl = document.getElementById('map-dots-data');
+      if (dotsDataEl) {
+        const dotsData = JSON.parse(dotsDataEl.textContent || '[]');
+        
+        // MapSVG world map geo calibration
+        // geoViewBox format: "minLng maxLat maxLng minLat"
+        // Values: -169.110266 83.600842 190.486279 -58.508473
+        // This map uses Mercator projection!
+        const mapWidth = 1009.6727;
+        const mapHeight = 665.96301;
+        const geoMinLng = -169.110266;
+        const geoMaxLng = 190.486279;
+        const geoMaxLat = 83.600842;
+        const geoMinLat = -58.508473;
+        const geoLngRange = geoMaxLng - geoMinLng;  // 359.596545
+        
+        // Mercator projection helper
+        const latToMercatorY = (lat: number): number => {
+          const latRad = lat * Math.PI / 180;
+          return Math.log(Math.tan(Math.PI / 4 + latRad / 2));
+        };
+        
+        const mercatorMaxY = latToMercatorY(geoMaxLat);
+        const mercatorMinY = latToMercatorY(geoMinLat);
+        const mercatorYRange = mercatorMaxY - mercatorMinY;
+        
+        // Create SVG overlay for dots
+        const dotsOverlay = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        dotsOverlay.classList.add('map-dots-overlay');
+        
+        dotsData.forEach((dot: { lat: number; lng: number; names: string; country: string; count: number; contributions: number }) => {
+          const x = ((dot.lng - geoMinLng) / geoLngRange) * mapWidth;
+          const mercatorY = latToMercatorY(dot.lat);
+          const y = ((mercatorMaxY - mercatorY) / mercatorYRange) * mapHeight;
+          
+          const baseSize = Math.min(5 + dot.count * 3, 15);
+          const size = Math.min(baseSize + Math.log(dot.contributions + 1) * 2, 25);
+          
+          // Glow circle
+          const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          glow.setAttribute('cx', x.toString());
+          glow.setAttribute('cy', y.toString());
+          glow.setAttribute('r', (size + 4).toString());
+          glow.classList.add('map-dot-glow');
+          
+          // Main dot
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('cx', x.toString());
+          circle.setAttribute('cy', y.toString());
+          circle.setAttribute('r', size.toString());
+          circle.classList.add('map-dot');
+          
+          // Tooltip
+          const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+          title.textContent = `${dot.names} (${dot.country}) - ${dot.contributions} contributions`;
+          circle.appendChild(title);
+          
+          dotsOverlay.appendChild(glow);
+          dotsOverlay.appendChild(circle);
+        });
+        
+        svgElement.appendChild(dotsOverlay);
+      }
+    }
+  } catch (error) {
+    console.error('Failed to load world map:', error);
+    wrapper.innerHTML = '<p style="color: #a8d8ea; text-align: center;">Map loading...</p>';
+  }
+}
+
 function init() {
   const app = document.getElementById('app')!;
   
@@ -949,6 +1123,7 @@ function init() {
   app.innerHTML = renderPage();
   setupEventListeners();
   initSnowflakes();
+  loadWorldMap();
   
   // Initial celebration confetti
   setTimeout(launchConfetti, 500);
