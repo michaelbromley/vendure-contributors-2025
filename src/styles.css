@@ -343,6 +343,11 @@ body {
 }
 
 /* Modal Styles */
+/* Confetti canvas - ensure it's above modal overlay */
+canvas.confetti-canvas {
+  z-index: 10000 !important;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
