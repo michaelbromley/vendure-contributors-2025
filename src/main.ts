@@ -503,11 +503,10 @@ function renderWorldMap(): string {
     countryCounts[country].contributions += c.commitCount + c.issueCount;
   });
   
-  const topCountries = Object.entries(countryCounts)
-    .sort((a, b) => b[1].count - a[1].count)
-    .slice(0, 8);
+  const allCountries = Object.entries(countryCounts)
+    .sort((a, b) => b[1].count - a[1].count);
   
-  const countryLegend = topCountries.map(([country, data]) => `
+  const countryLegend = allCountries.map(([country, data]) => `
     <div class="country-stat">
       <span class="country-name">${country}</span>
       <span class="country-count">${data.count}</span>
@@ -521,23 +520,39 @@ function renderWorldMap(): string {
       
       <div class="world-map-container">
         <div class="world-map-wrapper" id="world-map-wrapper">
-          <!-- Map will be loaded here -->
+          <div class="map-inner">
+            <!-- Map will be loaded here -->
+            <div class="map-controls-hint">Scroll to zoom, drag to pan, double-click to reset</div>
+          </div>
         </div>
         
         <div class="map-legend">
-          <h4>Top Countries</h4>
-          ${countryLegend}
+          <h4>Countries (${allCountries.length})</h4>
+          <div class="country-list">
+            ${countryLegend}
+          </div>
         </div>
       </div>
       
-      <div id="map-dots-data" style="display:none;">${JSON.stringify(Array.from(locationGroups.entries()).map(([_, group]) => {
-        const avgLat = group.reduce((sum, c) => sum + c.coords!.lat, 0) / group.length;
-        const avgLng = group.reduce((sum, c) => sum + c.coords!.lng, 0) / group.length;
-        const totalContributions = group.reduce((sum, c) => sum + c.commitCount + c.issueCount, 0);
-        const names = group.slice(0, 3).map(c => c.name || c.login).join(', ') + 
-                      (group.length > 3 ? ` +${group.length - 3} more` : '');
-        return { lat: avgLat, lng: avgLng, names, country: group[0].country, count: group.length, contributions: totalContributions };
-      }))}</div>
+      <div id="map-dots-data" style="display:none;">${JSON.stringify({
+        clusters: Array.from(locationGroups.entries()).map(([_, group]) => {
+          const avgLat = group.reduce((sum, c) => sum + c.coords!.lat, 0) / group.length;
+          const avgLng = group.reduce((sum, c) => sum + c.coords!.lng, 0) / group.length;
+          const totalContributions = group.reduce((sum, c) => sum + c.commitCount + c.issueCount, 0);
+          const names = group.slice(0, 3).map(c => c.name || c.login).join(', ') + 
+                        (group.length > 3 ? ` +${group.length - 3} more` : '');
+          return { lat: avgLat, lng: avgLng, names, country: group[0].country, count: group.length, contributions: totalContributions };
+        }),
+        individuals: withCoords.map(c => ({
+          lat: c.coords!.lat,
+          lng: c.coords!.lng,
+          name: c.name || c.login,
+          login: c.login,
+          location: c.location,
+          country: c.country,
+          contributions: c.commitCount + c.issueCount
+        }))
+      })}</div>
     </section>
   `;
 }
@@ -1025,7 +1040,8 @@ function setupEventListeners() {
 
 async function loadWorldMap() {
   const wrapper = document.getElementById('world-map-wrapper');
-  if (!wrapper) return;
+  const mapInner = wrapper?.querySelector('.map-inner');
+  if (!wrapper || !mapInner) return;
   
   try {
     // Fetch the SVG map
@@ -1040,25 +1056,134 @@ async function loadWorldMap() {
     if (svgElement) {
       svgElement.classList.add('world-map-svg');
       // Add viewBox so the SVG scales properly with its content including our dots
-      svgElement.setAttribute('viewBox', '0 0 1009.6727 665.96301');
-      wrapper.appendChild(svgElement);
+      const originalViewBox = { x: 0, y: 0, w: 1009.6727, h: 665.96301 };
+      svgElement.setAttribute('viewBox', `${originalViewBox.x} ${originalViewBox.y} ${originalViewBox.w} ${originalViewBox.h}`);
+      mapInner.insertBefore(svgElement, mapInner.firstChild);
+      
+      // Zoom and pan state
+      let viewBox = { ...originalViewBox };
+      let isPanning = false;
+      let panStart = { x: 0, y: 0 };
+      let viewBoxStart = { ...viewBox };
+      const minZoom = 0.5;  // Can zoom out to 50%
+      const maxZoom = 10;   // Can zoom in to 1000%
+      
+      const getZoomLevel = () => originalViewBox.w / viewBox.w;
+      
+      const updateViewBox = () => {
+        svgElement.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+        // Scale dot radii inversely to zoom so they stay the same screen size
+        const zoom = getZoomLevel();
+        const dots = svgElement.querySelectorAll('.map-dot, .map-dot-glow');
+        dots.forEach(dot => {
+          const baseR = parseFloat(dot.getAttribute('data-base-r') || dot.getAttribute('r') || '10');
+          // Store base radius on first run
+          if (!dot.getAttribute('data-base-r')) {
+            dot.setAttribute('data-base-r', dot.getAttribute('r') || '10');
+          }
+          dot.setAttribute('r', (baseR / zoom).toString());
+        });
+        // Update cluster/individual visibility
+        if ((svgElement as any)._updateDotsVisibility) {
+          (svgElement as any)._updateDotsVisibility();
+        }
+      };
+      
+      const getSvgPoint = (e: MouseEvent | WheelEvent): { x: number; y: number } => {
+        const rect = svgElement.getBoundingClientRect();
+        return {
+          x: ((e.clientX - rect.left) / rect.width) * viewBox.w + viewBox.x,
+          y: ((e.clientY - rect.top) / rect.height) * viewBox.h + viewBox.y
+        };
+      };
+      
+      // Zoom with mouse wheel
+      svgElement.addEventListener('wheel', (e: WheelEvent) => {
+        e.preventDefault();
+        const zoomFactor = e.deltaY > 0 ? 1.12 : 0.88;
+        const currentZoom = getZoomLevel();
+        const newZoom = currentZoom / zoomFactor;
+        
+        if (newZoom < minZoom || newZoom > maxZoom) return;
+        
+        const point = getSvgPoint(e);
+        const newW = viewBox.w * zoomFactor;
+        const newH = viewBox.h * zoomFactor;
+        
+        // Zoom towards mouse position
+        viewBox.x = point.x - (point.x - viewBox.x) * zoomFactor;
+        viewBox.y = point.y - (point.y - viewBox.y) * zoomFactor;
+        viewBox.w = newW;
+        viewBox.h = newH;
+        
+        updateViewBox();
+      }, { passive: false });
+      
+      // Pan with mouse drag - use screen coordinates for smooth panning
+      svgElement.addEventListener('mousedown', (e: MouseEvent) => {
+        if (e.button !== 0) return; // Only left click
+        e.preventDefault();
+        isPanning = true;
+        panStart = { x: e.clientX, y: e.clientY };
+        viewBoxStart = { ...viewBox };
+        svgElement.style.cursor = 'grabbing';
+      });
+      
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!isPanning) return;
+        e.preventDefault();
+        const rect = svgElement.getBoundingClientRect();
+        // Convert screen delta to SVG units
+        const dx = (e.clientX - panStart.x) * (viewBox.w / rect.width);
+        const dy = (e.clientY - panStart.y) * (viewBox.h / rect.height);
+        viewBox.x = viewBoxStart.x - dx;
+        viewBox.y = viewBoxStart.y - dy;
+        updateViewBox();
+      };
+      
+      const handleMouseUp = () => {
+        isPanning = false;
+        svgElement.style.cursor = 'grab';
+      };
+      
+      svgElement.addEventListener('mousemove', handleMouseMove);
+      svgElement.addEventListener('mouseup', handleMouseUp);
+      svgElement.addEventListener('mouseleave', handleMouseUp);
+      
+      // Double-click to reset zoom
+      svgElement.addEventListener('dblclick', () => {
+        viewBox = { ...originalViewBox };
+        updateViewBox();
+      });
+      
+      // Set initial cursor
+      svgElement.style.cursor = 'grab';
+      
+      // Sync legend height with map
+      const syncLegendHeight = () => {
+        const legend = document.querySelector('.map-legend') as HTMLElement;
+        if (legend && wrapper) {
+          legend.style.maxHeight = `${wrapper.offsetHeight}px`;
+        }
+      };
+      syncLegendHeight();
+      window.addEventListener('resize', syncLegendHeight);
       
       // Now add the dots overlay
       const dotsDataEl = document.getElementById('map-dots-data');
       if (dotsDataEl) {
-        const dotsData = JSON.parse(dotsDataEl.textContent || '[]');
+        const mapData = JSON.parse(dotsDataEl.textContent || '{}');
+        const clusters = mapData.clusters || [];
+        const individuals = mapData.individuals || [];
         
         // MapSVG world map geo calibration
-        // geoViewBox format: "minLng maxLat maxLng minLat"
-        // Values: -169.110266 83.600842 190.486279 -58.508473
-        // This map uses Mercator projection!
         const mapWidth = 1009.6727;
         const mapHeight = 665.96301;
         const geoMinLng = -169.110266;
         const geoMaxLng = 190.486279;
         const geoMaxLat = 83.600842;
         const geoMinLat = -58.508473;
-        const geoLngRange = geoMaxLng - geoMinLng;  // 359.596545
+        const geoLngRange = geoMaxLng - geoMinLng;
         
         // Mercator projection helper
         const latToMercatorY = (lat: number): number => {
@@ -1070,42 +1195,167 @@ async function loadWorldMap() {
         const mercatorMinY = latToMercatorY(geoMinLat);
         const mercatorYRange = mercatorMaxY - mercatorMinY;
         
-        // Create SVG overlay for dots
-        const dotsOverlay = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        dotsOverlay.classList.add('map-dots-overlay');
+        const toSvgCoords = (lat: number, lng: number) => ({
+          x: ((lng - geoMinLng) / geoLngRange) * mapWidth,
+          y: ((mercatorMaxY - latToMercatorY(lat)) / mercatorYRange) * mapHeight
+        });
         
-        dotsData.forEach((dot: { lat: number; lng: number; names: string; country: string; count: number; contributions: number }) => {
-          const x = ((dot.lng - geoMinLng) / geoLngRange) * mapWidth;
-          const mercatorY = latToMercatorY(dot.lat);
-          const y = ((mercatorMaxY - mercatorY) / mercatorYRange) * mapHeight;
-          
+        // Create overlay groups
+        const clustersGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        clustersGroup.classList.add('map-clusters');
+        
+        const individualsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        individualsGroup.classList.add('map-individuals');
+        individualsGroup.style.opacity = '0';
+        
+        // Create tooltip element
+        let tooltip = document.getElementById('map-tooltip');
+        if (!tooltip) {
+          tooltip = document.createElement('div');
+          tooltip.id = 'map-tooltip';
+          tooltip.className = 'map-tooltip';
+          document.body.appendChild(tooltip);
+        }
+        
+        const showTooltip = (e: MouseEvent, content: string) => {
+          tooltip!.innerHTML = content;
+          tooltip!.style.opacity = '1';
+          tooltip!.style.left = `${e.pageX + 12}px`;
+          tooltip!.style.top = `${e.pageY - 10}px`;
+        };
+        
+        const hideTooltip = () => {
+          tooltip!.style.opacity = '0';
+        };
+        
+        const moveTooltip = (e: MouseEvent) => {
+          tooltip!.style.left = `${e.pageX + 12}px`;
+          tooltip!.style.top = `${e.pageY - 10}px`;
+        };
+        
+        // Render cluster dots
+        clusters.forEach((dot: { lat: number; lng: number; names: string; country: string; count: number; contributions: number }) => {
+          const { x, y } = toSvgCoords(dot.lat, dot.lng);
           const baseSize = Math.min(5 + dot.count * 3, 15);
           const size = Math.min(baseSize + Math.log(dot.contributions + 1) * 2, 25);
           
-          // Glow circle
           const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
           glow.setAttribute('cx', x.toString());
           glow.setAttribute('cy', y.toString());
           glow.setAttribute('r', (size + 4).toString());
           glow.classList.add('map-dot-glow');
           
-          // Main dot
           const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
           circle.setAttribute('cx', x.toString());
           circle.setAttribute('cy', y.toString());
           circle.setAttribute('r', size.toString());
           circle.classList.add('map-dot');
           
-          // Tooltip
-          const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
-          title.textContent = `${dot.names} (${dot.country}) - ${dot.contributions} contributions`;
-          circle.appendChild(title);
+          // Custom tooltip
+          circle.addEventListener('mouseenter', (e) => {
+            const content = `
+              <div class="tooltip-country">${dot.country}</div>
+              <div class="tooltip-names">${dot.names}</div>
+              <div class="tooltip-stats">
+                <span class="tooltip-count">${dot.count}</span> contributors
+                <span class="tooltip-dot">•</span>
+                <span class="tooltip-contributions">${dot.contributions}</span> contributions
+              </div>
+            `;
+            showTooltip(e as MouseEvent, content);
+          });
+          circle.addEventListener('mousemove', (e) => moveTooltip(e as MouseEvent));
+          circle.addEventListener('mouseleave', hideTooltip);
           
-          dotsOverlay.appendChild(glow);
-          dotsOverlay.appendChild(circle);
+          clustersGroup.appendChild(glow);
+          clustersGroup.appendChild(circle);
         });
         
-        svgElement.appendChild(dotsOverlay);
+        // Render individual dots (shown when zoomed in)
+        // First, group individuals by their coordinates to spread out overlapping dots
+        const coordGroups = new Map<string, typeof individuals>();
+        individuals.forEach((person: { lat: number; lng: number; name: string; login: string; location: string; country: string; contributions: number }) => {
+          const key = `${person.lat},${person.lng}`;
+          if (!coordGroups.has(key)) {
+            coordGroups.set(key, []);
+          }
+          coordGroups.get(key)!.push(person);
+        });
+        
+        // Now render with offsets for overlapping dots
+        coordGroups.forEach((people) => {
+          const count = people.length;
+          
+          people.forEach((person, index) => {
+            const { x, y } = toSvgCoords(person.lat, person.lng);
+            const size = Math.min(4 + Math.log(person.contributions + 1) * 1.5, 10);
+            
+            // Calculate offset for overlapping dots - spread in a circle/spiral pattern
+            let offsetX = 0;
+            let offsetY = 0;
+            
+            if (count > 1) {
+              // Packed spiral pattern (golden angle) - fills space like sunflower seeds
+              const goldenAngle = Math.PI * (3 - Math.sqrt(5)); // ~137.5 degrees
+              const spacing = size * 0.13; // Tight packing based on dot size
+              const angle = index * goldenAngle;
+              const r = spacing * Math.sqrt(index); // Spiral outward
+              offsetX = r * Math.cos(angle);
+              offsetY = r * Math.sin(angle);
+            }
+            
+            const finalX = x + offsetX;
+            const finalY = y + offsetY;
+            
+            const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            glow.setAttribute('cx', finalX.toString());
+            glow.setAttribute('cy', finalY.toString());
+            glow.setAttribute('r', (size + 3).toString());
+            glow.classList.add('map-dot-glow');
+            
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', finalX.toString());
+            circle.setAttribute('cy', finalY.toString());
+            circle.setAttribute('r', size.toString());
+            circle.classList.add('map-dot', 'map-dot-individual');
+            
+            // Custom tooltip for individuals
+            circle.addEventListener('mouseenter', (e) => {
+              const content = `
+                <div class="tooltip-name">${person.name}</div>
+                <div class="tooltip-login">@${person.login}</div>
+                <div class="tooltip-location">${person.location || person.country}</div>
+                <div class="tooltip-stats">
+                  <span class="tooltip-contributions">${person.contributions}</span> contributions
+                </div>
+              `;
+              showTooltip(e as MouseEvent, content);
+            });
+            circle.addEventListener('mousemove', (e) => moveTooltip(e as MouseEvent));
+            circle.addEventListener('mouseleave', hideTooltip);
+            
+            individualsGroup.appendChild(glow);
+            individualsGroup.appendChild(circle);
+          });
+        });
+        
+        svgElement.appendChild(clustersGroup);
+        svgElement.appendChild(individualsGroup);
+        
+        // Update visibility based on zoom level
+        const updateDotsVisibility = () => {
+          const zoom = getZoomLevel();
+          if (zoom > 2.5) {
+            clustersGroup.style.opacity = '0';
+            individualsGroup.style.opacity = '1';
+          } else {
+            clustersGroup.style.opacity = '1';
+            individualsGroup.style.opacity = '0';
+          }
+        };
+        
+        // Expose for zoom updates
+        (svgElement as any)._updateDotsVisibility = updateDotsVisibility;
       }
     }
   } catch (error) {

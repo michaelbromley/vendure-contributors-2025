@@ -1173,10 +1173,36 @@ footer a:hover {
   overflow: hidden;
 }
 
+.map-inner {
+  position: relative;
+}
+
+.map-controls-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  pointer-events: none;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.world-map-wrapper:hover .map-controls-hint {
+  opacity: 0;
+}
+
 .world-map-svg {
   width: 100%;
   height: auto;
   display: block;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .world-map-svg path {
@@ -1205,13 +1231,23 @@ footer a:hover {
   stroke: #fff;
   stroke-width: 1.5;
   cursor: pointer;
-  transition: fill 0.3s ease, filter 0.3s ease, r 0.2s ease;
+  transition: fill 0.2s ease, filter 0.2s ease;
   filter: drop-shadow(0 0 4px rgba(23, 193, 188, 0.6));
+  vector-effect: non-scaling-stroke;
 }
 
 .map-dot:hover {
   fill: #5eead4;
   filter: drop-shadow(0 0 8px rgba(23, 193, 188, 0.9));
+}
+
+.map-clusters,
+.map-individuals {
+  transition: opacity 0.3s ease;
+}
+
+.map-dot-individual {
+  fill: #5eead4;
 }
 
 .map-legend {
@@ -1221,6 +1257,9 @@ footer a:hover {
   padding: 1rem 1.25rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .map-legend h4 {
@@ -1228,6 +1267,31 @@ footer a:hover {
   font-size: 0.9rem;
   margin-bottom: 0.75rem;
   font-weight: 500;
+  flex-shrink: 0;
+}
+
+.country-list {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 0.5rem;
+}
+
+.country-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.country-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.country-list::-webkit-scrollbar-thumb {
+  background: rgba(23, 193, 188, 0.4);
+  border-radius: 3px;
+}
+
+.country-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(23, 193, 188, 0.6);
 }
 
 .country-stat {
@@ -1254,6 +1318,72 @@ footer a:hover {
   background: rgba(23, 193, 188, 0.15);
   padding: 0.15rem 0.5rem;
   border-radius: 10px;
+}
+
+/* Map tooltip */
+.map-tooltip {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(23, 193, 188, 0.3);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  max-width: 280px;
+}
+
+.tooltip-country {
+  color: #17C1BC;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.tooltip-name {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.tooltip-login {
+  color: #17C1BC;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.tooltip-names {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin-bottom: 0.4rem;
+}
+
+.tooltip-location {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.tooltip-stats {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.tooltip-count,
+.tooltip-contributions {
+  color: #5eead4;
+  font-weight: 600;
+}
+
+.tooltip-dot {
+  color: rgba(255, 255, 255, 0.3);
 }
 
 /* Responsive adjustments for visualizations */
