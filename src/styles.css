@@ -3,7 +3,7 @@
    ===================================================== */
 :root {
   /* Colors */
-  --color-primary: #17C1BC;
+  --color-primary: #17c1ff;
   --color-primary-light: #5eead4;
   --color-primary-dark: #0d9488;
   --color-accent: #2dd4bf;
@@ -152,7 +152,7 @@ body {
 
 .header .year-badge {
   display: inline-block;
-  background: linear-gradient(135deg, #17C1BC, #0d9488);
+  background: linear-gradient(135deg, #17c1ff, #0d9488);
   padding: 0.5rem 1.5rem;
   border-radius: 25px;
   font-weight: 700;
@@ -195,7 +195,7 @@ body {
 .stat-card .number {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #17C1BC;
+  color: #17c1ff;
   display: block;
   font-variant-numeric: tabular-nums;
 }
@@ -257,7 +257,7 @@ body {
 
 .search-box input:focus {
   outline: none;
-  border-color: #17C1BC;
+  border-color: #17c1ff;
   background: rgba(23, 193, 188, 0.1);
   box-shadow: 0 0 15px rgba(23, 193, 188, 0.2);
 }
@@ -291,7 +291,7 @@ body {
 }
 
 .filter-btn.active {
-  background: linear-gradient(135deg, #17C1BC, #0d9488);
+  background: linear-gradient(135deg, #17c1ff, #0d9488);
   border-color: transparent;
   color: #fff;
   font-weight: 600;
@@ -304,7 +304,7 @@ body {
 }
 
 .filter-count span {
-  color: #17C1BC;
+  color: #17c1ff;
   font-weight: 600;
 }
 
@@ -387,7 +387,7 @@ body {
 }
 
 .contributor-card:hover .avatar {
-  border-color: #17C1BC;
+  border-color: #17c1ff;
   box-shadow: 0 0 20px rgba(23, 193, 188, 0.4);
 }
 
@@ -447,7 +447,7 @@ body {
 }
 
 .bar-label.commits {
-  color: #17C1BC;
+  color: #17c1ff;
 }
 
 .bar-label.issues {
@@ -469,7 +469,7 @@ body {
 }
 
 .bar-fill.commits {
-  background: linear-gradient(90deg, #0d9488, #17C1BC);
+  background: linear-gradient(90deg, #0d9488, #17c1ff);
 }
 
 .bar-fill.issues {
@@ -489,7 +489,7 @@ body {
   width: 80px;
   height: 80px;
   border: 4px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #17C1BC;
+  border-top-color: #17c1ff;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -519,13 +519,13 @@ body {
   animation: twinkle 1s ease-in-out infinite alternate;
 }
 
-.light:nth-child(1) { background: #17C1BC; animation-delay: 0s; }
+.light:nth-child(1) { background: #17c1ff; animation-delay: 0s; }
 .light:nth-child(2) { background: #5eead4; animation-delay: 0.2s; }
 .light:nth-child(3) { background: #0d9488; animation-delay: 0.4s; }
 .light:nth-child(4) { background: #2dd4bf; animation-delay: 0.6s; }
 .light:nth-child(5) { background: #14b8a6; animation-delay: 0.8s; }
 .light:nth-child(6) { background: #99f6e4; animation-delay: 1s; }
-.light:nth-child(7) { background: #17C1BC; animation-delay: 0.1s; }
+.light:nth-child(7) { background: #17c1ff; animation-delay: 0.1s; }
 .light:nth-child(8) { background: #5eead4; animation-delay: 0.3s; }
 .light:nth-child(9) { background: #0d9488; animation-delay: 0.5s; }
 .light:nth-child(10) { background: #2dd4bf; animation-delay: 0.7s; }
@@ -600,7 +600,7 @@ canvas.confetti-canvas {
 }
 
 .modal::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #17C1BC, #0d9488);
+  background: linear-gradient(180deg, #17c1ff, #0d9488);
   border-radius: 4px;
 }
 
@@ -655,7 +655,7 @@ canvas.confetti-canvas {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 3px solid #17C1BC;
+  border: 3px solid #17c1ff;
   box-shadow: 0 0 20px rgba(23, 193, 188, 0.3);
 }
 
@@ -679,7 +679,7 @@ canvas.confetti-canvas {
 }
 
 .profile-link:hover {
-  color: #17C1BC;
+  color: #17c1ff;
 }
 
 /* Contribution Stats */
@@ -703,7 +703,7 @@ canvas.confetti-canvas {
   display: block;
   font-size: 1.8rem;
   font-weight: 700;
-  color: #17C1BC;
+  color: #17c1ff;
   line-height: 1.2;
 }
 
@@ -750,7 +750,7 @@ canvas.confetti-canvas {
 .timeline-bar {
   width: 100%;
   max-width: 30px;
-  background: linear-gradient(180deg, #5eead4, #17C1BC, #0d9488);
+  background: linear-gradient(180deg, #5eead4, #17c1ff, #0d9488);
   border-radius: 4px 4px 0 0;
   position: relative;
   transition: height 0.5s ease;
@@ -765,7 +765,7 @@ canvas.confetti-canvas {
   transform: translateX(-50%);
   font-size: 0.7rem;
   font-weight: 700;
-  color: #17C1BC;
+  color: #17c1ff;
 }
 
 .timeline-label {
@@ -827,7 +827,7 @@ canvas.confetti-canvas {
 .commit-dot {
   width: 8px;
   height: 8px;
-  background: #17C1BC;
+  background: #17c1ff;
   border-radius: 50%;
   margin-top: 6px;
   flex-shrink: 0;
@@ -913,7 +913,7 @@ canvas.confetti-canvas {
 }
 
 .issue-title:hover {
-  color: #17C1BC;
+  color: #17c1ff;
 }
 
 .issue-date {
@@ -933,7 +933,7 @@ canvas.confetti-canvas {
 }
 
 .retry-btn {
-  background: linear-gradient(135deg, #17C1BC, #0d9488);
+  background: linear-gradient(135deg, #17c1ff, #0d9488);
   color: #fff;
   border: none;
   padding: 1rem 2rem;
@@ -953,7 +953,7 @@ footer {
 }
 
 footer a {
-  color: #17C1BC;
+  color: #17c1ff;
   text-decoration: none;
 }
 
@@ -1060,7 +1060,7 @@ footer a:hover {
 }
 
 .heatmap-cell.level-2 {
-  background: #17C1BC;
+  background: #17c1ff;
 }
 
 .heatmap-cell.level-3 {
@@ -1172,14 +1172,14 @@ footer a:hover {
 
 .chart-line {
   fill: none;
-  stroke: #17C1BC;
+  stroke: #17c1ff;
   stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .data-point {
-  fill: #17C1BC;
+  fill: #17c1ff;
   stroke: #fff;
   stroke-width: 2;
   transition: r 0.2s ease;
@@ -1294,7 +1294,7 @@ footer a:hover {
 }
 
 .map-dot {
-  fill: #17C1BC;
+  fill: #17c1ff;
   stroke: #fff;
   stroke-width: 1.5;
   cursor: pointer;
@@ -1379,7 +1379,7 @@ footer a:hover {
 }
 
 .country-count {
-  color: #17C1BC;
+  color: #17c1ff;
   font-weight: 600;
   font-size: 0.9rem;
   background: rgba(23, 193, 188, 0.15);
@@ -1404,7 +1404,7 @@ footer a:hover {
 }
 
 .tooltip-country {
-  color: #17C1BC;
+  color: #17c1ff;
   font-weight: 600;
   font-size: 0.9rem;
   margin-bottom: 0.25rem;
@@ -1417,7 +1417,7 @@ footer a:hover {
 }
 
 .tooltip-login {
-  color: #17C1BC;
+  color: #17c1ff;
   font-size: 0.8rem;
   margin-bottom: 0.25rem;
 }
@@ -1630,7 +1630,7 @@ footer a:hover {
 
 .issue-bar {
   width: 100%;
-  background: linear-gradient(to top, #17C1BC, #5eead4);
+  background: linear-gradient(to top, #17c1ff, #5eead4);
   border-radius: 4px 4px 0 0;
   display: flex;
   align-items: flex-start;
@@ -1680,7 +1680,7 @@ footer a:hover {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 2px solid #17C1BC;
+  border: 2px solid #17c1ff;
 }
 
 .reporter-info {

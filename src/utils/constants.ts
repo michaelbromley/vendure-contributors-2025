@@ -11,7 +11,7 @@ export const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Au
 
 // Vendure brand colors
 export const COLORS = {
-  primary: '#17C1BC',
+  primary: '#17c1ff',
   primaryLight: '#5eead4',
   primaryDark: '#0d9488',
   accent: '#2dd4bf',
@@ -22,7 +22,7 @@ export const COLORS = {
 
 // Commit type colors for donut chart
 export const COMMIT_TYPE_COLORS: Record<string, string> = {
-  feat: '#17C1BC',
+  feat: '#17c1ff',
   fix: '#f87171',
   docs: '#a78bfa',
   refactor: '#fbbf24',
@@ -37,7 +37,7 @@ export const COMMIT_TYPE_COLORS: Record<string, string> = {
 };
 
 // Confetti colors
-export const CONFETTI_COLORS = ['#17C1BC', '#5eead4', '#0d9488', '#2dd4bf', '#99f6e4'];
+export const CONFETTI_COLORS = ['#17c1ff', '#5eead4', '#0d9488', '#2dd4bf', '#99f6e4'];
 
 // Map configuration
 export const MAP_CONFIG = {
