@@ -1,26 +1,30 @@
 // Cloudflare Pages Function to proxy GitHub API requests
-// This keeps the GitHub token server-side and secure
+// Routes: /api/github?path=repos/owner/repo/commits&since=...
 
-interface Env {
-  GITHUB_TOKEN?: string;
-}
-
-export const onRequest: PagesFunction<Env> = async (context) => {
-  const { request, env, params } = context;
-  
-  // Build the GitHub API URL from the path segments
-  const pathSegments = params.path as string[];
-  const githubPath = pathSegments.join('/');
+export async function onRequest(context) {
+  const { request, env } = context;
   const url = new URL(request.url);
+  
+  // Get the GitHub API path from query param
+  const githubPath = url.searchParams.get('path');
+  if (!githubPath) {
+    return new Response(JSON.stringify({ error: 'Missing path parameter' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  
+  // Remove 'path' from search params and pass the rest to GitHub
+  url.searchParams.delete('path');
   const githubUrl = `https://api.github.com/${githubPath}${url.search}`;
   
   // Build headers for GitHub API
-  const headers: HeadersInit = {
+  const headers = {
     'Accept': 'application/vnd.github.v3+json',
     'User-Agent': 'gh-vis-cloudflare-worker',
   };
   
-  // Add auth token if available (set via wrangler secret)
+  // Add auth token if available (set via CF dashboard)
   if (env.GITHUB_TOKEN) {
     headers['Authorization'] = `Bearer ${env.GITHUB_TOKEN}`;
   }
@@ -31,16 +35,14 @@ export const onRequest: PagesFunction<Env> = async (context) => {
       headers,
     });
     
-    // Get the response body
     const body = await response.text();
     
-    // Return with CORS headers
     return new Response(body, {
       status: response.status,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'Cache-Control': 'public, max-age=300', // Cache for 5 mins
+        'Cache-Control': 'public, max-age=300',
       },
     });
   } catch (error) {
@@ -48,8 +50,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
       status: 500,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
       },
     });
   }
-};
+}

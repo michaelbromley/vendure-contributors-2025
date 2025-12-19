@@ -42,7 +42,6 @@ const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 // Use proxy in production, direct API in dev
 const IS_PROD = import.meta.env.PROD;
-const GITHUB_API_BASE = IS_PROD ? '/api/github' : 'https://api.github.com';
 
 // Core maintainers to filter out (focus on external contributors)
 const MAINTAINERS = ['michaelbromley', 'dlhck', 'github-actions[bot]'];
@@ -511,7 +510,12 @@ async function fetchContributorsFrom2025(): Promise<Contributor[]> {
   let hasMore = true;
   
   while (hasMore) {
-    const url = `${GITHUB_API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}/commits?since=${since}&until=${until}&per_page=${perPage}&page=${page}`;
+    // In prod, use the proxy function. In dev, call GitHub directly
+    const githubPath = `repos/${REPO_OWNER}/${REPO_NAME}/commits`;
+    const params = `since=${since}&until=${until}&per_page=${perPage}&page=${page}`;
+    const url = IS_PROD 
+      ? `/api/github?path=${encodeURIComponent(githubPath)}&${params}`
+      : `https://api.github.com/${githubPath}?${params}`;
     
     const headers: HeadersInit = {
       'Accept': 'application/vnd.github.v3+json'
