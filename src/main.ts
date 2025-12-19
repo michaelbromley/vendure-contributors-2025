@@ -1,53 +1,58 @@
 import './styles.css';
 import confetti from 'canvas-confetti';
+import contributorsData from './data/contributors-2025.json';
+import issueContributorsData from './data/issue-contributors-2025.json';
 
-interface ContributionDetail {
+interface CommitDetail {
   sha: string;
   message: string;
   date: string;
   url: string;
 }
 
-interface Contributor {
+interface IssueDetail {
+  number: number;
+  title: string;
+  state: string;
+  created_at: string;
+  html_url: string;
+  labels: string[];
+}
+
+// Unified contributor with both commits and issues
+interface CommunityMember {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  commits: CommitDetail[];
+  issues: IssueDetail[];
+  commitCount: number;
+  issueCount: number;
+  score: number; // Weighted score for ranking
+}
+
+// Raw data interfaces for JSON imports
+interface RawCommitContributor {
   login: string;
   avatar_url: string;
   html_url: string;
   contributions: number;
-  commits: ContributionDetail[];
+  commits: CommitDetail[];
 }
 
-interface CommitAuthor {
-  login?: string;
-  avatar_url?: string;
-  html_url?: string;
+interface RawIssueContributor {
+  login: string;
+  avatar_url: string;
+  count: number;
+  issues: IssueDetail[];
 }
 
-interface Commit {
-  sha: string;
-  html_url: string;
-  author: CommitAuthor | null;
-  commit: {
-    message: string;
-    author: {
-      date: string;
-    };
-  };
-}
+// Weighting: commits are worth more than issues
+const COMMIT_WEIGHT = 3;
+const ISSUE_WEIGHT = 1;
 
-const REPO_OWNER = 'vendure-ecommerce';
-const REPO_NAME = 'vendure';
-
-// GitHub token for local dev (optional - higher rate limits)
-const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
-
-// Use proxy in production, direct API in dev
-const IS_PROD = import.meta.env.PROD;
-
-// Core maintainers to filter out (focus on external contributors)
-const MAINTAINERS = ['michaelbromley', 'dlhck', 'github-actions[bot]'];
-
-// Store all contributor data globally for modal access
-let allContributors: Contributor[] = [];
+// Store merged contributor data globally
+let allMembers: CommunityMember[] = [];
 
 // Snowflake physics state
 interface Snowflake {
@@ -202,37 +207,9 @@ function createLights(): string {
   `;
 }
 
-function renderLoading(): string {
-  return `
-    ${createSnowflakes()}
-    ${createLights()}
-    <div class="loading">
-      <div class="loading-spinner"></div>
-      <div class="loading-text">Gathering contributor data...</div>
-    </div>
-  `;
-}
-
-function renderError(message: string): string {
-  return `
-    ${createSnowflakes()}
-    ${createLights()}
-    <div class="error">
-      <h2>Oops! Something went wrong</h2>
-      <p>${message}</p>
-      <button class="retry-btn" onclick="location.reload()">Try Again</button>
-    </div>
-  `;
-}
-
 function getMonthName(month: number): string {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   return months[month];
-}
-
-// Get all commits from all contributors
-function getAllCommits(): ContributionDetail[] {
-  return allContributors.flatMap(c => c.commits);
 }
 
 // Parse commit type from conventional commit message
@@ -484,7 +461,62 @@ function renderMonthlyTrend(): string {
   `;
 }
 
-function renderContributionTimeline(commits: ContributionDetail[]): string {
+// =====================================================
+// DATA LOADING & MERGING
+// =====================================================
+
+function loadAndMergeData(): CommunityMember[] {
+  const commitData = contributorsData as RawCommitContributor[];
+  const issueData = issueContributorsData as RawIssueContributor[];
+  
+  // Create map of all members
+  const memberMap = new Map<string, CommunityMember>();
+  
+  // Add commit contributors
+  for (const c of commitData) {
+    memberMap.set(c.login, {
+      login: c.login,
+      avatar_url: c.avatar_url,
+      html_url: c.html_url,
+      commits: c.commits,
+      issues: [],
+      commitCount: c.contributions,
+      issueCount: 0,
+      score: c.contributions * COMMIT_WEIGHT
+    });
+  }
+  
+  // Merge in issue contributors
+  for (const i of issueData) {
+    const existing = memberMap.get(i.login);
+    if (existing) {
+      existing.issues = i.issues;
+      existing.issueCount = i.count;
+      existing.score += i.count * ISSUE_WEIGHT;
+    } else {
+      // Issue-only contributor (no commits)
+      memberMap.set(i.login, {
+        login: i.login,
+        avatar_url: i.avatar_url,
+        html_url: `https://github.com/${i.login}`,
+        commits: [],
+        issues: i.issues,
+        commitCount: 0,
+        issueCount: i.count,
+        score: i.count * ISSUE_WEIGHT
+      });
+    }
+  }
+  
+  // Sort by score (weighted combination)
+  return Array.from(memberMap.values()).sort((a, b) => b.score - a.score);
+}
+
+function getAllCommits(): CommitDetail[] {
+  return allMembers.flatMap(m => m.commits);
+}
+
+function renderContributionTimeline(commits: CommitDetail[]): string {
   // Group commits by month
   const monthlyData: { [key: string]: number } = {};
   const allMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -527,85 +559,148 @@ function renderContributionTimeline(commits: ContributionDetail[]): string {
   `;
 }
 
-function renderRecentCommits(commits: ContributionDetail[]): string {
-  const commitList = commits.map(commit => {
-    const date = new Date(commit.date);
-    const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    const message = commit.message.split('\n')[0].substring(0, 60);
-    const displayMessage = message.length >= 60 ? message + '...' : message;
-    
-    return `
-      <a href="${commit.url}" target="_blank" class="commit-item">
-        <span class="commit-dot"></span>
-        <div class="commit-content">
-          <span class="commit-message">${displayMessage}</span>
-          <span class="commit-date">${formattedDate}</span>
-        </div>
-      </a>
-    `;
-  }).join('');
+function renderMemberStats(member: CommunityMember): string {
+  const commits = member.commits;
+  const issues = member.issues;
   
-  return `
-    <div class="recent-commits">
-      <h3>All Contributions (${commits.length})</h3>
-      <div class="commit-list">
-        ${commitList}
-      </div>
-    </div>
-  `;
-}
-
-function renderContributionStats(contributor: Contributor): string {
-  const commits = contributor.commits;
-  
-  // Calculate some fun stats
-  const firstCommit = commits.length > 0 ? new Date(commits[commits.length - 1].date) : null;
-  const lastCommit = commits.length > 0 ? new Date(commits[0].date) : null;
-  
+  // Calculate active days from commits
   let activeDays = 0;
-  if (firstCommit && lastCommit) {
+  if (commits.length > 0) {
     const uniqueDays = new Set(commits.map(c => new Date(c.date).toDateString()));
     activeDays = uniqueDays.size;
   }
   
-  return `
-    <div class="contribution-stats">
+  // Calculate closed issues count
+  const closedIssues = issues.filter(i => i.state === 'closed').length;
+  
+  const stats: string[] = [];
+  
+  if (member.commitCount > 0) {
+    stats.push(`
       <div class="stat-bubble">
-        <span class="stat-value">${contributor.contributions}</span>
+        <span class="stat-value">${member.commitCount}</span>
         <span class="stat-label">Commits</span>
       </div>
+    `);
+    stats.push(`
       <div class="stat-bubble">
         <span class="stat-value">${activeDays}</span>
         <span class="stat-label">Active Days</span>
       </div>
+    `);
+  }
+  
+  if (member.issueCount > 0) {
+    stats.push(`
       <div class="stat-bubble">
-        <span class="stat-value">${firstCommit ? getMonthName(firstCommit.getMonth()) : '-'}</span>
-        <span class="stat-label">First Contrib</span>
+        <span class="stat-value">${member.issueCount}</span>
+        <span class="stat-label">Issues</span>
       </div>
-    </div>
-  `;
+    `);
+    if (closedIssues > 0) {
+      stats.push(`
+        <div class="stat-bubble">
+          <span class="stat-value">${closedIssues}</span>
+          <span class="stat-label">Resolved</span>
+        </div>
+      `);
+    }
+  }
+  
+  return `<div class="contribution-stats">${stats.join('')}</div>`;
 }
 
-function renderContributors(contributors: Contributor[]): string {
-  const totalContributions = contributors.reduce((sum, c) => sum + c.contributions, 0);
-  const maxContributions = Math.max(...contributors.map(c => c.contributions));
+function renderMemberActivity(member: CommunityMember): string {
+  const sections: string[] = [];
   
-  const contributorCards = contributors.map((contributor) => {
-    const barWidth = (contributor.contributions / maxContributions) * 100;
+  // Recent commits
+  if (member.commits.length > 0) {
+    const recentCommits = member.commits.slice(0, 5);
+    const commitList = recentCommits.map(commit => {
+      const date = new Date(commit.date);
+      const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const message = commit.message.split('\n')[0].substring(0, 60);
+      return `
+        <div class="commit-item">
+          <span class="commit-bullet"></span>
+          <div class="commit-content">
+            <a href="${commit.url}" target="_blank" class="commit-message">${message}${commit.message.length > 60 ? '...' : ''}</a>
+            <span class="commit-date">${formattedDate}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+    
+    sections.push(`
+      <div class="activity-section">
+        <h4>Recent Commits</h4>
+        <div class="commit-list">${commitList}</div>
+      </div>
+    `);
+  }
+  
+  // Recent issues
+  if (member.issues.length > 0) {
+    const recentIssues = member.issues.slice(0, 5);
+    const issueList = recentIssues.map(issue => {
+      const date = new Date(issue.created_at);
+      const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const stateClass = issue.state === 'open' ? 'issue-open' : 'issue-closed';
+      return `
+        <div class="issue-item">
+          <span class="issue-state ${stateClass}">${issue.state}</span>
+          <div class="issue-content">
+            <a href="${issue.html_url}" target="_blank" class="issue-title">${issue.title.substring(0, 50)}${issue.title.length > 50 ? '...' : ''}</a>
+            <span class="issue-date">#${issue.number} · ${formattedDate}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+    
+    sections.push(`
+      <div class="activity-section">
+        <h4>Recent Issues</h4>
+        <div class="issue-list">${issueList}</div>
+      </div>
+    `);
+  }
+  
+  return sections.join('');
+}
+
+function renderPage(): string {
+  const totalCommits = allMembers.reduce((sum, m) => sum + m.commitCount, 0);
+  const totalIssues = allMembers.reduce((sum, m) => sum + m.issueCount, 0);
+  
+  // Cap bars at 20 for full width (so smaller contributors don't look empty)
+  const BAR_CAP = 20;
+  
+  const memberCards = allMembers.map((member) => {
+    // Calculate bar widths capped at BAR_CAP
+    const commitBarWidth = Math.min((member.commitCount / BAR_CAP) * 100, 100);
+    const issueBarWidth = Math.min((member.issueCount / BAR_CAP) * 100, 100);
     
     return `
       <div class="contributor-card" 
-           data-login="${contributor.login}">
+           data-login="${member.login}">
         <div class="avatar-container">
           <div class="avatar-ring"></div>
-          <img class="avatar" src="${contributor.avatar_url}" alt="${contributor.login}" loading="lazy" />
+          <img class="avatar" src="${member.avatar_url}" alt="${member.login}" loading="lazy" />
         </div>
-        <div class="contributor-name" title="${contributor.login}">${contributor.login}</div>
-        <div class="contribution-count">
-          <span class="count">${contributor.contributions}</span> contributions
-        </div>
-        <div class="contribution-bar">
-          <div class="contribution-bar-fill" style="width: ${barWidth}%"></div>
+        <div class="contributor-name" title="${member.login}">${member.login}</div>
+        <div class="member-bars">
+          <div class="bar-row">
+            <span class="bar-label commits">${member.commitCount} commit${member.commitCount !== 1 ? 's' : ''}</span>
+            <div class="bar-track">
+              <div class="bar-fill commits" style="width: ${commitBarWidth}%"></div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label issues">${member.issueCount} issue${member.issueCount !== 1 ? 's' : ''}</span>
+            <div class="bar-track">
+              <div class="bar-fill issues" style="width: ${issueBarWidth}%"></div>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -622,23 +717,23 @@ function renderContributors(contributors: Contributor[]): string {
           <path d="M8.893.75.486 5.51A.948.948 0 0 0 0 6.333v9.522c0 .167.092.324.237.405l8.176 4.633a.476.476 0 0 0 .714-.405v-8.982c0-.34.185-.655.487-.824l7.93-4.491a.463.463 0 0 0 0-.81L9.366.75a.48.48 0 0 0-.477 0h.003ZM30.86.74l8.407 4.76c.301.17.486.487.486.825v9.522a.47.47 0 0 1-.237.405l-8.176 4.633a.476.476 0 0 1-.714-.405v-8.982a.945.945 0 0 0-.486-.824l-7.93-4.491a.463.463 0 0 1 0-.81L30.386.742a.48.48 0 0 1 .477 0h-.003Z" fill="#17C1BC"></path>
         </svg>
       </div>
-      <h1>Vendure Contributors Wrapped 2025</h1>
+      <h1>Vendure Community 2025</h1>
       <p class="subtitle">Celebrating our amazing open source community!</p>
       <span class="year-badge">2025</span>
     </header>
     
     <div class="stats-banner">
       <div class="stat-card">
-        <span class="number">${contributors.length}</span>
-        <span class="label">Community Contributors</span>
+        <span class="number">${allMembers.length}</span>
+        <span class="label">Contributors</span>
       </div>
       <div class="stat-card">
-        <span class="number">${totalContributions.toLocaleString()}</span>
-        <span class="label">Total Contributions</span>
+        <span class="number">${totalCommits.toLocaleString()}</span>
+        <span class="label">Commits</span>
       </div>
       <div class="stat-card">
-        <span class="number">${maxContributions}</span>
-        <span class="label">Top Contributions</span>
+        <span class="number">${totalIssues}</span>
+        <span class="label">Issues Opened</span>
       </div>
     </div>
     
@@ -651,9 +746,32 @@ function renderContributors(contributors: Contributor[]): string {
       </div>
     </section>
     
-    <div class="contributors-grid">
-      ${contributorCards}
-    </div>
+    <section class="contributors-section">
+      <h2>Community Leaderboard</h2>
+      <p class="section-subtitle">Ranked by contributions (commits weighted 3x, issues 1x)</p>
+      
+      <div class="filter-bar">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <input type="text" id="search-input" placeholder="Search contributors..." />
+        </div>
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="commits">Has Commits</button>
+          <button class="filter-btn" data-filter="issues">Has Issues</button>
+        </div>
+        <div class="filter-count">
+          <span id="visible-count">${allMembers.length}</span> of ${allMembers.length} contributors
+        </div>
+      </div>
+      
+      <div class="contributors-grid" id="contributors-grid">
+        ${memberCards}
+      </div>
+    </section>
     
     <div class="modal-overlay" id="modal">
       <div class="modal">
@@ -672,8 +790,8 @@ function renderContributors(contributors: Contributor[]): string {
     </div>
     
     <footer>
-      <p>Data from <a href="https://github.com/${REPO_OWNER}/${REPO_NAME}" target="_blank">github.com/${REPO_OWNER}/${REPO_NAME}</a></p>
-      <p>Click on a contributor to see their contribution details!</p>
+      <p>Data from <a href="https://github.com/vendure-ecommerce/vendure" target="_blank">github.com/vendure-ecommerce/vendure</a></p>
+      <p>Click on a contributor to see their details!</p>
     </footer>
   `;
 }
@@ -707,6 +825,66 @@ function launchConfetti() {
   }, 200);
 }
 
+function setupFilterListeners() {
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const visibleCount = document.getElementById('visible-count');
+  
+  let currentFilter = 'all';
+  let currentSearch = '';
+  
+  function applyFilters() {
+    const cards = document.querySelectorAll('.contributor-card') as NodeListOf<HTMLElement>;
+    let visibleCards = 0;
+    
+    cards.forEach(card => {
+      const login = card.dataset.login!.toLowerCase();
+      const member = allMembers.find(m => m.login.toLowerCase() === login);
+      if (!member) return;
+      
+      // Check search match
+      const matchesSearch = login.includes(currentSearch.toLowerCase());
+      
+      // Check filter match
+      let matchesFilter = true;
+      if (currentFilter === 'commits') {
+        matchesFilter = member.commitCount > 0;
+      } else if (currentFilter === 'issues') {
+        matchesFilter = member.issueCount > 0;
+      }
+      
+      // Show/hide card
+      if (matchesSearch && matchesFilter) {
+        card.style.display = '';
+        visibleCards++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    
+    // Update count
+    if (visibleCount) {
+      visibleCount.textContent = visibleCards.toString();
+    }
+  }
+  
+  // Search input handler
+  searchInput?.addEventListener('input', (e) => {
+    currentSearch = (e.target as HTMLInputElement).value;
+    applyFilters();
+  });
+  
+  // Filter button handlers
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = (btn as HTMLElement).dataset.filter || 'all';
+      applyFilters();
+    });
+  });
+}
+
 function setupEventListeners() {
   const modal = document.getElementById('modal');
   const modalAvatar = document.getElementById('modal-avatar') as HTMLImageElement;
@@ -717,23 +895,26 @@ function setupEventListeners() {
   const modalCommits = document.getElementById('modal-commits');
   const modalClose = document.getElementById('modal-close');
   
+  // Setup filter functionality
+  setupFilterListeners();
+  
   // Card click handlers
   document.querySelectorAll('.contributor-card').forEach(card => {
     card.addEventListener('click', () => {
       const element = card as HTMLElement;
       const login = element.dataset.login!;
       
-      const contributor = allContributors.find(c => c.login === login);
-      if (!contributor) return;
+      const member = allMembers.find(m => m.login === login);
+      if (!member) return;
       
-      modalAvatar.src = contributor.avatar_url;
-      modalName!.textContent = contributor.login;
-      modalProfile.href = contributor.html_url;
+      modalAvatar.src = member.avatar_url;
+      modalName!.textContent = member.login;
+      modalProfile.href = member.html_url;
       
       // Render the contribution visualizations
-      modalStats!.innerHTML = renderContributionStats(contributor);
-      modalTimeline!.innerHTML = renderContributionTimeline(contributor.commits);
-      modalCommits!.innerHTML = renderRecentCommits(contributor.commits);
+      modalStats!.innerHTML = renderMemberStats(member);
+      modalTimeline!.innerHTML = member.commitCount > 0 ? renderContributionTimeline(member.commits) : '';
+      modalCommits!.innerHTML = renderMemberActivity(member);
       
       modal!.classList.add('active');
       launchConfetti();
@@ -759,128 +940,18 @@ function setupEventListeners() {
   });
 }
 
-async function fetchContributorsFrom2025(): Promise<Contributor[]> {
-  const contributorMap = new Map<string, Contributor>();
-  
-  // We need to fetch commits from 2025 and count by author
-  const since = '2025-01-01T00:00:00Z';
-  const until = '2025-12-31T23:59:59Z';
-  
-  let page = 1;
-  const perPage = 100;
-  let hasMore = true;
-  
-  while (hasMore) {
-    // In prod, use the proxy function. In dev, call GitHub directly
-    const githubPath = `repos/${REPO_OWNER}/${REPO_NAME}/commits`;
-    const params = `since=${since}&until=${until}&per_page=${perPage}&page=${page}`;
-    const url = IS_PROD 
-      ? `/api/github?path=${encodeURIComponent(githubPath)}&${params}`
-      : `https://api.github.com/${githubPath}?${params}`;
-    
-    const headers: HeadersInit = {
-      'Accept': 'application/vnd.github.v3+json'
-    };
-    
-    // Use token if available (local dev only - prod uses server-side proxy)
-    if (!IS_PROD && GITHUB_TOKEN && GITHUB_TOKEN !== 'your_token_here') {
-      headers['Authorization'] = `Bearer ${GITHUB_TOKEN}`;
-    }
-    
-    const response = await fetch(url, { headers });
-    
-    if (!response.ok) {
-      if (response.status === 403) {
-        throw new Error('GitHub API rate limit exceeded. Please try again later.');
-      }
-      throw new Error(`GitHub API error: ${response.status}`);
-    }
-    
-    const commits: Commit[] = await response.json();
-    
-    if (commits.length === 0) {
-      hasMore = false;
-      break;
-    }
-    
-    for (const commit of commits) {
-      if (commit.author && commit.author.login) {
-        const login = commit.author.login;
-        
-        const commitDetail: ContributionDetail = {
-          sha: commit.sha,
-          message: commit.commit.message,
-          date: commit.commit.author.date,
-          url: commit.html_url
-        };
-        
-        const existing = contributorMap.get(login);
-        if (existing) {
-          existing.contributions++;
-          existing.commits.push(commitDetail);
-        } else {
-          contributorMap.set(login, {
-            login: login,
-            avatar_url: commit.author.avatar_url || '',
-            html_url: commit.author.html_url || '',
-            contributions: 1,
-            commits: [commitDetail]
-          });
-        }
-      }
-    }
-    
-    if (commits.length < perPage) {
-      hasMore = false;
-    } else {
-      page++;
-    }
-    
-    // Small delay to be nice to the API
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
-  
-  // Sort commits by date (newest first) for each contributor
-  contributorMap.forEach(contributor => {
-    contributor.commits.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  });
-  
-  // Sort by contributions descending and filter out maintainers
-  const contributors = Array.from(contributorMap.values())
-    .filter(c => !MAINTAINERS.includes(c.login))
-    .sort((a, b) => b.contributions - a.contributions);
-  
-  return contributors;
-}
-
-async function init() {
+function init() {
   const app = document.getElementById('app')!;
   
-  // Show loading state
-  app.innerHTML = renderLoading();
+  // Load and merge commit + issue data
+  allMembers = loadAndMergeData();
+  
+  app.innerHTML = renderPage();
+  setupEventListeners();
   initSnowflakes();
   
-  try {
-    allContributors = await fetchContributorsFrom2025();
-    
-    if (allContributors.length === 0) {
-      app.innerHTML = renderError('No contributors found for 2025. The year might just be starting!');
-      initSnowflakes();
-      return;
-    }
-    
-    app.innerHTML = renderContributors(allContributors);
-    setupEventListeners();
-    initSnowflakes();
-    
-    // Initial celebration confetti
-    setTimeout(launchConfetti, 500);
-    
-  } catch (error) {
-    console.error('Error fetching contributors:', error);
-    app.innerHTML = renderError(error instanceof Error ? error.message : 'Failed to fetch contributors');
-    initSnowflakes();
-  }
+  // Initial celebration confetti
+  setTimeout(launchConfetti, 500);
 }
 
 // Start the app

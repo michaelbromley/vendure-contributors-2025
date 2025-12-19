@@ -1,0 +1,5249 @@
+[
+  {
+    "number": 4065,
+    "title": "RedisJobBufferStorageStrategy hardcoded prefix",
+    "state": "closed",
+    "created_at": "2025-12-18T15:15:30Z",
+    "closed_at": "2025-12-18T20:11:42Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4065",
+    "user": {
+      "login": "colinpieper",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4346246?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/job-queue-plugin"
+    ]
+  },
+  {
+    "number": 4061,
+    "title": "Add filtering by phone number to the customer list",
+    "state": "open",
+    "created_at": "2025-12-18T11:12:29Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4061",
+    "user": {
+      "login": "TheHypnoo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31130069?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 4056,
+    "title": "Dashboard: Channel selector menu and new channel creation page being shown to seller admin without any channel permissions",
+    "state": "open",
+    "created_at": "2025-12-18T08:23:20Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4056",
+    "user": {
+      "login": "radhey-tr",
+      "avatar_url": "https://avatars.githubusercontent.com/u/176912399?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4053,
+    "title": "Adding \"../../../\" to the vite output path breaks configuration in NX",
+    "state": "open",
+    "created_at": "2025-12-17T12:54:15Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4053",
+    "user": {
+      "login": "DaSchTour",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1907266?v=4"
+    },
+    "labels": [
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 4051,
+    "title": "Product variants not included in collection when filtering by facet value",
+    "state": "open",
+    "created_at": "2025-12-16T18:32:34Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4051",
+    "user": {
+      "login": "robinjoh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18014254?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4050,
+    "title": "React dashboard: Missing branding customization (title, favicon, vendor branding control)",
+    "state": "open",
+    "created_at": "2025-12-16T10:28:49Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4050",
+    "user": {
+      "login": "raidsobhi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75437079?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 4048,
+    "title": "Allow configuration of `tanstackRouter.tmpDir` via `vendureDashboardPlugin` config.",
+    "state": "open",
+    "created_at": "2025-12-11T17:56:41Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4048",
+    "user": {
+      "login": "bummzack",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1006185?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 4047,
+    "title": "[plugin:vite:react-swc] plugin    × failed to invoke plugin on",
+    "state": "open",
+    "created_at": "2025-12-11T13:45:31Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4047",
+    "user": {
+      "login": "dmitriigaidarji",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2591857?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4043,
+    "title": "Dashboard: facet list \"view values\" does not work",
+    "state": "closed",
+    "created_at": "2025-12-10T09:35:29Z",
+    "closed_at": "2025-12-18T14:28:12Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4043",
+    "user": {
+      "login": "michaelbromley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6275952?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 4041,
+    "title": "Critical Security Vulnerabilities Discovered in vendure Repository",
+    "state": "closed",
+    "created_at": "2025-12-09T17:44:28Z",
+    "closed_at": "2025-12-09T19:06:04Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4041",
+    "user": {
+      "login": "Br1tBreaker",
+      "avatar_url": "https://avatars.githubusercontent.com/u/113222064?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4037,
+    "title": "I got an issues ([plugin:vite:react-swc] plugin)",
+    "state": "closed",
+    "created_at": "2025-12-09T13:27:32Z",
+    "closed_at": "2025-12-09T19:07:18Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4037",
+    "user": {
+      "login": "naiem9009",
+      "avatar_url": "https://avatars.githubusercontent.com/u/134233716?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4036,
+    "title": "Vulnerability in protobufjs dependency via @vendure/job-queue-plugin",
+    "state": "closed",
+    "created_at": "2025-12-09T12:18:02Z",
+    "closed_at": "2025-12-10T08:30:56Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4036",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/job-queue-plugin"
+    ]
+  },
+  {
+    "number": 4032,
+    "title": "dashboard: Single relation selectors fail to clear: onChange(undefined) should be onChange(null)",
+    "state": "open",
+    "created_at": "2025-12-07T16:04:46Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4032",
+    "user": {
+      "login": "dvjeshka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17128266?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4031,
+    "title": "docs: cannot import CustomFormComponentInputProps",
+    "state": "open",
+    "created_at": "2025-12-07T14:56:56Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4031",
+    "user": {
+      "login": "dvjeshka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17128266?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4030,
+    "title": "bug(core) MultiChannelStockLocationStrategy forAllocation does not take already allocations into consideration",
+    "state": "open",
+    "created_at": "2025-12-07T14:07:58Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4030",
+    "user": {
+      "login": "dev-ish",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1314551?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4029,
+    "title": "dashboard: changing user fields using detailForm does not work.",
+    "state": "open",
+    "created_at": "2025-12-06T13:06:32Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4029",
+    "user": {
+      "login": "dvjeshka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17128266?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "docs 📖",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 4026,
+    "title": "Verified customer wrong",
+    "state": "open",
+    "created_at": "2025-12-05T09:29:58Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4026",
+    "user": {
+      "login": "derXear",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19554842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4025,
+    "title": "V3.5.1 ESM vendure/dashboard build failed",
+    "state": "open",
+    "created_at": "2025-12-05T09:15:30Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4025",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 4023,
+    "title": "Cannot start the Dashboard in production",
+    "state": "open",
+    "created_at": "2025-12-04T10:05:03Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4023",
+    "user": {
+      "login": "goran-zdjelar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/45183713?v=4"
+    },
+    "labels": [
+      "status: reproduction needed 🔁",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 4022,
+    "title": "Dashboard: sorting cannot be saved. The sorting is reset after the page is refreshed.",
+    "state": "open",
+    "created_at": "2025-12-04T08:48:40Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4022",
+    "user": {
+      "login": "dvjeshka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17128266?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4021,
+    "title": "dashboard: The order does not specify the name of the delivery as in the admin-ui",
+    "state": "closed",
+    "created_at": "2025-12-04T08:30:13Z",
+    "closed_at": "2025-12-18T08:42:47Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4021",
+    "user": {
+      "login": "dvjeshka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17128266?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 4019,
+    "title": "Incorrect breadcrumb link path in Product Variant detail view",
+    "state": "closed",
+    "created_at": "2025-12-03T15:21:42Z",
+    "closed_at": "2025-12-18T08:01:30Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4019",
+    "user": {
+      "login": "thochoertler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80124842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "P4: low",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 4018,
+    "title": "Session CustomFields are not serialized when saved to cache",
+    "state": "open",
+    "created_at": "2025-12-02T22:15:16Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4018",
+    "user": {
+      "login": "fobaz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7779903?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core"
+    ]
+  },
+  {
+    "number": 4016,
+    "title": "Discounts remain on OrderLines after removing coupon code",
+    "state": "open",
+    "created_at": "2025-12-02T14:37:33Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4016",
+    "user": {
+      "login": "monrostar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13255191?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4014,
+    "title": "Cannot enter tax rate with decimal values (comma or dot); validation errors not localized",
+    "state": "closed",
+    "created_at": "2025-12-02T06:44:19Z",
+    "closed_at": "2025-12-17T20:20:43Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4014",
+    "user": {
+      "login": "thochoertler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80124842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 4013,
+    "title": "Modifying an order with an outstanding (partial) balance will refund the customer even if there isn't money due back",
+    "state": "open",
+    "created_at": "2025-12-02T03:50:02Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4013",
+    "user": {
+      "login": "taxilian",
+      "avatar_url": "https://avatars.githubusercontent.com/u/224334?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 4012,
+    "title": "New React dashboard missing collections reordering support",
+    "state": "closed",
+    "created_at": "2025-12-01T23:04:19Z",
+    "closed_at": "2025-12-17T20:32:46Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4012",
+    "user": {
+      "login": "OlivierPineau-qc",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61125905?v=4"
+    },
+    "labels": [
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 4011,
+    "title": "Feature request: Be able to set background color on transparent images in asset server",
+    "state": "open",
+    "created_at": "2025-12-01T20:27:24Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4011",
+    "user": {
+      "login": "robinjoh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18014254?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 4010,
+    "title": "Potential performance issue: N+1 Query warnings in Sentry for CollectionList query when listing the collections in dashboard",
+    "state": "open",
+    "created_at": "2025-12-01T17:42:25Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4010",
+    "user": {
+      "login": "robinjoh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18014254?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "core-team"
+    ]
+  },
+  {
+    "number": 4007,
+    "title": "Action selection box remains visible after filtering selected items out of the list",
+    "state": "open",
+    "created_at": "2025-11-28T06:55:08Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4007",
+    "user": {
+      "login": "thochoertler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80124842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "P4: low",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 4006,
+    "title": "Dropdown menu in live-updating lists closes on table refresh",
+    "state": "closed",
+    "created_at": "2025-11-28T06:45:59Z",
+    "closed_at": "2025-12-18T14:14:23Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4006",
+    "user": {
+      "login": "thochoertler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80124842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 4005,
+    "title": "localeString custom fields not displayed in Vendure Admin Dashboard",
+    "state": "open",
+    "created_at": "2025-11-27T11:31:30Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4005",
+    "user": {
+      "login": "thochoertler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80124842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 4004,
+    "title": "Localization issues in Insights Dashboard: wrong date, currency, and untranslated strings",
+    "state": "open",
+    "created_at": "2025-11-27T10:46:47Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4004",
+    "user": {
+      "login": "thochoertler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80124842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 4003,
+    "title": "Shipping Tracking Code Input Field Does Not Accept Leading Zero",
+    "state": "open",
+    "created_at": "2025-11-27T10:34:50Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4003",
+    "user": {
+      "login": "thochoertler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80124842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 4002,
+    "title": "Constant HTTP Error 429 after a few minutes",
+    "state": "open",
+    "created_at": "2025-11-27T09:17:40Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/4002",
+    "user": {
+      "login": "jaowork",
+      "avatar_url": "https://avatars.githubusercontent.com/u/199574286?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3994,
+    "title": "Dashboard localisation via lingui not working",
+    "state": "open",
+    "created_at": "2025-11-24T13:45:49Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3994",
+    "user": {
+      "login": "LazyClicks",
+      "avatar_url": "https://avatars.githubusercontent.com/u/93722724?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3992,
+    "title": "Unable to change the product's unit",
+    "state": "open",
+    "created_at": "2025-11-24T09:37:12Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3992",
+    "user": {
+      "login": "djordjesavanovic-lc",
+      "avatar_url": "https://avatars.githubusercontent.com/u/210332556?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3991,
+    "title": "Data loss while updating one field in the product view",
+    "state": "open",
+    "created_at": "2025-11-24T09:27:44Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3991",
+    "user": {
+      "login": "djordjesavanovic-lc",
+      "avatar_url": "https://avatars.githubusercontent.com/u/210332556?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3990,
+    "title": "Dashboard plugin generates incorrect INPUT_OBJECT type for Promotion customFields",
+    "state": "open",
+    "created_at": "2025-11-24T07:50:44Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3990",
+    "user": {
+      "login": "splieseis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29637123?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "status: reproduction needed 🔁",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3989,
+    "title": "Document how to translate the new React Admin Dashboard",
+    "state": "open",
+    "created_at": "2025-11-23T20:50:08Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3989",
+    "user": {
+      "login": "bazo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/181588?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3987,
+    "title": "🐞 Bug Report: Inventory Threshold UI and Behavior Inconsistencies (Vendure 3.5.1)",
+    "state": "closed",
+    "created_at": "2025-11-20T17:52:02Z",
+    "closed_at": "2025-11-28T18:58:13Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3987",
+    "user": {
+      "login": "wangliminsz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59194467?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3986,
+    "title": "Extend saved views to support column display & ordering",
+    "state": "closed",
+    "created_at": "2025-11-20T15:35:50Z",
+    "closed_at": "2025-12-18T20:43:37Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3986",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3985,
+    "title": "Dashboard: missing functionality that is mentioned in docs for page-blocks context",
+    "state": "open",
+    "created_at": "2025-11-20T14:52:06Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3985",
+    "user": {
+      "login": "dev-ish",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1314551?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3984,
+    "title": "Docker-compose command updated for CONTRIBUTIN.md",
+    "state": "open",
+    "created_at": "2025-11-19T13:40:03Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3984",
+    "user": {
+      "login": "SandipGyawali",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66510112?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3983,
+    "title": "GraphQL Error: ‘no’ Invalid for LanguageCode Enum When Adding Norwegian",
+    "state": "closed",
+    "created_at": "2025-11-18T16:16:56Z",
+    "closed_at": "2025-11-19T13:49:52Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3983",
+    "user": {
+      "login": "PavanendraBaahubali",
+      "avatar_url": "https://avatars.githubusercontent.com/u/175481125?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3979,
+    "title": "Dashboard admin API 'auto' port ignores window.location.port",
+    "state": "open",
+    "created_at": "2025-11-17T02:58:16Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3979",
+    "user": {
+      "login": "acquiroKenan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/235206300?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3978,
+    "title": "Dashboard: There is no channel block on the product page.",
+    "state": "closed",
+    "created_at": "2025-11-16T11:39:56Z",
+    "closed_at": "2025-12-18T20:41:40Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3978",
+    "user": {
+      "login": "dvjeshka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17128266?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3977,
+    "title": "Expose an order splitter strategy to support seller-based splitting without per-seller channels",
+    "state": "open",
+    "created_at": "2025-11-15T18:47:21Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3977",
+    "user": {
+      "login": "mohdbk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/133870502?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3973,
+    "title": "Dashboard: Add surcharge block is missing on the modify order page.",
+    "state": "closed",
+    "created_at": "2025-11-14T15:40:50Z",
+    "closed_at": "2025-12-15T12:42:29Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3973",
+    "user": {
+      "login": "dvjeshka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17128266?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "P1: urgent",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3972,
+    "title": "feat(dashboard) Disable columns in ListPage component",
+    "state": "open",
+    "created_at": "2025-11-14T13:16:24Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3972",
+    "user": {
+      "login": "dev-ish",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1314551?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3971,
+    "title": "vendure dashboard. 3.5.1 react dashboard throw error \" does not provide an export named 'tanstackRouter'\"",
+    "state": "closed",
+    "created_at": "2025-11-14T09:58:13Z",
+    "closed_at": "2025-12-19T02:43:04Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3971",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3970,
+    "title": "Dashboard cannot resolve tsconfig paths in ESM mode",
+    "state": "open",
+    "created_at": "2025-11-14T07:55:42Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3970",
+    "user": {
+      "login": "michaelbromley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6275952?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3969,
+    "title": "promotion actions args `list:true` will throw Could not parse list value \\\"\\\": \\\"Unexpected end of JSON input\\\"",
+    "state": "closed",
+    "created_at": "2025-11-14T04:02:35Z",
+    "closed_at": "2025-11-14T06:55:36Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3969",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3964,
+    "title": "React Dashboard: Detail page Reload dialog even if nothing changed, prevents custom form submit buttons from working correctly",
+    "state": "closed",
+    "created_at": "2025-11-12T16:04:27Z",
+    "closed_at": "2025-11-13T21:23:03Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3964",
+    "user": {
+      "login": "lucatk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7237473?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3952,
+    "title": "Use signed url to upload image etc",
+    "state": "open",
+    "created_at": "2025-11-10T10:44:19Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3952",
+    "user": {
+      "login": "ansarlivspace",
+      "avatar_url": "https://avatars.githubusercontent.com/u/93964942?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3950,
+    "title": "compatibilityMode breaks metrics in AdminUI",
+    "state": "closed",
+    "created_at": "2025-11-09T19:49:29Z",
+    "closed_at": "2025-11-10T15:50:44Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3950",
+    "user": {
+      "login": "lucatk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7237473?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3949,
+    "title": "@vendure/dashboard vite build errors with new install v3.5.0",
+    "state": "closed",
+    "created_at": "2025-11-08T01:19:01Z",
+    "closed_at": "2025-11-08T03:01:08Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3949",
+    "user": {
+      "login": "Aaron-Tripitsu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/227713551?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3948,
+    "title": "Update @vendure/create cli instructions to new React dashboard",
+    "state": "closed",
+    "created_at": "2025-11-07T12:18:47Z",
+    "closed_at": "2025-11-11T12:18:42Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3948",
+    "user": {
+      "login": "JadowityHerbatnik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46197695?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/create",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3947,
+    "title": "Dashboard fails to load in development mode with Vite in fresh Vendure project (vite:react-swc error)",
+    "state": "closed",
+    "created_at": "2025-11-06T23:04:50Z",
+    "closed_at": "2025-11-07T10:51:55Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3947",
+    "user": {
+      "login": "dennisthln",
+      "avatar_url": "https://avatars.githubusercontent.com/u/70112095?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3946,
+    "title": "Translation for custom dashboard modules",
+    "state": "closed",
+    "created_at": "2025-11-05T11:47:09Z",
+    "closed_at": "2025-11-12T13:20:55Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3946",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3944,
+    "title": "React Dashboard: Language Dropdown is sorted by Locale Code instead of Natural Name (and Names are Not Localised)",
+    "state": "closed",
+    "created_at": "2025-11-05T06:06:41Z",
+    "closed_at": "2025-11-21T12:43:20Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3944",
+    "user": {
+      "login": "shaun-xenon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23053962?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3943,
+    "title": "React Dashboard: Cannot save Global Languages when selecting Norwegian; GraphQL error: value \"no\" not in LanguageCode enum",
+    "state": "closed",
+    "created_at": "2025-11-05T05:12:05Z",
+    "closed_at": "2025-11-13T19:54:45Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3943",
+    "user": {
+      "login": "shaun-xenon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23053962?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3941,
+    "title": "Dashboard bug when trying to remove customer from group",
+    "state": "open",
+    "created_at": "2025-11-04T09:42:34Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3941",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3940,
+    "title": "feat(email-plugin): Add manual text fallback method for HTML emails",
+    "state": "open",
+    "created_at": "2025-11-04T09:01:49Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3940",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "@vendure/email-plugin"
+    ]
+  },
+  {
+    "number": 3933,
+    "title": "Dashboard: GraphQL error on empty product custom field of type relation",
+    "state": "closed",
+    "created_at": "2025-11-03T10:26:28Z",
+    "closed_at": "2025-11-04T14:32:17Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3933",
+    "user": {
+      "login": "derXear",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19554842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3932,
+    "title": "React Dashboard: Changing Global Language has no effect on UI language",
+    "state": "closed",
+    "created_at": "2025-11-01T22:37:43Z",
+    "closed_at": "2025-11-03T09:33:13Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3932",
+    "user": {
+      "login": "raidsobhi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75437079?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3931,
+    "title": "[Dashboard] PaginatedListDataTable component and the deleteMutation property, an error occurs in runtime when clicking on actions.",
+    "state": "open",
+    "created_at": "2025-11-01T11:57:59Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3931",
+    "user": {
+      "login": "dvjeshka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17128266?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3929,
+    "title": "Dashboard Build Error: failed to invoke plugin on 'Some(...)'",
+    "state": "open",
+    "created_at": "2025-10-31T08:27:55Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3929",
+    "user": {
+      "login": "michaelbromley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6275952?v=4"
+    },
+    "labels": [
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3927,
+    "title": "Feature: Remove countries from a Zone (bulk and row-level actions)",
+    "state": "closed",
+    "created_at": "2025-10-30T22:22:12Z",
+    "closed_at": "2025-11-13T19:52:41Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3927",
+    "user": {
+      "login": "shaun-xenon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23053962?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3925,
+    "title": "Allow specifying encoding options for AssetStorageStrategy",
+    "state": "open",
+    "created_at": "2025-10-30T16:36:44Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3925",
+    "user": {
+      "login": "pujux",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17516174?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "@vendure/asset-server-plugin"
+    ]
+  },
+  {
+    "number": 3924,
+    "title": "React Dashboard: With no default tax zone, the gql error is never shown in a notification",
+    "state": "open",
+    "created_at": "2025-10-30T09:57:45Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3924",
+    "user": {
+      "login": "biggamesmallworld",
+      "avatar_url": "https://avatars.githubusercontent.com/u/63622091?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3923,
+    "title": "Dashboard: authTokenHeaderKey is not used",
+    "state": "closed",
+    "created_at": "2025-10-29T20:34:16Z",
+    "closed_at": "2025-11-03T10:48:59Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3923",
+    "user": {
+      "login": "kyunal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33372279?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3922,
+    "title": "[Dashboard] requiresPermission not copied when registering navMenuItem in routes",
+    "state": "closed",
+    "created_at": "2025-10-29T19:51:53Z",
+    "closed_at": "2025-11-03T18:14:52Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3922",
+    "user": {
+      "login": "niko91i",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13542734?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3921,
+    "title": "Dashboard typechecking fails",
+    "state": "closed",
+    "created_at": "2025-10-29T18:15:49Z",
+    "closed_at": "2025-12-10T10:23:42Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3921",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3920,
+    "title": "Dashboard: Loading admin profile with custom field yields an error",
+    "state": "closed",
+    "created_at": "2025-10-29T17:45:05Z",
+    "closed_at": "2025-12-02T02:40:41Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3920",
+    "user": {
+      "login": "twlite",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46562212?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3917,
+    "title": "Dashboard: Date input doesn't allow the user to change the year",
+    "state": "closed",
+    "created_at": "2025-10-29T11:42:35Z",
+    "closed_at": "2025-12-02T02:40:43Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3917",
+    "user": {
+      "login": "rdebek",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56605630?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3916,
+    "title": "Dashboard: Custom form inputs for relations custom fields buggy",
+    "state": "closed",
+    "created_at": "2025-10-29T10:52:31Z",
+    "closed_at": "2025-11-12T14:09:55Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3916",
+    "user": {
+      "login": "michaelbromley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6275952?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3914,
+    "title": "Dashboard: Custom fields on OrderLine not display on order detail table",
+    "state": "closed",
+    "created_at": "2025-10-29T10:05:10Z",
+    "closed_at": "2025-11-11T21:14:51Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3914",
+    "user": {
+      "login": "michaelbromley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6275952?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3912,
+    "title": "Update the LanguageCode system",
+    "state": "open",
+    "created_at": "2025-10-28T18:21:47Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3912",
+    "user": {
+      "login": "TheHypnoo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31130069?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3911,
+    "title": "ProductService.findOneBySlug returning incorrect product for duplicated slugs between languages",
+    "state": "open",
+    "created_at": "2025-10-28T16:39:11Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3911",
+    "user": {
+      "login": "colinpieper",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4346246?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3909,
+    "title": "React Dashboard: GraphQL Error with ProductVariantPriceCustomFields",
+    "state": "open",
+    "created_at": "2025-10-27T08:57:58Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3909",
+    "user": {
+      "login": "derXear",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19554842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3908,
+    "title": "React Dashboard: string array custom fields are displayed as a comma-separated string in the UI",
+    "state": "closed",
+    "created_at": "2025-10-26T22:39:40Z",
+    "closed_at": "2025-11-03T10:37:10Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3908",
+    "user": {
+      "login": "robinjoh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18014254?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3905,
+    "title": "React Dashboard: When creating product variants - price gets divided by 100 after submitting the form",
+    "state": "closed",
+    "created_at": "2025-10-26T07:19:01Z",
+    "closed_at": "2025-10-30T09:40:33Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3905",
+    "user": {
+      "login": "jirkavrba",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14146321?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3903,
+    "title": "Stripe Plugin: Checkout fails after login due to reused idempotency key",
+    "state": "closed",
+    "created_at": "2025-10-25T08:34:31Z",
+    "closed_at": "2025-11-29T02:38:23Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3903",
+    "user": {
+      "login": "grandant",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79712152?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3902,
+    "title": "React Dashboard: Country selector on address form shows duplicated label and sorts by country code instead of name",
+    "state": "open",
+    "created_at": "2025-10-25T03:54:28Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3902",
+    "user": {
+      "login": "shaun-xenon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23053962?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3901,
+    "title": "React Dashboard: Product detail page displays USD despite default channel currency set to GBP",
+    "state": "closed",
+    "created_at": "2025-10-24T23:35:59Z",
+    "closed_at": "2025-10-27T07:55:42Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3901",
+    "user": {
+      "login": "shaun-xenon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23053962?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3899,
+    "title": "Address forms on dashboard are missing custom fields",
+    "state": "closed",
+    "created_at": "2025-10-24T19:19:48Z",
+    "closed_at": "2025-11-05T08:20:43Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3899",
+    "user": {
+      "login": "Preport",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11471265?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3898,
+    "title": "@vendure/create fails on v.3.5.0 and node v20.12.2 due to ERR_REQUIRE_ESM",
+    "state": "closed",
+    "created_at": "2025-10-24T16:23:02Z",
+    "closed_at": "2025-10-24T17:51:24Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3898",
+    "user": {
+      "login": "SharmaPawan11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25877891?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3897,
+    "title": "Shop API mutation to update Order currency code",
+    "state": "open",
+    "created_at": "2025-10-24T14:38:43Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3897",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3896,
+    "title": "[CLI] dir option does not work in non-interactive schema generation",
+    "state": "closed",
+    "created_at": "2025-10-24T14:06:09Z",
+    "closed_at": "2025-10-28T15:32:46Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3896",
+    "user": {
+      "login": "JonasFisch",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37298151?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/cli"
+    ]
+  },
+  {
+    "number": 3893,
+    "title": "[Dashboard] Build broken on Windows 11",
+    "state": "closed",
+    "created_at": "2025-10-23T10:42:15Z",
+    "closed_at": "2025-11-07T15:56:11Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3893",
+    "user": {
+      "login": "fobaz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7779903?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3892,
+    "title": "Adding Shipping lines to column settings in order list in new React Dashboard crashes the page",
+    "state": "closed",
+    "created_at": "2025-10-23T08:31:11Z",
+    "closed_at": "2025-10-31T14:34:16Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3892",
+    "user": {
+      "login": "robinjoh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18014254?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3887,
+    "title": "GraphQL schema error when Create${Entity}CustomFieldsInput type already exists",
+    "state": "closed",
+    "created_at": "2025-10-22T09:52:14Z",
+    "closed_at": "2025-11-03T09:39:32Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3887",
+    "user": {
+      "login": "oliverstreissi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47336957?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core"
+    ]
+  },
+  {
+    "number": 3886,
+    "title": "[Official Paypal plugin] Has there been any progress regarding the official paypal plugin?",
+    "state": "closed",
+    "created_at": "2025-10-22T08:25:04Z",
+    "closed_at": "2025-11-03T17:56:21Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3886",
+    "user": {
+      "login": "lindalinya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/74670117?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3885,
+    "title": "Order refund logic inconsistent when items are cancelled (discounts and shipping conditions recalculated unexpectedly)",
+    "state": "closed",
+    "created_at": "2025-10-21T11:14:23Z",
+    "closed_at": "2025-11-24T02:43:33Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3885",
+    "user": {
+      "login": "vjung28",
+      "avatar_url": "https://avatars.githubusercontent.com/u/132471159?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3884,
+    "title": "Multiple free shipping promotions cause shipping cost to go negative",
+    "state": "closed",
+    "created_at": "2025-10-17T17:55:08Z",
+    "closed_at": "2025-11-21T02:38:48Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3884",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3883,
+    "title": "Enable struct inputs on `args`",
+    "state": "open",
+    "created_at": "2025-10-17T07:15:07Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3883",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3875,
+    "title": "No unique key on customer group name",
+    "state": "closed",
+    "created_at": "2025-10-13T11:15:47Z",
+    "closed_at": "2025-11-16T02:40:53Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3875",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3874,
+    "title": "Vendure Performance Issue: Exponential Degradation with Collections and Facet Filters",
+    "state": "open",
+    "created_at": "2025-10-11T09:02:25Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3874",
+    "user": {
+      "login": "MauroS5",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52974793?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "core-team",
+      "stale"
+    ]
+  },
+  {
+    "number": 3870,
+    "title": "Build fails - index.html references main.jsx instead of main.tsx",
+    "state": "open",
+    "created_at": "2025-10-09T11:26:13Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3870",
+    "user": {
+      "login": "Dylanmurzello",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23404072?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3868,
+    "title": "Custom field select-form-input not showing options",
+    "state": "closed",
+    "created_at": "2025-10-08T15:42:48Z",
+    "closed_at": "2025-10-10T10:19:21Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3868",
+    "user": {
+      "login": "SiebelsTim",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1153003?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3867,
+    "title": "Page Block Location, Column -> 'stretch??'",
+    "state": "open",
+    "created_at": "2025-10-07T07:55:34Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3867",
+    "user": {
+      "login": "SebastianSander",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50045177?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3858,
+    "title": "React Dashboard: Unable to Login (incorrect fetch URL)",
+    "state": "closed",
+    "created_at": "2025-10-02T21:23:56Z",
+    "closed_at": "2025-10-03T14:52:11Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3858",
+    "user": {
+      "login": "shaun-xenon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23053962?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3857,
+    "title": "Customizable query complexity in harden-plugin",
+    "state": "open",
+    "created_at": "2025-10-02T17:54:00Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3857",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3856,
+    "title": "createSellerOrders with OrderType>aggregate not handling featuredAsset in the same way as order modifier",
+    "state": "closed",
+    "created_at": "2025-10-02T16:47:28Z",
+    "closed_at": "2025-12-07T02:46:13Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3856",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3852,
+    "title": "CustomFields on Region Entity with single relation generates invalid SQL (missing joinColumns)",
+    "state": "closed",
+    "created_at": "2025-10-02T05:19:25Z",
+    "closed_at": "2025-11-06T02:39:16Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3852",
+    "user": {
+      "login": "mohamedkallel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39406241?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3850,
+    "title": "[Dashboard] Variant Page Querry Error when having Cutom fields",
+    "state": "closed",
+    "created_at": "2025-10-01T12:46:24Z",
+    "closed_at": "2025-10-01T14:10:49Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3850",
+    "user": {
+      "login": "SebastianSander",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50045177?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3849,
+    "title": "[Dashboard] Cannot Add Customer Group in Promotion Condition",
+    "state": "closed",
+    "created_at": "2025-10-01T11:53:22Z",
+    "closed_at": "2025-10-01T14:49:48Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3849",
+    "user": {
+      "login": "SebastianSander",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50045177?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3848,
+    "title": "React Dashboard: Only first custom page block renders when multiple blocks target the same anchor",
+    "state": "closed",
+    "created_at": "2025-10-01T01:54:37Z",
+    "closed_at": "2025-11-10T07:59:35Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3848",
+    "user": {
+      "login": "brett-rand",
+      "avatar_url": "https://avatars.githubusercontent.com/u/235410196?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3846,
+    "title": "Shipping Methods Custom Fields are not displayed",
+    "state": "closed",
+    "created_at": "2025-09-30T13:16:51Z",
+    "closed_at": "2025-10-22T08:13:16Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3846",
+    "user": {
+      "login": "MortenDiestelhorst",
+      "avatar_url": "https://avatars.githubusercontent.com/u/201620660?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3845,
+    "title": "[DashBoard] perPage in url is dynamic",
+    "state": "closed",
+    "created_at": "2025-09-29T14:34:59Z",
+    "closed_at": "2025-11-02T02:39:58Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3845",
+    "user": {
+      "login": "oidt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17176500?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3844,
+    "title": "React Dashboard: Surcharges not displayed in the order detail page.",
+    "state": "closed",
+    "created_at": "2025-09-29T12:16:12Z",
+    "closed_at": "2025-09-29T13:16:56Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3844",
+    "user": {
+      "login": "mohdbk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/133870502?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3843,
+    "title": "Direct checkout option",
+    "state": "closed",
+    "created_at": "2025-09-29T07:24:31Z",
+    "closed_at": "2025-10-14T07:02:45Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3843",
+    "user": {
+      "login": "phxgbl",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37118923?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3842,
+    "title": "Arabic Product Search Fails on Storefront",
+    "state": "closed",
+    "created_at": "2025-09-28T23:47:49Z",
+    "closed_at": "2025-11-02T02:40:00Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3842",
+    "user": {
+      "login": "Hassanabdelqader",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43825916?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3839,
+    "title": "Split a Vendure core type package",
+    "state": "closed",
+    "created_at": "2025-09-26T04:24:44Z",
+    "closed_at": "2025-09-28T12:23:51Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3839",
+    "user": {
+      "login": "lindalinya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/74670117?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3830,
+    "title": "EmailPlugin not generating emails",
+    "state": "closed",
+    "created_at": "2025-09-23T00:35:32Z",
+    "closed_at": "2025-09-23T22:50:33Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3830",
+    "user": {
+      "login": "Demetris1995",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56605845?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3814,
+    "title": "QueryFailedError: relation \"public.xxx\" does not exist",
+    "state": "closed",
+    "created_at": "2025-09-16T09:49:06Z",
+    "closed_at": "2025-10-21T02:36:55Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3814",
+    "user": {
+      "login": "lindalinya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/74670117?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3813,
+    "title": "Dashboard relation custom field issue",
+    "state": "closed",
+    "created_at": "2025-09-16T06:40:41Z",
+    "closed_at": "2025-10-01T14:27:32Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3813",
+    "user": {
+      "login": "andriinuts",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3611521?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3811,
+    "title": "Non-existing Import in Dev Server",
+    "state": "closed",
+    "created_at": "2025-09-14T04:53:15Z",
+    "closed_at": "2025-10-19T02:39:39Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3811",
+    "user": {
+      "login": "Rounak-stha",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66557682?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3810,
+    "title": "Admin UI not exposable outside the Hosted environment",
+    "state": "closed",
+    "created_at": "2025-09-11T18:35:36Z",
+    "closed_at": "2025-09-20T12:38:09Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3810",
+    "user": {
+      "login": "luckyBravine",
+      "avatar_url": "https://avatars.githubusercontent.com/u/98695541?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3809,
+    "title": "The currency code is not respected in all values in the Admin Order UI (React Dashboard)",
+    "state": "closed",
+    "created_at": "2025-09-11T18:06:14Z",
+    "closed_at": "2025-10-15T02:36:59Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3809",
+    "user": {
+      "login": "traversoalex",
+      "avatar_url": "https://avatars.githubusercontent.com/u/177574929?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3806,
+    "title": "[react admin dashboard]: date field in promotions cannot be modified",
+    "state": "closed",
+    "created_at": "2025-09-10T11:50:32Z",
+    "closed_at": "2025-10-01T14:12:55Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3806",
+    "user": {
+      "login": "MonstraG",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17963791?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3796,
+    "title": "Feature Request: Parent-Child Channel Hierarchy with Inheritance",
+    "state": "open",
+    "created_at": "2025-09-03T16:41:39Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3796",
+    "user": {
+      "login": "mohdbk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/133870502?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨",
+      "👋 contributions welcome",
+      "dx 💙",
+      "status: research needed 🔍"
+    ]
+  },
+  {
+    "number": 3791,
+    "title": "Relation custom field for zone is not saved",
+    "state": "closed",
+    "created_at": "2025-08-31T11:08:00Z",
+    "closed_at": "2025-11-12T21:05:41Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3791",
+    "user": {
+      "login": "mohamedkallel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39406241?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3789,
+    "title": "bcc not working",
+    "state": "closed",
+    "created_at": "2025-08-29T10:00:57Z",
+    "closed_at": "2025-09-25T15:47:53Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3789",
+    "user": {
+      "login": "robin6505",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13720665?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "👋 contributions welcome",
+      "@vendure/email-plugin"
+    ]
+  },
+  {
+    "number": 3788,
+    "title": "Vendure CLI suggests identical plugin names in root of repo when having work trees",
+    "state": "closed",
+    "created_at": "2025-08-28T19:38:11Z",
+    "closed_at": "2025-10-01T02:38:26Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3788",
+    "user": {
+      "login": "HouseinIsProgramming",
+      "avatar_url": "https://avatars.githubusercontent.com/u/76689341?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3787,
+    "title": "The currency code is not respected in all values in the Admin Order UI (React Dashboard)",
+    "state": "closed",
+    "created_at": "2025-08-28T17:23:59Z",
+    "closed_at": "2025-10-01T02:38:28Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3787",
+    "user": {
+      "login": "traversoalex",
+      "avatar_url": "https://avatars.githubusercontent.com/u/177574929?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3783,
+    "title": "Breadcrumb shows wrong parent section across all pages",
+    "state": "closed",
+    "created_at": "2025-08-27T10:31:25Z",
+    "closed_at": "2025-09-09T05:27:49Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3783",
+    "user": {
+      "login": "mohdbk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/133870502?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3781,
+    "title": "React Query error: \"Query data cannot be undefined\" in useTransitionOrderToState",
+    "state": "closed",
+    "created_at": "2025-08-26T20:08:53Z",
+    "closed_at": "2025-10-01T14:32:43Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3781",
+    "user": {
+      "login": "nik71b14",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19620133?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard",
+      "stale"
+    ]
+  },
+  {
+    "number": 3780,
+    "title": "useChannel() hook does not persist selected channel after page refresh",
+    "state": "closed",
+    "created_at": "2025-08-26T12:11:24Z",
+    "closed_at": "2025-09-02T20:09:25Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3780",
+    "user": {
+      "login": "traversoalex",
+      "avatar_url": "https://avatars.githubusercontent.com/u/177574929?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3779,
+    "title": "Cannot share roles across multiple Channels in Multi-Vendor setups",
+    "state": "open",
+    "created_at": "2025-08-26T11:50:36Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3779",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "dx 💙",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3777,
+    "title": "Per-Channel Product Enable/Disable Support for Multiple Channels",
+    "state": "open",
+    "created_at": "2025-08-25T09:26:08Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3777",
+    "user": {
+      "login": "SRIRAMS2002",
+      "avatar_url": "https://avatars.githubusercontent.com/u/125392880?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3774,
+    "title": "Adding image to rich text input fails",
+    "state": "open",
+    "created_at": "2025-08-23T17:20:07Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3774",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3773,
+    "title": "Order merge fails due to payment foreign key constraint",
+    "state": "closed",
+    "created_at": "2025-08-23T15:39:20Z",
+    "closed_at": "2025-09-08T07:18:52Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3773",
+    "user": {
+      "login": "jacobfrantz1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69358280?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "P2: important",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3772,
+    "title": "Logout mutation destroys all of the users sessions across devices",
+    "state": "closed",
+    "created_at": "2025-08-23T14:31:57Z",
+    "closed_at": "2025-09-28T02:37:30Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3772",
+    "user": {
+      "login": "jacobfrantz1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69358280?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3771,
+    "title": "Edit Variants",
+    "state": "closed",
+    "created_at": "2025-08-22T11:48:48Z",
+    "closed_at": "2025-10-24T08:08:26Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3771",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3770,
+    "title": "Add UI Components Library with Storybook",
+    "state": "closed",
+    "created_at": "2025-08-22T11:46:14Z",
+    "closed_at": "2025-10-24T08:08:26Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3770",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3769,
+    "title": "Add Split orders view",
+    "state": "closed",
+    "created_at": "2025-08-22T11:44:35Z",
+    "closed_at": "2025-10-01T14:33:26Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3769",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3768,
+    "title": "Multi-Vendor Support",
+    "state": "closed",
+    "created_at": "2025-08-22T11:42:42Z",
+    "closed_at": "2025-10-24T08:08:25Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3768",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3767,
+    "title": "Add \"Test Shipping Method\"",
+    "state": "closed",
+    "created_at": "2025-08-22T11:40:38Z",
+    "closed_at": "2025-10-24T08:08:25Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3767",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3766,
+    "title": "Add support for nested forms on detail pages",
+    "state": "closed",
+    "created_at": "2025-08-22T11:35:53Z",
+    "closed_at": "2025-10-24T08:08:24Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3766",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3765,
+    "title": "Add support for custom history entries",
+    "state": "closed",
+    "created_at": "2025-08-22T11:33:29Z",
+    "closed_at": "2025-10-24T08:08:24Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3765",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3764,
+    "title": "Add i18n support to Admin Dashboard",
+    "state": "closed",
+    "created_at": "2025-08-22T11:30:55Z",
+    "closed_at": "2025-10-24T08:08:23Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3764",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3762,
+    "title": "Recursive imports of plugins leads to multiple calls to `onModuleInit`",
+    "state": "open",
+    "created_at": "2025-08-21T14:48:09Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3762",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "stale"
+    ]
+  },
+  {
+    "number": 3761,
+    "title": "Admin UI API URL Duplication When Using apiHost with Proxied Setup",
+    "state": "closed",
+    "created_at": "2025-08-21T05:39:38Z",
+    "closed_at": "2025-09-25T02:35:23Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3761",
+    "user": {
+      "login": "IssaGithub",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10864164?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3760,
+    "title": "[Dashboard] password-form-input error",
+    "state": "closed",
+    "created_at": "2025-08-20T09:14:39Z",
+    "closed_at": "2025-09-23T02:33:09Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3760",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3755,
+    "title": "Admin-ui: Error when adding product in Modify Order with relation-type custom field",
+    "state": "closed",
+    "created_at": "2025-08-14T06:23:51Z",
+    "closed_at": "2025-09-18T02:33:14Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3755",
+    "user": {
+      "login": "johannabertils",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72787596?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3754,
+    "title": "Make Asset Entity implement the Translatable-interface to allow multilingual asset meta data",
+    "state": "open",
+    "created_at": "2025-08-13T11:55:02Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3754",
+    "user": {
+      "login": "DanielBiegler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14810858?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨",
+      "P1: urgent",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3751,
+    "title": "[Dashboard] Custom login form/page",
+    "state": "closed",
+    "created_at": "2025-08-11T16:57:54Z",
+    "closed_at": "2025-10-09T05:21:19Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3751",
+    "user": {
+      "login": "fobaz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7779903?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3750,
+    "title": "`Out of sort memory, consider increasing sort buffer size` for Job Queue page",
+    "state": "closed",
+    "created_at": "2025-08-11T11:28:31Z",
+    "closed_at": "2025-09-11T06:32:19Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3750",
+    "user": {
+      "login": "martijnvdbrug",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6604455?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3742,
+    "title": "BullMQ cleanupIndexedSets fails when Redis user can’t run KEYS",
+    "state": "closed",
+    "created_at": "2025-08-06T11:54:28Z",
+    "closed_at": "2025-08-25T06:49:32Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3742",
+    "user": {
+      "login": "colinpieper",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4346246?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3730,
+    "title": "@vendure/dashboard@v3.4.0 npx vite is hanging up always",
+    "state": "closed",
+    "created_at": "2025-08-03T13:11:53Z",
+    "closed_at": "2025-08-03T20:28:24Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3730",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3727,
+    "title": "Should support `ESM` import.meta.url",
+    "state": "closed",
+    "created_at": "2025-08-02T14:13:48Z",
+    "closed_at": "2025-11-14T07:56:17Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3727",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3725,
+    "title": "Product Search Extremely Slow Due to Custom Field Joins",
+    "state": "closed",
+    "created_at": "2025-08-02T07:29:33Z",
+    "closed_at": "2025-12-09T15:27:54Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3725",
+    "user": {
+      "login": "jumarp",
+      "avatar_url": "https://avatars.githubusercontent.com/u/223836018?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3724,
+    "title": "Failed to update promotion issue",
+    "state": "closed",
+    "created_at": "2025-08-01T21:04:28Z",
+    "closed_at": "2025-08-05T06:29:03Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3724",
+    "user": {
+      "login": "mickiewicz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3392976?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3708,
+    "title": "Schedule Task Stuck & Not Marked Stopped/Locked",
+    "state": "closed",
+    "created_at": "2025-07-31T10:37:51Z",
+    "closed_at": "2025-09-11T08:19:25Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3708",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3699,
+    "title": "React Dashboard does not see my plugins",
+    "state": "open",
+    "created_at": "2025-07-27T19:08:12Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3699",
+    "user": {
+      "login": "Johnez112",
+      "avatar_url": "https://avatars.githubusercontent.com/u/202109927?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "status: reproduction needed 🔁",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3698,
+    "title": "Issue in draft order for first time product addition to cart",
+    "state": "open",
+    "created_at": "2025-07-27T16:31:14Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3698",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome",
+      "🚀 good first task"
+    ]
+  },
+  {
+    "number": 3697,
+    "title": "How to know shipping origin per OrderLine?",
+    "state": "closed",
+    "created_at": "2025-07-27T16:15:53Z",
+    "closed_at": "2025-07-31T08:19:04Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3697",
+    "user": {
+      "login": "imacks",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17543432?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3696,
+    "title": "Global Settings' custom fields does not update if the custom fields has a relational custom field",
+    "state": "open",
+    "created_at": "2025-07-27T03:13:39Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3696",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "P4: low",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3693,
+    "title": "stripJsonComments removes valid JSON values containing  in string literals",
+    "state": "closed",
+    "created_at": "2025-07-25T04:10:01Z",
+    "closed_at": "2025-07-25T09:43:41Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3693",
+    "user": {
+      "login": "brunoslalmeida",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3662370?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3687,
+    "title": "No \"Add Facet Value\" in new admin nextjs UI",
+    "state": "closed",
+    "created_at": "2025-07-23T12:37:08Z",
+    "closed_at": "2025-07-23T20:16:32Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3687",
+    "user": {
+      "login": "kytdesigner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/183056258?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3681,
+    "title": "Incorrect cached active tax zone",
+    "state": "open",
+    "created_at": "2025-07-22T12:53:54Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3681",
+    "user": {
+      "login": "hans-rollingridges-dev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/111351665?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3680,
+    "title": "Payments and Refunds can be executed on the gateway but still fail in Vendure",
+    "state": "closed",
+    "created_at": "2025-07-22T12:16:17Z",
+    "closed_at": "2025-08-29T02:35:14Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3680",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3679,
+    "title": "Website Not Working",
+    "state": "closed",
+    "created_at": "2025-07-21T10:36:13Z",
+    "closed_at": "2025-07-21T11:47:36Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3679",
+    "user": {
+      "login": "nayi10",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24503673?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3676,
+    "title": "Product Options and Product Group Options entities can be delete by anyone",
+    "state": "closed",
+    "created_at": "2025-07-16T21:20:23Z",
+    "closed_at": "2025-08-20T02:36:46Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3676",
+    "user": {
+      "login": "sufianetaouil",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15270674?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3675,
+    "title": "RFC: Vendure Storefront UI / Starter",
+    "state": "open",
+    "created_at": "2025-07-16T12:56:53Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3675",
+    "user": {
+      "login": "HouseinIsProgramming",
+      "avatar_url": "https://avatars.githubusercontent.com/u/76689341?v=4"
+    },
+    "labels": [
+      "design 📐",
+      "dx 💙"
+    ]
+  },
+  {
+    "number": 3672,
+    "title": "Admin UI looking in wrong place",
+    "state": "open",
+    "created_at": "2025-07-16T08:45:11Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3672",
+    "user": {
+      "login": "mzealey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6083471?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome",
+      "🚀 good first task"
+    ]
+  },
+  {
+    "number": 3671,
+    "title": "Register `clean-job-queue-index` schedule failed.",
+    "state": "closed",
+    "created_at": "2025-07-16T08:16:20Z",
+    "closed_at": "2025-07-30T08:04:17Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3671",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3670,
+    "title": "`totalCoveredByPayments` includes failed refunds",
+    "state": "closed",
+    "created_at": "2025-07-15T23:08:28Z",
+    "closed_at": "2025-08-01T13:04:34Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3670",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3669,
+    "title": "React Dashboard extensions not detected after upgrading to Vendure 3.3.6",
+    "state": "closed",
+    "created_at": "2025-07-15T18:20:17Z",
+    "closed_at": "2025-07-31T11:54:22Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3669",
+    "user": {
+      "login": "traversoalex",
+      "avatar_url": "https://avatars.githubusercontent.com/u/177574929?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "status: reproduction needed 🔁",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3658,
+    "title": "[dashboard] error when using UuidIdStrategy on 'new' pages also with fix",
+    "state": "closed",
+    "created_at": "2025-07-10T03:35:43Z",
+    "closed_at": "2025-07-10T16:48:50Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3658",
+    "user": {
+      "login": "abstractFlo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4614586?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3657,
+    "title": "Getting Product Slugs for Sitemap",
+    "state": "closed",
+    "created_at": "2025-07-09T18:41:18Z",
+    "closed_at": "2025-07-10T06:49:52Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3657",
+    "user": {
+      "login": "MichalMoravik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32333157?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3654,
+    "title": "Compatibility issue mollie/api-client and vendure/payments-plugin",
+    "state": "closed",
+    "created_at": "2025-07-08T19:03:34Z",
+    "closed_at": "2025-07-30T06:23:28Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3654",
+    "user": {
+      "login": "mikedekker",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72078269?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3653,
+    "title": "Changing language after creating Stripe payment intent causes error",
+    "state": "closed",
+    "created_at": "2025-07-08T15:40:56Z",
+    "closed_at": "2025-08-24T02:40:35Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3653",
+    "user": {
+      "login": "MichalMoravik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32333157?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3651,
+    "title": "Option to not recalculate shipping when lines change",
+    "state": "open",
+    "created_at": "2025-07-08T13:24:27Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3651",
+    "user": {
+      "login": "MichalMoravik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32333157?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3649,
+    "title": "Collections are always set to public when created via the Admin UI",
+    "state": "closed",
+    "created_at": "2025-07-08T12:29:22Z",
+    "closed_at": "2025-07-11T13:56:31Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3649",
+    "user": {
+      "login": "kwerie",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47554945?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3648,
+    "title": "Order Summary Widget shows the wrong amount with > 1000 orders",
+    "state": "open",
+    "created_at": "2025-07-07T08:49:26Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3648",
+    "user": {
+      "login": "williamrijksen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1991582?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3645,
+    "title": "Intermittent server-killing error when uploading multiple assets",
+    "state": "closed",
+    "created_at": "2025-07-07T04:18:24Z",
+    "closed_at": "2025-07-14T09:57:45Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3645",
+    "user": {
+      "login": "jezzzm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26472490?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3643,
+    "title": "[dashboard] some components use currencyCode instead of currency for <Money> props",
+    "state": "closed",
+    "created_at": "2025-07-04T16:31:30Z",
+    "closed_at": "2025-07-07T09:40:32Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3643",
+    "user": {
+      "login": "sarifmiaa",
+      "avatar_url": "https://avatars.githubusercontent.com/u/44188057?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3637,
+    "title": "Cannot create new products [dashboard]",
+    "state": "closed",
+    "created_at": "2025-07-03T15:14:09Z",
+    "closed_at": "2025-09-02T06:59:49Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3637",
+    "user": {
+      "login": "RuarriS",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5349151?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3628,
+    "title": "Custom relation field on Session entity not returned when fetched",
+    "state": "open",
+    "created_at": "2025-07-01T20:36:58Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3628",
+    "user": {
+      "login": "nostva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/92961514?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3622,
+    "title": "EmailEventHandler.addTemplate deprecated but docs not updated",
+    "state": "closed",
+    "created_at": "2025-06-27T17:48:59Z",
+    "closed_at": "2025-07-04T15:44:00Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3622",
+    "user": {
+      "login": "MichalMoravik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32333157?v=4"
+    },
+    "labels": [
+      "docs 📖",
+      "@vendure/email-plugin"
+    ]
+  },
+  {
+    "number": 3621,
+    "title": "EmailEventListener.setSubject with event parameter throws an error at runtime",
+    "state": "closed",
+    "created_at": "2025-06-27T17:35:36Z",
+    "closed_at": "2025-09-05T14:55:55Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3621",
+    "user": {
+      "login": "MichalMoravik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32333157?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/email-plugin",
+      "status: reproduction needed 🔁",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3620,
+    "title": "Add languageCode to the Order type and order admin-api query and make sure all order mutations inherit the correct languageCode",
+    "state": "closed",
+    "created_at": "2025-06-27T17:00:35Z",
+    "closed_at": "2025-06-30T06:50:41Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3620",
+    "user": {
+      "login": "MichalMoravik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32333157?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3617,
+    "title": "addManualPaymentToOrder not running createPayment method",
+    "state": "open",
+    "created_at": "2025-06-25T17:23:20Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3617",
+    "user": {
+      "login": "imacks",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17543432?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨"
+    ]
+  },
+  {
+    "number": 3616,
+    "title": "[dashboard] error when using UuidIdStrategy on 'new' pages",
+    "state": "closed",
+    "created_at": "2025-06-25T14:55:10Z",
+    "closed_at": "2025-07-07T09:38:47Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3616",
+    "user": {
+      "login": "oidt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17176500?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "P2: important",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3611,
+    "title": "crypto.randomUUID is not a function",
+    "state": "closed",
+    "created_at": "2025-06-24T02:51:25Z",
+    "closed_at": "2025-06-29T20:37:07Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3611",
+    "user": {
+      "login": "nxmad",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7093650?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "status: reproduction needed 🔁",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3600,
+    "title": "Allow modifyOrder to cancel entire orderLine",
+    "state": "open",
+    "created_at": "2025-06-18T15:02:45Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3600",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨"
+    ]
+  },
+  {
+    "number": 3593,
+    "title": "dashboard basic page does not show (Windows)",
+    "state": "closed",
+    "created_at": "2025-06-15T08:13:40Z",
+    "closed_at": "2025-06-23T11:30:13Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3593",
+    "user": {
+      "login": "Huararanga",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17761193?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3588,
+    "title": "Feature Request:Multi-shipment / Split Fulfillment Across Stock Locations",
+    "state": "open",
+    "created_at": "2025-06-12T09:11:16Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3588",
+    "user": {
+      "login": "mezzat11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34794248?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3587,
+    "title": "Feature Request: Tiered Pricing / Volume Discounts",
+    "state": "closed",
+    "created_at": "2025-06-12T09:07:53Z",
+    "closed_at": "2025-06-25T11:50:56Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3587",
+    "user": {
+      "login": "mezzat11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34794248?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3586,
+    "title": "Feature Request: Credit Note & Invoice Numbering System",
+    "state": "closed",
+    "created_at": "2025-06-12T09:06:25Z",
+    "closed_at": "2025-06-25T11:49:38Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3586",
+    "user": {
+      "login": "mezzat11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34794248?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3585,
+    "title": "Feature Request: Updates To Promotion Engine — Stacking, Exclusions, and Priorities",
+    "state": "closed",
+    "created_at": "2025-06-12T09:02:29Z",
+    "closed_at": "2025-10-24T08:14:20Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3585",
+    "user": {
+      "login": "mezzat11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34794248?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨"
+    ]
+  },
+  {
+    "number": 3584,
+    "title": "Custom OrderItemPriceStrategy does not affect prices for the same product, also ignore customFields",
+    "state": "closed",
+    "created_at": "2025-06-12T08:56:59Z",
+    "closed_at": "2025-10-06T08:36:29Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3584",
+    "user": {
+      "login": "CodeMiner84",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1668366?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3583,
+    "title": "PromotionItemAction changes no reflecting on orderline changes",
+    "state": "closed",
+    "created_at": "2025-06-11T13:48:42Z",
+    "closed_at": "2025-07-20T02:51:30Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3583",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3578,
+    "title": "OrderService.removeAllItemsFromOrder is ignoring `willRemoveItemFromOrder ` interceptor",
+    "state": "closed",
+    "created_at": "2025-06-06T09:51:28Z",
+    "closed_at": "2025-06-15T19:37:50Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3578",
+    "user": {
+      "login": "thecodingcrow",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53899975?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "P2: important",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3576,
+    "title": "Returns Management / RMA Workflows",
+    "state": "open",
+    "created_at": "2025-06-05T09:27:01Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3576",
+    "user": {
+      "login": "mezzat11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34794248?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3575,
+    "title": "Catalog Promotions Feature",
+    "state": "closed",
+    "created_at": "2025-06-05T09:04:35Z",
+    "closed_at": "2025-10-24T08:14:35Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3575",
+    "user": {
+      "login": "mezzat11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34794248?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨",
+      "design 📐"
+    ]
+  },
+  {
+    "number": 3574,
+    "title": "Allow duplicate promotion actions",
+    "state": "open",
+    "created_at": "2025-06-04T12:16:51Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3574",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3573,
+    "title": "Scheduled tasks: Cannot update entity because entity id is not set in the entity [MariaDB v10]",
+    "state": "closed",
+    "created_at": "2025-06-04T07:27:30Z",
+    "closed_at": "2025-08-25T05:59:57Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3573",
+    "user": {
+      "login": "michaelbromley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6275952?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "👋 contributions welcome",
+      "P2: important",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3568,
+    "title": "Inconsistent S3 object key prefixing between small and multipart file uploads",
+    "state": "closed",
+    "created_at": "2025-06-01T15:46:04Z",
+    "closed_at": "2025-08-03T02:54:04Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3568",
+    "user": {
+      "login": "lumbrjx",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88345999?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3565,
+    "title": "QueryRunnerAlreadyReleasedError due to stale queryRunner in TransactionWrapper",
+    "state": "closed",
+    "created_at": "2025-05-29T14:36:14Z",
+    "closed_at": "2025-06-06T14:43:11Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3565",
+    "user": {
+      "login": "Refaat-alktifan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23056891?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3563,
+    "title": "adjustOrderLine overwrites customFields",
+    "state": "closed",
+    "created_at": "2025-05-28T09:55:39Z",
+    "closed_at": "2025-06-19T17:36:24Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3563",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3560,
+    "title": "Merge Request rejected",
+    "state": "closed",
+    "created_at": "2025-05-23T15:53:12Z",
+    "closed_at": "2025-05-27T08:27:10Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3560",
+    "user": {
+      "login": "Hen2609",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24863531?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3559,
+    "title": "Entity and CRUD generated by the CLI throws an error on insert.",
+    "state": "closed",
+    "created_at": "2025-05-23T15:23:32Z",
+    "closed_at": "2025-07-01T12:37:52Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3559",
+    "user": {
+      "login": "Hen2609",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24863531?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/cli",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3557,
+    "title": "runPromotionSideEffects Runs without saving the result",
+    "state": "open",
+    "created_at": "2025-05-22T11:05:42Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3557",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core"
+    ]
+  },
+  {
+    "number": 3556,
+    "title": "Hydrating an order resets taxsummary",
+    "state": "open",
+    "created_at": "2025-05-22T08:48:35Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3556",
+    "user": {
+      "login": "martijnvdbrug",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6604455?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "P2: important",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3555,
+    "title": "new dashboard compilation fails due to legacy react ui plugins",
+    "state": "closed",
+    "created_at": "2025-05-22T07:52:28Z",
+    "closed_at": "2025-06-03T16:35:01Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3555",
+    "user": {
+      "login": "yazfield",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9166171?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "status: reproduction needed 🔁"
+    ]
+  },
+  {
+    "number": 3553,
+    "title": "Current Limitation with Refunds Across Different Payment Methods",
+    "state": "open",
+    "created_at": "2025-05-20T10:22:34Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3553",
+    "user": {
+      "login": "gkielwasser",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1532438?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "@vendure/payments-plugin",
+      "P3: minor"
+    ]
+  },
+  {
+    "number": 3551,
+    "title": "Reordering collections in the Admin UI is flaky and does not always reorder to the slot repositioned to",
+    "state": "open",
+    "created_at": "2025-05-19T20:36:39Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3551",
+    "user": {
+      "login": "robinjoh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18014254?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3548,
+    "title": "Adding filter to include products in collections by facet values does not work on first save in Admin UI",
+    "state": "open",
+    "created_at": "2025-05-18T09:34:55Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3548",
+    "user": {
+      "login": "robinjoh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18014254?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3545,
+    "title": "@vendure/dashboard baseUrl support",
+    "state": "closed",
+    "created_at": "2025-05-17T01:06:11Z",
+    "closed_at": "2025-05-17T15:56:37Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3545",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3541,
+    "title": "Order page - missing column types",
+    "state": "closed",
+    "created_at": "2025-05-15T22:31:59Z",
+    "closed_at": "2025-06-15T19:49:06Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3541",
+    "user": {
+      "login": "kamil-maslowski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1447277?v=4"
+    },
+    "labels": [
+      "@vendure/admin-ui"
+    ]
+  },
+  {
+    "number": 3539,
+    "title": "ModifyOrder should throw ModifyOrderEvent",
+    "state": "closed",
+    "created_at": "2025-05-14T13:27:41Z",
+    "closed_at": "2025-07-04T15:00:54Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3539",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3536,
+    "title": "admin editor insert image error",
+    "state": "open",
+    "created_at": "2025-05-14T02:53:56Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3536",
+    "user": {
+      "login": "shpking",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13955620?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3535,
+    "title": "Modify order fails when coupons added without additional refunds",
+    "state": "open",
+    "created_at": "2025-05-14T00:45:21Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3535",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "status: reproduction needed 🔁",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3533,
+    "title": "@vendure/dashboard 3.3.0 MONO repo",
+    "state": "closed",
+    "created_at": "2025-05-13T07:30:10Z",
+    "closed_at": "2025-11-14T07:56:36Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3533",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3532,
+    "title": "Adding middleware with beforeListen in v3.2+ makes issue",
+    "state": "closed",
+    "created_at": "2025-05-12T18:11:27Z",
+    "closed_at": "2025-05-27T09:18:40Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3532",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3530,
+    "title": "Feature Request: Combine Shipping Address & Method in Admin Order Creation Popup",
+    "state": "closed",
+    "created_at": "2025-05-12T13:35:06Z",
+    "closed_at": "2025-05-17T16:02:24Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3530",
+    "user": {
+      "login": "Meriamhrz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115230043?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3529,
+    "title": "Proxy issue - express-rate-limit",
+    "state": "closed",
+    "created_at": "2025-05-12T08:12:19Z",
+    "closed_at": "2025-06-02T07:07:09Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3529",
+    "user": {
+      "login": "MichalMoravik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32333157?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3527,
+    "title": "ElasticSearch Plugin - Multi-vendor stores need the ability to groupBySKU and not just groupByProduct",
+    "state": "open",
+    "created_at": "2025-05-10T07:27:39Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3527",
+    "user": {
+      "login": "LeftoversTodayAppAdmin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/139936478?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/elasticsearch-plugin"
+    ]
+  },
+  {
+    "number": 3524,
+    "title": "Exception thrown after adding entity as a relation custom field",
+    "state": "closed",
+    "created_at": "2025-05-08T04:32:31Z",
+    "closed_at": "2025-06-15T19:55:14Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3524",
+    "user": {
+      "login": "Hen2609",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24863531?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3521,
+    "title": "Cannot add job queue when using BullMQ",
+    "state": "closed",
+    "created_at": "2025-05-06T04:04:59Z",
+    "closed_at": "2025-05-06T05:40:37Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3521",
+    "user": {
+      "login": "Dominic-Preap",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14802170?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3520,
+    "title": "Failed to initialize server due to \"crypto is not defined\"",
+    "state": "closed",
+    "created_at": "2025-05-05T17:21:38Z",
+    "closed_at": "2025-05-06T07:40:11Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3520",
+    "user": {
+      "login": "Kolze205",
+      "avatar_url": "https://avatars.githubusercontent.com/u/86521296?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3517,
+    "title": "migration fails with \"Property 'command' does not exist\"",
+    "state": "closed",
+    "created_at": "2025-05-02T11:47:42Z",
+    "closed_at": "2025-05-05T08:14:42Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3517",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "docs 📖"
+    ]
+  },
+  {
+    "number": 3515,
+    "title": "Add \"Type Safety\" and Validation for Custom Fields",
+    "state": "closed",
+    "created_at": "2025-04-30T12:19:36Z",
+    "closed_at": "2025-09-08T19:46:38Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3515",
+    "user": {
+      "login": "BibiSebi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17590227?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "👋 contributions welcome",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3511,
+    "title": "Selection Bug in Product selector in promotion",
+    "state": "closed",
+    "created_at": "2025-04-27T13:08:43Z",
+    "closed_at": "2025-06-24T02:39:21Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3511",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "status: missing info ❓",
+      "stale"
+    ]
+  },
+  {
+    "number": 3510,
+    "title": "Cart Does Not Update Discounts, Shipping, Pricing, or Eligibility Rules Dynamically After Changes",
+    "state": "open",
+    "created_at": "2025-04-27T07:42:00Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3510",
+    "user": {
+      "login": "mezzat11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34794248?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core"
+    ]
+  },
+  {
+    "number": 3509,
+    "title": "Missing Order Expiration and Auto-Release of Stock for Unpaid Orders",
+    "state": "open",
+    "created_at": "2025-04-27T07:37:10Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3509",
+    "user": {
+      "login": "mezzat11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34794248?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3508,
+    "title": "Concurrent Checkout Causes Stock Oversell When Only One Item Is Available",
+    "state": "open",
+    "created_at": "2025-04-27T07:34:30Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3508",
+    "user": {
+      "login": "mezzat11",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34794248?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "status: research needed 🔍"
+    ]
+  },
+  {
+    "number": 3506,
+    "title": "@vendure/create is failing with \"Failed to copy email templates\"",
+    "state": "closed",
+    "created_at": "2025-04-25T07:58:54Z",
+    "closed_at": "2025-09-08T12:38:09Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3506",
+    "user": {
+      "login": "gausie",
+      "avatar_url": "https://avatars.githubusercontent.com/u/179758?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/cli",
+      "P2: important",
+      "stale"
+    ]
+  },
+  {
+    "number": 3505,
+    "title": "Add `customFields` inside `activePaymentMethods`",
+    "state": "closed",
+    "created_at": "2025-04-25T07:21:26Z",
+    "closed_at": "2025-06-06T08:53:25Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3505",
+    "user": {
+      "login": "Dominic-Preap",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14802170?v=4"
+    },
+    "labels": [
+      "@vendure/core"
+    ]
+  },
+  {
+    "number": 3504,
+    "title": "Wrong code comparison in `PaymentStateMachine`",
+    "state": "closed",
+    "created_at": "2025-04-24T20:27:31Z",
+    "closed_at": "2025-07-25T02:45:53Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3504",
+    "user": {
+      "login": "Clemens05",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37633233?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "status: missing info ❓",
+      "stale"
+    ]
+  },
+  {
+    "number": 3502,
+    "title": "Unable to fetch deleted productVariant's deleted product option group",
+    "state": "closed",
+    "created_at": "2025-04-24T12:26:48Z",
+    "closed_at": "2025-06-19T05:18:29Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3502",
+    "user": {
+      "login": "jacobfrantz1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69358280?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3496,
+    "title": "Replace GraphQL playground with GraphiQL in docs",
+    "state": "closed",
+    "created_at": "2025-04-22T15:12:37Z",
+    "closed_at": "2025-05-20T20:18:11Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3496",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: chore 🧤",
+      "docs 📖",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3494,
+    "title": "I found this small facet related assiging UI experience bug (Seems after v3.1.8 or so)",
+    "state": "open",
+    "created_at": "2025-04-22T12:44:42Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3494",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3492,
+    "title": "create@3.2.3 Error: connect to the database [password authentication failed for user \"vendure\"]",
+    "state": "closed",
+    "created_at": "2025-04-21T16:30:03Z",
+    "closed_at": "2025-06-24T02:39:23Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3492",
+    "user": {
+      "login": "Wannabeloved",
+      "avatar_url": "https://avatars.githubusercontent.com/u/149198219?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3491,
+    "title": "Docs: connect-api#apollo-client live example is returning error",
+    "state": "closed",
+    "created_at": "2025-04-20T09:22:25Z",
+    "closed_at": "2025-04-29T09:50:22Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3491",
+    "user": {
+      "login": "theanghv",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8792640?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3490,
+    "title": "Vendure Admin UI Compilation Error",
+    "state": "closed",
+    "created_at": "2025-04-19T23:08:47Z",
+    "closed_at": "2025-08-24T02:40:36Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3490",
+    "user": {
+      "login": "d46",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1814962?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3489,
+    "title": "Global Option Groups & Option Group Collections",
+    "state": "open",
+    "created_at": "2025-04-19T12:40:12Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3489",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3484,
+    "title": "Admin UI: ProductVariantPrices is not saved as expected when a custom field is added",
+    "state": "open",
+    "created_at": "2025-04-15T11:14:26Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3484",
+    "user": {
+      "login": "mohamedkallel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39406241?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3483,
+    "title": "Administrator related adminAPIs return FORBIDDEN",
+    "state": "closed",
+    "created_at": "2025-04-15T06:43:19Z",
+    "closed_at": "2025-06-24T02:39:24Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3483",
+    "user": {
+      "login": "LeftoversTodayAppAdmin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/139936478?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3479,
+    "title": "Error Setting up v3.2.2",
+    "state": "closed",
+    "created_at": "2025-04-12T23:05:46Z",
+    "closed_at": "2025-04-23T06:14:51Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3479",
+    "user": {
+      "login": "abbeyseto",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14161363?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "status: reproduction needed 🔁"
+    ]
+  },
+  {
+    "number": 3472,
+    "title": "Incorrect admin UI start command locally in documentation",
+    "state": "closed",
+    "created_at": "2025-04-11T15:34:04Z",
+    "closed_at": "2025-04-17T10:45:51Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3472",
+    "user": {
+      "login": "TaharMeddeb03",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115250449?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3471,
+    "title": "I am getting these kinds of error after upgrading to v3.2.2 along with other dependencies version. How do I fix it? Whats best way? Please help",
+    "state": "closed",
+    "created_at": "2025-04-11T05:53:24Z",
+    "closed_at": "2025-04-23T06:55:56Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3471",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "status: reproduction needed 🔁"
+    ]
+  },
+  {
+    "number": 3470,
+    "title": "Error starting server when injecting middleware with beforeListen: true with 3.2.x",
+    "state": "closed",
+    "created_at": "2025-04-10T17:14:18Z",
+    "closed_at": "2025-04-17T11:25:27Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3470",
+    "user": {
+      "login": "kamui",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2255?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3469,
+    "title": "Mismatch between login and password reset behavior across channels",
+    "state": "open",
+    "created_at": "2025-04-10T09:09:22Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3469",
+    "user": {
+      "login": "msaxenstrand",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8101434?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core"
+    ]
+  },
+  {
+    "number": 3464,
+    "title": "Add a link for variants in order details",
+    "state": "closed",
+    "created_at": "2025-04-08T07:04:39Z",
+    "closed_at": "2025-08-25T07:04:49Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3464",
+    "user": {
+      "login": "monrostar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13255191?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3462,
+    "title": "why you don't use Rspack ?",
+    "state": "closed",
+    "created_at": "2025-04-04T05:29:15Z",
+    "closed_at": "2025-04-04T06:54:23Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3462",
+    "user": {
+      "login": "ghost",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10137?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3461,
+    "title": "3.2.0 Admin-ui throw error NullInjectorError: NullInjectorError: No provider for K7!",
+    "state": "closed",
+    "created_at": "2025-04-03T04:05:26Z",
+    "closed_at": "2025-06-15T20:14:00Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3461",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3459,
+    "title": "Fulfillment lines relation combined with lines relation on order causes quadratic database response growth",
+    "state": "open",
+    "created_at": "2025-04-02T13:51:45Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3459",
+    "user": {
+      "login": "Dennor",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11337563?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core"
+    ]
+  },
+  {
+    "number": 3458,
+    "title": "Search using ElasticSearch fails with phrase_prefix multiMatchType",
+    "state": "closed",
+    "created_at": "2025-04-02T00:09:41Z",
+    "closed_at": "2025-06-24T02:39:26Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3458",
+    "user": {
+      "login": "dalyathan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39517388?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3451,
+    "title": "Proposal: Add timezone field to User Entity",
+    "state": "open",
+    "created_at": "2025-04-01T13:00:45Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3451",
+    "user": {
+      "login": "DanielBiegler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14810858?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3450,
+    "title": "Filters appear unexpectedly when pressing \"F\" inside a product detail page",
+    "state": "open",
+    "created_at": "2025-04-01T12:35:26Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3450",
+    "user": {
+      "login": "AndrePereiraDtt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/195888422?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome",
+      "P4: low"
+    ]
+  },
+  {
+    "number": 3449,
+    "title": "Vendure Workflow Generation Tool",
+    "state": "open",
+    "created_at": "2025-04-01T09:23:16Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3449",
+    "user": {
+      "login": "dalyathan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39517388?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨",
+      "@vendure/dashboard"
+    ]
+  },
+  {
+    "number": 3444,
+    "title": "Support indexes on customFields",
+    "state": "open",
+    "created_at": "2025-03-31T12:26:30Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3444",
+    "user": {
+      "login": "casperiv0",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53900565?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3441,
+    "title": "Add items to cart in bulk via Shop API mutation",
+    "state": "closed",
+    "created_at": "2025-03-26T09:31:12Z",
+    "closed_at": "2025-06-18T07:06:40Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3441",
+    "user": {
+      "login": "martijnvdbrug",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6604455?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨"
+    ]
+  },
+  {
+    "number": 3439,
+    "title": "Address custom fields not saving in order",
+    "state": "open",
+    "created_at": "2025-03-25T08:29:32Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3439",
+    "user": {
+      "login": "MaartenWessels",
+      "avatar_url": "https://avatars.githubusercontent.com/u/49026955?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3437,
+    "title": "fix(core, admin-ui): Normalize product descriptions to plain text",
+    "state": "open",
+    "created_at": "2025-03-24T21:26:51Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3437",
+    "user": {
+      "login": "Balgha03",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115190679?v=4"
+    },
+    "labels": [
+      "type: feature ✨",
+      "status: research needed 🔍"
+    ]
+  },
+  {
+    "number": 3434,
+    "title": "Incorrect French Translations",
+    "state": "open",
+    "created_at": "2025-03-24T14:39:42Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3434",
+    "user": {
+      "login": "TaharMeddeb03",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115250449?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3433,
+    "title": "Vendure CLI removes manually added columns when re-running entity sync",
+    "state": "closed",
+    "created_at": "2025-03-23T09:12:05Z",
+    "closed_at": "2025-06-24T02:39:27Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3433",
+    "user": {
+      "login": "lembarek",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11173926?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3432,
+    "title": "Upgrade to mysql2 client",
+    "state": "open",
+    "created_at": "2025-03-22T13:59:48Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3432",
+    "user": {
+      "login": "rosesonfire",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8470594?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3431,
+    "title": "Confirm navigation Pop-up Appears, But Message Missing in Dark Mode",
+    "state": "closed",
+    "created_at": "2025-03-22T03:07:56Z",
+    "closed_at": "2025-04-23T06:56:41Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3431",
+    "user": {
+      "login": "Meriamhrz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115230043?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3430,
+    "title": "Improving Arabic Translations",
+    "state": "closed",
+    "created_at": "2025-03-22T02:43:34Z",
+    "closed_at": "2025-05-16T14:08:05Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3430",
+    "user": {
+      "login": "Meriamhrz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115230043?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3429,
+    "title": "Unable to build Dockerfile",
+    "state": "closed",
+    "created_at": "2025-03-21T21:26:35Z",
+    "closed_at": "2025-03-23T02:01:00Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3429",
+    "user": {
+      "login": "linucksrox",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5169868?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3427,
+    "title": "Feature: Quotes - Price offered to a company",
+    "state": "open",
+    "created_at": "2025-03-21T05:53:29Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3427",
+    "user": {
+      "login": "benbucksch",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1907525?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3425,
+    "title": "bullmq-job-queue-strategy not using concurrency setting",
+    "state": "closed",
+    "created_at": "2025-03-19T14:35:54Z",
+    "closed_at": "2025-03-31T19:11:06Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3425",
+    "user": {
+      "login": "Szbuli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6738847?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3424,
+    "title": "UI Bug: Medium Date, Short Date, and Price Fields Not Visible in Dark Mode",
+    "state": "open",
+    "created_at": "2025-03-18T21:34:26Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3424",
+    "user": {
+      "login": "TaharMeddeb03",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115250449?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3423,
+    "title": "Taxsummary is incomplete when `surcharges` relation is not loaded",
+    "state": "closed",
+    "created_at": "2025-03-18T15:01:47Z",
+    "closed_at": "2025-06-13T08:42:46Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3423",
+    "user": {
+      "login": "martijnvdbrug",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6604455?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "P3: minor",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3422,
+    "title": "Expandability for custom fields with type `relation`",
+    "state": "open",
+    "created_at": "2025-03-18T10:03:03Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3422",
+    "user": {
+      "login": "kwerie",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47554945?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3415,
+    "title": "Bug: RedisCacheStrategy fails to connect using Sentinel config",
+    "state": "closed",
+    "created_at": "2025-03-14T15:30:23Z",
+    "closed_at": "2025-10-06T14:06:44Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3415",
+    "user": {
+      "login": "apoca",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5594091?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "status: missing info ❓",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3412,
+    "title": "API Keys",
+    "state": "closed",
+    "created_at": "2025-03-13T07:41:47Z",
+    "closed_at": "2025-12-10T13:18:19Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3412",
+    "user": {
+      "login": "DanielBiegler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14810858?v=4"
+    },
+    "labels": [
+      "type: feature ✨"
+    ]
+  },
+  {
+    "number": 3411,
+    "title": "Stripe is transitioning order to arrangingpayment using default channel ID, leading to cannot-transition-to-payment-due-to-insufficient-stock",
+    "state": "closed",
+    "created_at": "2025-03-13T00:04:24Z",
+    "closed_at": "2025-06-24T02:39:28Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3411",
+    "user": {
+      "login": "hsensh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23084617?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3409,
+    "title": "Timestamps persisted incorrectly to Postgres despite DB timezone is set to UTC",
+    "state": "closed",
+    "created_at": "2025-03-11T13:42:08Z",
+    "closed_at": "2025-03-13T08:16:53Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3409",
+    "user": {
+      "login": "gabriellbui",
+      "avatar_url": "https://avatars.githubusercontent.com/u/199586306?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3408,
+    "title": "Docs: Add reference to authOptions inside Customer Accounts",
+    "state": "open",
+    "created_at": "2025-03-10T15:45:19Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3408",
+    "user": {
+      "login": "BibiSebi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17590227?v=4"
+    },
+    "labels": [
+      "docs 📖"
+    ]
+  },
+  {
+    "number": 3407,
+    "title": "Re-ordering collections may cause items to be duplicated",
+    "state": "closed",
+    "created_at": "2025-03-10T09:11:09Z",
+    "closed_at": "2025-06-24T02:39:30Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3407",
+    "user": {
+      "login": "ApplePedlar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2986661?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3405,
+    "title": "Vedure can prefer disabled PaymentMethod over enabled one",
+    "state": "closed",
+    "created_at": "2025-03-10T06:27:20Z",
+    "closed_at": "2025-03-31T19:15:14Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3405",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3403,
+    "title": "Incorrect Pagination Range",
+    "state": "closed",
+    "created_at": "2025-03-10T02:46:02Z",
+    "closed_at": "2025-03-31T19:08:32Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3403",
+    "user": {
+      "login": "ApplePedlar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2986661?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3399,
+    "title": "Japanese language support for admin-ui",
+    "state": "closed",
+    "created_at": "2025-03-07T02:19:52Z",
+    "closed_at": "2025-03-23T16:27:56Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3399",
+    "user": {
+      "login": "ApplePedlar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2986661?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3398,
+    "title": "Race condition when performing parallel order actions",
+    "state": "open",
+    "created_at": "2025-03-06T19:50:08Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3398",
+    "user": {
+      "login": "asonnleitner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56999154?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "P2: important",
+      "stale"
+    ]
+  },
+  {
+    "number": 3397,
+    "title": "\"SubscribableJob update polling timed out\" crashes server",
+    "state": "closed",
+    "created_at": "2025-03-05T18:14:34Z",
+    "closed_at": "2025-03-05T19:05:01Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3397",
+    "user": {
+      "login": "michaelbromley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6275952?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3396,
+    "title": "Unable to sort search by inStock property using ElasticsearchPlugin",
+    "state": "closed",
+    "created_at": "2025-03-05T14:15:27Z",
+    "closed_at": "2025-06-24T02:39:31Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3396",
+    "user": {
+      "login": "braiter",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10342093?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3395,
+    "title": "Unable to add payment to order",
+    "state": "closed",
+    "created_at": "2025-03-05T12:34:10Z",
+    "closed_at": "2025-03-06T06:46:43Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3395",
+    "user": {
+      "login": "xtul9",
+      "avatar_url": "https://avatars.githubusercontent.com/u/136118080?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3394,
+    "title": "Broken Product options edit screen",
+    "state": "closed",
+    "created_at": "2025-03-05T00:12:39Z",
+    "closed_at": "2025-03-05T20:25:51Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3394",
+    "user": {
+      "login": "kamil-maslowski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1447277?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3391,
+    "title": "`customFields` on OrderLine instance wrong when passed down to `adjustOrderLine` mutation",
+    "state": "closed",
+    "created_at": "2025-03-03T09:55:43Z",
+    "closed_at": "2025-07-16T11:13:55Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3391",
+    "user": {
+      "login": "tschortsch",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1061850?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "P3: minor",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3390,
+    "title": "ApolloError: ProductVariant optionIds must include one optionId from each of the groups",
+    "state": "closed",
+    "created_at": "2025-03-02T16:34:30Z",
+    "closed_at": "2025-06-24T02:39:32Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3390",
+    "user": {
+      "login": "max-bruhn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22989790?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3389,
+    "title": "Allow existing tax summary descriptions to be chosen for surcharges",
+    "state": "open",
+    "created_at": "2025-03-01T12:57:40Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3389",
+    "user": {
+      "login": "kyunal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33372279?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3387,
+    "title": "Missing parameter in removeVariantFromChannel",
+    "state": "closed",
+    "created_at": "2025-02-27T13:44:23Z",
+    "closed_at": "2025-07-10T16:44:42Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3387",
+    "user": {
+      "login": "sytch",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7900809?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "P3: minor",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3386,
+    "title": "AccountVerifiedEvent not triggered on password reset",
+    "state": "closed",
+    "created_at": "2025-02-27T13:37:46Z",
+    "closed_at": "2025-06-24T02:39:34Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3386",
+    "user": {
+      "login": "sytch",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7900809?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3385,
+    "title": "BullMQ does not work with Redis Sentinel or Redis Cluster",
+    "state": "closed",
+    "created_at": "2025-02-27T11:19:39Z",
+    "closed_at": "2025-06-24T02:39:35Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3385",
+    "user": {
+      "login": "apoca",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5594091?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3382,
+    "title": "paymentMethodService getMethodAndOperations should look at enabled",
+    "state": "closed",
+    "created_at": "2025-02-26T21:13:36Z",
+    "closed_at": "2025-06-24T02:39:36Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3382",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3381,
+    "title": "Struct customfield type issue",
+    "state": "closed",
+    "created_at": "2025-02-26T11:35:51Z",
+    "closed_at": "2025-02-28T09:33:25Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3381",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3379,
+    "title": "SentryPlugin: Add option to configure environment",
+    "state": "open",
+    "created_at": "2025-02-24T16:34:00Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3379",
+    "user": {
+      "login": "oliverstreissi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47336957?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3378,
+    "title": "Slow addItemToOrder when relational customfield list on orderline for same productvariant id",
+    "state": "closed",
+    "created_at": "2025-02-24T12:35:10Z",
+    "closed_at": "2025-06-24T02:39:37Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3378",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3376,
+    "title": "Bug/Feature: Should variants be automatically added in multiple channels, if the parent product is in multiple channels?",
+    "state": "closed",
+    "created_at": "2025-02-19T08:36:05Z",
+    "closed_at": "2025-06-24T02:39:39Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3376",
+    "user": {
+      "login": "martijnvdbrug",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6604455?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3375,
+    "title": "Product prices per channel",
+    "state": "closed",
+    "created_at": "2025-02-18T19:30:06Z",
+    "closed_at": "2025-02-18T22:52:56Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3375",
+    "user": {
+      "login": "acerov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5851452?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3374,
+    "title": "API - Channels",
+    "state": "closed",
+    "created_at": "2025-02-18T16:22:38Z",
+    "closed_at": "2025-02-18T22:53:52Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3374",
+    "user": {
+      "login": "acerov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5851452?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3373,
+    "title": "core: Unused code with important comment",
+    "state": "open",
+    "created_at": "2025-02-18T15:20:42Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3373",
+    "user": {
+      "login": "Draykee",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19676051?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3372,
+    "title": "Re-registering an account doesn't change password",
+    "state": "closed",
+    "created_at": "2025-02-17T18:05:05Z",
+    "closed_at": "2025-06-24T02:39:40Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3372",
+    "user": {
+      "login": "jacobfrantz1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69358280?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3371,
+    "title": "Upgrade to NestJS v11",
+    "state": "closed",
+    "created_at": "2025-02-17T10:10:31Z",
+    "closed_at": "2025-04-02T11:52:13Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3371",
+    "user": {
+      "login": "dlhck",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24294584?v=4"
+    },
+    "labels": [
+      "type: chore 🧤",
+      "P2: important",
+      "dx 💙"
+    ]
+  },
+  {
+    "number": 3370,
+    "title": "Dependency Installation Failure During Vendure App Creation",
+    "state": "closed",
+    "created_at": "2025-02-17T09:47:34Z",
+    "closed_at": "2025-06-24T02:39:41Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3370",
+    "user": {
+      "login": "tarikrital",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52907282?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3369,
+    "title": "Deployment guide using SST Framework?",
+    "state": "open",
+    "created_at": "2025-02-15T03:56:00Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3369",
+    "user": {
+      "login": "mrhut10",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20330237?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3366,
+    "title": "Tax rate of new determined Zone is not applied to existing order line",
+    "state": "closed",
+    "created_at": "2025-02-14T10:29:47Z",
+    "closed_at": "2025-02-14T12:18:23Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3366",
+    "user": {
+      "login": "martijnvdbrug",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6604455?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "P2: important"
+    ]
+  },
+  {
+    "number": 3362,
+    "title": "Add Support for es-419 Locale",
+    "state": "closed",
+    "created_at": "2025-02-12T19:35:46Z",
+    "closed_at": "2025-02-28T09:33:24Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3362",
+    "user": {
+      "login": "alebak",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6515879?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3358,
+    "title": "If inStock: true is added to search, facetValues always return empty",
+    "state": "closed",
+    "created_at": "2025-02-10T22:07:38Z",
+    "closed_at": "2025-06-24T02:39:42Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3358",
+    "user": {
+      "login": "hsensh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23084617?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3356,
+    "title": "DefaultMoneyStrategy's round is called instead of custom MoneyStrategy",
+    "state": "closed",
+    "created_at": "2025-02-10T13:51:44Z",
+    "closed_at": "2025-06-24T02:39:43Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3356",
+    "user": {
+      "login": "Szbuli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6738847?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3355,
+    "title": "[multivendor] Maximum call stack size exceeded upon setting shipping method",
+    "state": "closed",
+    "created_at": "2025-02-09T12:15:07Z",
+    "closed_at": "2025-05-20T07:04:42Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3355",
+    "user": {
+      "login": "twlite",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46562212?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3354,
+    "title": "Quick Install Failed",
+    "state": "open",
+    "created_at": "2025-02-09T10:56:07Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3354",
+    "user": {
+      "login": "LimesWeb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/194583924?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3353,
+    "title": "Should auto remove fulfilled shippingLines for `activeOrder`  while we reset shippingAddress",
+    "state": "closed",
+    "created_at": "2025-02-08T10:35:24Z",
+    "closed_at": "2025-06-24T02:39:44Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3353",
+    "user": {
+      "login": "tianyingchun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2833251?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3352,
+    "title": "Running a query multiple times in a row occasionally gives: Query runner already released. Cannot run queries anymore.",
+    "state": "closed",
+    "created_at": "2025-02-08T02:26:05Z",
+    "closed_at": "2025-06-24T02:39:45Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3352",
+    "user": {
+      "login": "hsensh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23084617?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3350,
+    "title": "Stripe - Data too long exception",
+    "state": "closed",
+    "created_at": "2025-02-07T07:02:44Z",
+    "closed_at": "2025-09-26T02:34:17Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3350",
+    "user": {
+      "login": "derXear",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19554842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3349,
+    "title": "JavaScript heap out of memory error on order with many products",
+    "state": "closed",
+    "created_at": "2025-02-06T15:57:13Z",
+    "closed_at": "2025-02-10T08:17:01Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3349",
+    "user": {
+      "login": "andreamagoni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/104197139?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3348,
+    "title": "Improvements to Promotions",
+    "state": "open",
+    "created_at": "2025-02-05T11:10:29Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3348",
+    "user": {
+      "login": "mschipperheyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384959?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "type: feature ✨"
+    ]
+  },
+  {
+    "number": 3347,
+    "title": "Missing update input schema for struct custom fields",
+    "state": "closed",
+    "created_at": "2025-02-05T09:26:58Z",
+    "closed_at": "2025-06-24T02:39:48Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3347",
+    "user": {
+      "login": "Draykee",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19676051?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3344,
+    "title": "Bump @sentry-node dependency in @vendure/sentry-plugin to 8.x",
+    "state": "open",
+    "created_at": "2025-02-03T15:26:52Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3344",
+    "user": {
+      "login": "kamui",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2255?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3342,
+    "title": "Custom Fields Not Recognized in Admin UI When Adding Order Line",
+    "state": "closed",
+    "created_at": "2025-02-01T05:29:21Z",
+    "closed_at": "2025-02-11T20:08:57Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3342",
+    "user": {
+      "login": "zolzaya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115309?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3339,
+    "title": "CreateProductVariantInput is missing `enabled` field",
+    "state": "closed",
+    "created_at": "2025-01-29T16:22:28Z",
+    "closed_at": "2025-02-21T06:54:01Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3339",
+    "user": {
+      "login": "oliverstreissi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47336957?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3338,
+    "title": "External authentication fails for Admin if same identifier is used for Customer User",
+    "state": "closed",
+    "created_at": "2025-01-28T12:08:57Z",
+    "closed_at": "2025-06-24T02:39:49Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3338",
+    "user": {
+      "login": "derXear",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19554842?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3337,
+    "title": "Asset source gets not transformed when using fragments",
+    "state": "closed",
+    "created_at": "2025-01-28T07:24:43Z",
+    "closed_at": "2025-02-14T10:20:40Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3337",
+    "user": {
+      "login": "jhmen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69339775?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3335,
+    "title": "Elasticsearch Write Index Issue: \"no write index is defined for alias [prefix-variants]\"",
+    "state": "closed",
+    "created_at": "2025-01-26T13:32:20Z",
+    "closed_at": "2025-06-24T02:39:50Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3335",
+    "user": {
+      "login": "Guts996",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59870314?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  },
+  {
+    "number": 3332,
+    "title": "What are the credentials for the demo page?",
+    "state": "closed",
+    "created_at": "2025-01-25T13:16:42Z",
+    "closed_at": "2025-02-10T09:48:14Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3332",
+    "user": {
+      "login": "pinguluk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16257821?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3328,
+    "title": "Add Functionality to Create ExternalAuthenticationMethod for Existing Users",
+    "state": "open",
+    "created_at": "2025-01-21T22:55:26Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3328",
+    "user": {
+      "login": "zolzaya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/115309?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3326,
+    "title": "Address readonly custom field Error",
+    "state": "closed",
+    "created_at": "2025-01-20T21:07:35Z",
+    "closed_at": "2025-01-21T21:07:14Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3326",
+    "user": {
+      "login": "Swampy469",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46132382?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core"
+    ]
+  },
+  {
+    "number": 3324,
+    "title": "MultiChannelStockLocationStrategy Fails to Clear Cached Channel IDs on StockLocationEvent",
+    "state": "open",
+    "created_at": "2025-01-19T16:06:05Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3324",
+    "user": {
+      "login": "dalyathan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39517388?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/core",
+      "core-team"
+    ]
+  },
+  {
+    "number": 3323,
+    "title": "Question : How seller will login to system and enlist their own product ?",
+    "state": "closed",
+    "created_at": "2025-01-19T15:03:08Z",
+    "closed_at": "2025-01-21T21:10:48Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3323",
+    "user": {
+      "login": "akashcse",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12716824?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3322,
+    "title": "Adding custom detail views to a page sidebar",
+    "state": "open",
+    "created_at": "2025-01-17T18:32:02Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3322",
+    "user": {
+      "login": "Clemens05",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37633233?v=4"
+    },
+    "labels": [
+      "@vendure/admin-ui",
+      "type: feature ✨"
+    ]
+  },
+  {
+    "number": 3321,
+    "title": "Allow repetitive values in list relational custom field",
+    "state": "closed",
+    "created_at": "2025-01-17T14:41:14Z",
+    "closed_at": "2025-01-17T15:51:38Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3321",
+    "user": {
+      "login": "BeepLoveKarki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29729738?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3318,
+    "title": "Make product options and option groups channel-aware",
+    "state": "open",
+    "created_at": "2025-01-15T13:10:06Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3318",
+    "user": {
+      "login": "asonnleitner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56999154?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3317,
+    "title": "JSON logger without prcess context",
+    "state": "closed",
+    "created_at": "2025-01-15T07:12:35Z",
+    "closed_at": "2025-01-22T14:20:31Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3317",
+    "user": {
+      "login": "derXear",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19554842?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3316,
+    "title": "[Admin UI, Multivendor Plugin] Error when loading Orders and Custom Fields in Product View when logging in as another user than the SuperAdmin",
+    "state": "open",
+    "created_at": "2025-01-13T11:57:09Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3316",
+    "user": {
+      "login": "margamorais",
+      "avatar_url": "https://avatars.githubusercontent.com/u/118457456?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "@vendure/admin-ui",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3314,
+    "title": "Missing example of ProductVariantService in importing data doc",
+    "state": "closed",
+    "created_at": "2025-01-11T10:22:10Z",
+    "closed_at": "2025-08-29T18:39:54Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3314",
+    "user": {
+      "login": "tarikrital",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52907282?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "docs 📖",
+      "👋 contributions welcome"
+    ]
+  },
+  {
+    "number": 3312,
+    "title": "Queries for listing active Payment and Shipping Methods",
+    "state": "closed",
+    "created_at": "2025-01-09T17:23:49Z",
+    "closed_at": "2025-04-01T07:48:10Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3312",
+    "user": {
+      "login": "apoca",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5594091?v=4"
+    },
+    "labels": [
+      "@vendure/core",
+      "👋 contributions welcome",
+      "P4: low"
+    ]
+  },
+  {
+    "number": 3311,
+    "title": "Error with the Modify Order Feature : Recalculation of modified order lines uses zero unit price",
+    "state": "closed",
+    "created_at": "2025-01-08T16:14:03Z",
+    "closed_at": "2025-01-08T16:26:26Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3311",
+    "user": {
+      "login": "julienTeam",
+      "avatar_url": "https://avatars.githubusercontent.com/u/98316966?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3306,
+    "title": "Products search",
+    "state": "closed",
+    "created_at": "2025-01-06T00:52:23Z",
+    "closed_at": "2025-01-06T11:24:33Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3306",
+    "user": {
+      "login": "acerov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5851452?v=4"
+    },
+    "labels": [
+      "type: bug 🐛"
+    ]
+  },
+  {
+    "number": 3305,
+    "title": "Admin UI: Don't Load All Child Collections Immediately",
+    "state": "open",
+    "created_at": "2025-01-05T18:16:41Z",
+    "closed_at": null,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3305",
+    "user": {
+      "login": "toBeOfUse",
+      "avatar_url": "https://avatars.githubusercontent.com/u/49729978?v=4"
+    },
+    "labels": []
+  },
+  {
+    "number": 3304,
+    "title": "Getting \"Unknown type 'StructCustomFieldConfig'\" error when extending admin ui #3299 jac-br started this conversation in General",
+    "state": "closed",
+    "created_at": "2025-01-03T12:27:52Z",
+    "closed_at": "2025-06-25T02:39:46Z",
+    "html_url": "https://github.com/vendure-ecommerce/vendure/issues/3304",
+    "user": {
+      "login": "kubab404",
+      "avatar_url": "https://avatars.githubusercontent.com/u/84709314?v=4"
+    },
+    "labels": [
+      "type: bug 🐛",
+      "stale"
+    ]
+  }
+]

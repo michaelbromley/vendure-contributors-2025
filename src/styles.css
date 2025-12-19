@@ -135,6 +135,101 @@ body {
   letter-spacing: 1px;
 }
 
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.search-box input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #17C1BC;
+  background: rgba(23, 193, 188, 0.1);
+  box-shadow: 0 0 15px rgba(23, 193, 188, 0.2);
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  padding: 0.6rem 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #17C1BC, #0d9488);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+.filter-count {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.filter-count span {
+  color: #17C1BC;
+  font-weight: 600;
+}
+
 .contributors-grid {
   display: flex;
   flex-wrap: wrap;
@@ -244,19 +339,59 @@ body {
   text-overflow: ellipsis;
 }
 
-.contribution-count {
-  font-size: 0.85rem;
-  color: #a8d8ea;
+.member-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
   position: relative;
   z-index: 1;
+  margin-top: 0.5rem;
 }
 
-.contribution-count .count {
-  font-weight: 700;
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bar-label {
+  font-size: 0.7rem;
+  min-width: 70px;
+  text-align: right;
+}
+
+.bar-label.commits {
   color: #17C1BC;
-  font-size: 1.2rem;
 }
 
+.bar-label.issues {
+  color: #a78bfa;
+}
+
+.bar-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.bar-fill.commits {
+  background: linear-gradient(90deg, #0d9488, #17C1BC);
+}
+
+.bar-fill.issues {
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+}
+
+/* Legacy - can remove if not used */
 .contribution-bar {
   width: 100%;
   height: 6px;
@@ -383,6 +518,28 @@ canvas.confetti-canvas {
   transform: scale(0.8);
   transition: transform 0.3s ease;
   position: relative;
+  
+  /* Custom scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(23, 193, 188, 0.5) rgba(255, 255, 255, 0.05);
+}
+
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #17C1BC, #0d9488);
+  border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #20d4cf, #14b8a6);
 }
 
 .modal-overlay.active .modal {
@@ -619,6 +776,75 @@ canvas.confetti-canvas {
 }
 
 .commit-date {
+  font-size: 0.75rem;
+  color: #a8d8ea;
+}
+
+/* Activity sections in modal */
+.activity-section {
+  margin-top: 1.5rem;
+}
+
+.activity-section h4 {
+  font-size: 0.9rem;
+  color: #a8d8ea;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.issue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.issue-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.issue-state {
+  font-size: 0.65rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.issue-state.issue-open {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.issue-state.issue-closed {
+  background: rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+}
+
+.issue-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.issue-title {
+  display: block;
+  color: #fff;
+  font-size: 0.85rem;
+  text-decoration: none;
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+
+.issue-title:hover {
+  color: #17C1BC;
+}
+
+.issue-date {
   font-size: 0.75rem;
   color: #a8d8ea;
 }
@@ -953,4 +1179,186 @@ footer a:hover {
     font-size: 0.6rem;
     letter-spacing: 0.5px;
   }
+
+  .reporters-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .reporter-card {
+    padding: 0.75rem !important;
+  }
+
+  .issue-monthly-chart {
+    gap: 0.25rem !important;
+  }
+}
+
+/* =====================================================
+   ISSUES SECTION
+   ===================================================== */
+
+.contributors-section,
+.issues-section,
+.issue-reporters {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.contributors-section h2,
+.issues-section h2,
+.issue-reporters h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: #a8d8ea;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.contributors-section .contributors-grid {
+  max-width: none;
+  padding: 0;
+}
+
+/* Issue Labels Bar Chart */
+.label-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.label-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.label-name {
+  font-size: 0.8rem;
+  color: #a8d8ea;
+  width: 80px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.label-bar-track {
+  flex: 1;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.label-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.label-count {
+  font-size: 0.8rem;
+  color: #fff;
+  font-weight: 600;
+  width: 30px;
+}
+
+/* Issue Monthly Chart */
+.issue-monthly-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  height: 150px;
+  padding-top: 1rem;
+}
+
+.issue-bar-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.issue-bar {
+  width: 100%;
+  background: linear-gradient(to top, #17C1BC, #5eead4);
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 4px;
+  transition: height 0.3s ease;
+}
+
+.issue-bar-count {
+  font-size: 0.7rem;
+  color: #fff;
+  font-weight: 600;
+  padding-top: 4px;
+}
+
+.issue-bar-label {
+  font-size: 0.7rem;
+  color: #a8d8ea;
+  margin-top: 0.5rem;
+}
+
+/* Issue Reporters Grid */
+.reporters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.reporter-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.reporter-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.reporter-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #17C1BC;
+}
+
+.reporter-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.reporter-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reporter-count {
+  font-size: 0.8rem;
+  color: #a8d8ea;
 }
