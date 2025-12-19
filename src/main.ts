@@ -230,6 +230,260 @@ function getMonthName(month: number): string {
   return months[month];
 }
 
+// Get all commits from all contributors
+function getAllCommits(): ContributionDetail[] {
+  return allContributors.flatMap(c => c.commits);
+}
+
+// Parse commit type from conventional commit message
+function getCommitType(message: string): string {
+  const match = message.match(/^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.*?\))?:/i);
+  if (match) {
+    return match[1].toLowerCase();
+  }
+  // Check for common patterns without colon
+  if (message.toLowerCase().startsWith('fix')) return 'fix';
+  if (message.toLowerCase().startsWith('add')) return 'feat';
+  if (message.toLowerCase().startsWith('update')) return 'chore';
+  return 'other';
+}
+
+// Render GitHub-style activity heatmap
+function renderActivityHeatmap(): string {
+  const commits = getAllCommits();
+  const commitsByDate: { [key: string]: number } = {};
+  
+  // Count commits per day
+  commits.forEach(commit => {
+    const date = new Date(commit.date).toISOString().split('T')[0];
+    commitsByDate[date] = (commitsByDate[date] || 0) + 1;
+  });
+  
+  // Generate calendar for 2025 (up to current date)
+  const startDate = new Date('2025-01-01');
+  const endDate = new Date();
+  const weeks: string[][] = [];
+  let currentWeek: string[] = [];
+  
+  // Pad first week with empty cells
+  const firstDayOfWeek = startDate.getDay();
+  for (let i = 0; i < firstDayOfWeek; i++) {
+    currentWeek.push('');
+  }
+  
+  const current = new Date(startDate);
+  while (current <= endDate) {
+    const dateStr = current.toISOString().split('T')[0];
+    currentWeek.push(dateStr);
+    
+    if (current.getDay() === 6) {
+      weeks.push(currentWeek);
+      currentWeek = [];
+    }
+    current.setDate(current.getDate() + 1);
+  }
+  
+  // Push remaining days
+  if (currentWeek.length > 0) {
+    weeks.push(currentWeek);
+  }
+  
+  const maxCommits = Math.max(...Object.values(commitsByDate), 1);
+  
+  const cells = weeks.map(week => {
+    const weekCells = week.map(date => {
+      if (!date) return '<div class="heatmap-cell empty"></div>';
+      const count = commitsByDate[date] || 0;
+      const level = count === 0 ? 0 : Math.min(4, Math.ceil((count / maxCommits) * 4));
+      const tooltip = `${date}: ${count} commit${count !== 1 ? 's' : ''}`;
+      return `<div class="heatmap-cell level-${level}" title="${tooltip}"></div>`;
+    }).join('');
+    return `<div class="heatmap-week">${weekCells}</div>`;
+  }).join('');
+  
+  // Month labels
+  const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    .slice(0, new Date().getMonth() + 1)
+    .map(m => `<span>${m}</span>`)
+    .join('');
+  
+  return `
+    <div class="viz-card">
+      <h3>Activity Heatmap</h3>
+      <div class="heatmap-container">
+        <div class="heatmap-months">${monthLabels}</div>
+        <div class="heatmap">${cells}</div>
+        <div class="heatmap-legend">
+          <span>Less</span>
+          <div class="heatmap-cell level-0"></div>
+          <div class="heatmap-cell level-1"></div>
+          <div class="heatmap-cell level-2"></div>
+          <div class="heatmap-cell level-3"></div>
+          <div class="heatmap-cell level-4"></div>
+          <span>More</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Render contribution types donut chart
+function renderContributionTypes(): string {
+  const commits = getAllCommits();
+  const types: { [key: string]: number } = {};
+  
+  commits.forEach(commit => {
+    const type = getCommitType(commit.message);
+    types[type] = (types[type] || 0) + 1;
+  });
+  
+  const total = commits.length;
+  const typeColors: { [key: string]: string } = {
+    feat: '#17C1BC',
+    fix: '#f87171',
+    docs: '#a78bfa',
+    refactor: '#fbbf24',
+    chore: '#64748b',
+    test: '#34d399',
+    style: '#f472b6',
+    perf: '#fb923c',
+    ci: '#60a5fa',
+    build: '#94a3b8',
+    revert: '#ef4444',
+    other: '#475569'
+  };
+  
+  // Sort by count
+  const sortedTypes = Object.entries(types).sort((a, b) => b[1] - a[1]);
+  
+  // Create SVG donut chart
+  let currentAngle = 0;
+  const radius = 60;
+  const innerRadius = 35;
+  const cx = 80;
+  const cy = 80;
+  
+  const paths = sortedTypes.map(([type, count]) => {
+    const percentage = count / total;
+    const angle = percentage * 360;
+    const startAngle = currentAngle;
+    const endAngle = currentAngle + angle;
+    currentAngle = endAngle;
+    
+    const startRad = (startAngle - 90) * Math.PI / 180;
+    const endRad = (endAngle - 90) * Math.PI / 180;
+    
+    const x1 = cx + radius * Math.cos(startRad);
+    const y1 = cy + radius * Math.sin(startRad);
+    const x2 = cx + radius * Math.cos(endRad);
+    const y2 = cy + radius * Math.sin(endRad);
+    const x3 = cx + innerRadius * Math.cos(endRad);
+    const y3 = cy + innerRadius * Math.sin(endRad);
+    const x4 = cx + innerRadius * Math.cos(startRad);
+    const y4 = cy + innerRadius * Math.sin(startRad);
+    
+    const largeArc = angle > 180 ? 1 : 0;
+    const color = typeColors[type] || '#475569';
+    
+    return `<path d="M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} L ${x3} ${y3} A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${x4} ${y4} Z" fill="${color}" class="donut-segment" data-type="${type}" data-count="${count}"><title>${type}: ${count} (${(percentage * 100).toFixed(1)}%)</title></path>`;
+  }).join('');
+  
+  const legend = sortedTypes.slice(0, 6).map(([type, count]) => {
+    const color = typeColors[type] || '#475569';
+    const percentage = ((count / total) * 100).toFixed(0);
+    return `<div class="legend-item"><span class="legend-color" style="background: ${color}"></span><span class="legend-label">${type}</span><span class="legend-value">${percentage}%</span></div>`;
+  }).join('');
+  
+  return `
+    <div class="viz-card">
+      <h3>Contribution Types</h3>
+      <div class="donut-container">
+        <svg viewBox="0 0 160 160" class="donut-chart">
+          ${paths}
+          <text x="${cx}" y="${cy}" text-anchor="middle" dy="0.3em" class="donut-center-text">${total}</text>
+          <text x="${cx}" y="${cy + 14}" text-anchor="middle" class="donut-center-label">commits</text>
+        </svg>
+        <div class="donut-legend">${legend}</div>
+      </div>
+    </div>
+  `;
+}
+
+// Render monthly trend line chart
+function renderMonthlyTrend(): string {
+  const commits = getAllCommits();
+  const monthlyData: { [key: string]: number } = {};
+  
+  // Initialize all months up to current
+  const currentMonth = new Date().getMonth();
+  for (let i = 0; i <= currentMonth; i++) {
+    monthlyData[getMonthName(i)] = 0;
+  }
+  
+  // Count commits per month
+  commits.forEach(commit => {
+    const month = getMonthName(new Date(commit.date).getMonth());
+    if (monthlyData[month] !== undefined) {
+      monthlyData[month]++;
+    }
+  });
+  
+  const months = Object.keys(monthlyData);
+  const values = Object.values(monthlyData);
+  const maxValue = Math.max(...values, 1);
+  
+  // SVG dimensions
+  const width = 400;
+  const height = 150;
+  const padding = { top: 20, right: 20, bottom: 30, left: 40 };
+  const chartWidth = width - padding.left - padding.right;
+  const chartHeight = height - padding.top - padding.bottom;
+  
+  // Generate points
+  const points = values.map((val, i) => {
+    const x = padding.left + (i / (months.length - 1 || 1)) * chartWidth;
+    const y = padding.top + chartHeight - (val / maxValue) * chartHeight;
+    return { x, y, val };
+  });
+  
+  // Create line path
+  const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+  
+  // Create area path
+  const areaPath = `${linePath} L ${points[points.length - 1]?.x || padding.left} ${padding.top + chartHeight} L ${padding.left} ${padding.top + chartHeight} Z`;
+  
+  // Grid lines
+  const gridLines = [0, 0.25, 0.5, 0.75, 1].map(pct => {
+    const y = padding.top + chartHeight * (1 - pct);
+    const val = Math.round(maxValue * pct);
+    return `<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" class="grid-line"/><text x="${padding.left - 5}" y="${y}" class="axis-label" text-anchor="end" dy="0.3em">${val}</text>`;
+  }).join('');
+  
+  // X axis labels
+  const xLabels = months.map((month, i) => {
+    const x = padding.left + (i / (months.length - 1 || 1)) * chartWidth;
+    return `<text x="${x}" y="${height - 8}" class="axis-label" text-anchor="middle">${month}</text>`;
+  }).join('');
+  
+  // Data points
+  const dataPoints = points.map(p => 
+    `<circle cx="${p.x}" cy="${p.y}" r="4" class="data-point"><title>${p.val} commits</title></circle>`
+  ).join('');
+  
+  return `
+    <div class="viz-card viz-card-wide">
+      <h3>Monthly Activity Trend</h3>
+      <svg viewBox="0 0 ${width} ${height}" class="line-chart">
+        ${gridLines}
+        <path d="${areaPath}" class="chart-area"/>
+        <path d="${linePath}" class="chart-line"/>
+        ${dataPoints}
+        ${xLabels}
+      </svg>
+    </div>
+  `;
+}
+
 function renderContributionTimeline(commits: ContributionDetail[]): string {
   // Group commits by month
   const monthlyData: { [key: string]: number } = {};
@@ -387,6 +641,15 @@ function renderContributors(contributors: Contributor[]): string {
         <span class="label">Top Contributions</span>
       </div>
     </div>
+    
+    <section class="visualizations">
+      <h2>Community Activity</h2>
+      <div class="viz-grid">
+        ${renderActivityHeatmap()}
+        ${renderContributionTypes()}
+        ${renderMonthlyTrend()}
+      </div>
+    </section>
     
     <div class="contributors-grid">
       ${contributorCards}

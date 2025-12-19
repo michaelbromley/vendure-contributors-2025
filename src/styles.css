@@ -662,3 +662,295 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
+/* =====================================================
+   COMMUNITY ACTIVITY VISUALIZATIONS
+   ===================================================== */
+
+.visualizations {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.visualizations h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.viz-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.viz-card-wide {
+  grid-column: span 2;
+}
+
+.viz-card h3 {
+  font-size: 1rem;
+  color: #a8d8ea;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+/* Activity Heatmap */
+.heatmap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.heatmap-months {
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0.25rem;
+  font-size: 0.7rem;
+  color: #a8d8ea;
+}
+
+.heatmap-months span {
+  flex: 1;
+  text-align: center;
+}
+
+.heatmap {
+  display: flex;
+  gap: 3px;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.heatmap-week {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.heatmap-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.3);
+  box-shadow: 0 0 8px rgba(23, 193, 188, 0.6);
+}
+
+.heatmap-cell.level-0 {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.heatmap-cell.level-1 {
+  background: #0d9488;
+}
+
+.heatmap-cell.level-2 {
+  background: #17C1BC;
+}
+
+.heatmap-cell.level-3 {
+  background: #2dd4bf;
+}
+
+.heatmap-cell.level-4 {
+  background: #5eead4;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  color: #a8d8ea;
+  margin-top: 0.5rem;
+}
+
+.heatmap-legend .heatmap-cell {
+  width: 10px;
+  height: 10px;
+}
+
+.heatmap-legend .heatmap-cell:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Donut Chart */
+.donut-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.donut-chart {
+  width: 160px;
+  height: 160px;
+}
+
+.donut-segment {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform-origin: center;
+  cursor: pointer;
+}
+
+.donut-segment:hover {
+  opacity: 0.85;
+  filter: brightness(1.1);
+}
+
+.donut-chart .donut-center-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  fill: #fff;
+}
+
+.donut-chart .donut-center-label {
+  font-size: 0.7rem;
+  fill: #a8d8ea;
+}
+
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  font-size: 0.8rem;
+  color: #a8d8ea;
+  min-width: 60px;
+}
+
+.legend-value {
+  font-size: 0.8rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Line Chart */
+.line-chart {
+  width: 100%;
+  height: 200px;
+  position: relative;
+}
+
+.line-chart svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chart-area {
+  fill: url(#areaGradient);
+  opacity: 0.3;
+}
+
+.chart-line {
+  fill: none;
+  stroke: #17C1BC;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.data-point {
+  fill: #17C1BC;
+  stroke: #fff;
+  stroke-width: 2;
+  transition: r 0.2s ease;
+  cursor: pointer;
+}
+
+.data-point:hover {
+  r: 8;
+}
+
+.grid-line {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1;
+}
+
+.axis-label {
+  fill: #a8d8ea;
+  font-size: 0.7rem;
+}
+
+/* Responsive adjustments for visualizations */
+@media (max-width: 768px) {
+  .viz-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .viz-card-wide {
+    grid-column: span 1;
+  }
+
+  .donut-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .heatmap {
+    justify-content: flex-start;
+  }
+
+  .heatmap-cell {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Compact stats banner on mobile */
+  .stats-banner {
+    gap: 0.75rem;
+    padding: 0.75rem;
+    flex-wrap: nowrap;
+  }
+
+  .stat-card {
+    padding: 0.75rem 0.5rem;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .stat-card .number {
+    font-size: 1.5rem;
+  }
+
+  .stat-card .label {
+    font-size: 0.6rem;
+    letter-spacing: 0.5px;
+  }
+}
