@@ -18,18 +18,18 @@ body {
 }
 
 .snowflakes {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
   z-index: 1;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .snowflake {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   color: #fff;
@@ -38,7 +38,6 @@ body {
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
   pointer-events: none;
   will-change: transform;
-  transition: none;
 }
 
 .header {

@@ -62,8 +62,6 @@ interface Snowflake {
 let snowflakes: Snowflake[] = [];
 let mouseX = 0;
 let mouseY = 0;
-let lastScrollY = 0;
-let scrollVelocity = 0;
 let animationId: number | null = null;
 
 // Create festive decorations
@@ -75,17 +73,13 @@ function initSnowflakes() {
   const container = document.getElementById('snowflakes-container');
   if (!container) return;
   
-  const flakeChars = ['❄', '❅', '❆', '✻', '✼', '❋'];
+  // Clear existing snowflakes
+  container.innerHTML = '';
   snowflakes = [];
   
-  // Get full document height for distributing snowflakes
-  const docHeight = Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    window.innerHeight * 2
-  );
+  const flakeChars = ['❄', '❅', '❆', '✻', '✼', '❋'];
   
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 60; i++) {
     const span = document.createElement('span');
     span.className = 'snowflake';
     const char = flakeChars[Math.floor(Math.random() * flakeChars.length)];
@@ -93,10 +87,10 @@ function initSnowflakes() {
     
     const size = 0.5 + Math.random() * 1.2;
     const x = Math.random() * window.innerWidth;
-    // Distribute across entire document height
-    const y = Math.random() * docHeight - 50;
-    // Much slower base speed
-    const baseVy = 0.15 + Math.random() * 0.35;
+    // Distribute across viewport height initially
+    const y = Math.random() * window.innerHeight;
+    // Slow falling speed
+    const baseVy = 0.2 + Math.random() * 0.4;
     
     span.style.fontSize = `${size}rem`;
     span.style.opacity = `${0.3 + Math.random() * 0.5}`;
@@ -129,102 +123,69 @@ function setupSnowflakeInteractions() {
     mouseX = e.clientX;
     mouseY = e.clientY;
   });
-  
-  // Scroll tracking
-  let lastTime = performance.now();
-  window.addEventListener('scroll', () => {
-    const currentTime = performance.now();
-    const currentScrollY = window.scrollY;
-    const dt = (currentTime - lastTime) / 1000;
-    
-    if (dt > 0) {
-      scrollVelocity = (currentScrollY - lastScrollY) / dt;
-    }
-    
-    lastScrollY = currentScrollY;
-    lastTime = currentTime;
-  }, { passive: true });
 }
 
 function animateSnowflakes() {
-  const mouseInfluenceRadius = 120;
-  const mouseForce = 0.15;
-  const scrollInfluence = 0.008;
-  const friction = 0.99;
+  const mouseInfluenceRadius = 100;
+  const mouseForce = 0.12;
+  const friction = 0.98;
+  const viewportHeight = window.innerHeight;
+  const viewportWidth = window.innerWidth;
   
   // Gentle wind that oscillates left AND right
-  const time = Date.now() / 5000;
-  const windVariation = Math.sin(time) * 0.02;
-  
-  // Get document bounds
-  const docHeight = Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    window.innerHeight
-  );
-  
-  // Decay scroll velocity
-  scrollVelocity *= 0.92;
+  const time = Date.now() / 8000;
+  const windVariation = Math.sin(time) * 0.015;
   
   snowflakes.forEach(flake => {
-    // Calculate distance from mouse (in document coordinates)
+    // Calculate distance from mouse (viewport coordinates)
     const dx = flake.x - mouseX;
-    const dy = flake.y - (mouseY + window.scrollY);
+    const dy = flake.y - mouseY;
     const dist = Math.sqrt(dx * dx + dy * dy);
     
-    // Mouse repulsion - gentler
+    // Mouse repulsion
     if (dist < mouseInfluenceRadius && dist > 0) {
       const force = (1 - dist / mouseInfluenceRadius) * mouseForce;
       flake.vx += (dx / dist) * force;
       flake.vy += (dy / dist) * force;
     }
     
-    // Scroll influence - snowflakes get pushed up when scrolling down
-    flake.vy -= scrollVelocity * scrollInfluence * (flake.size / 1.5);
-    
     // Apply base falling speed (constant gentle fall)
     flake.vy += flake.baseVy * 0.05;
     
-    // Apply wind - same for all flakes so they don't drift one direction
+    // Apply wind
     flake.vx += windVariation;
     
     // Apply friction
     flake.vx *= friction;
     flake.vy *= friction;
     
-    // Very gently return to base X position to prevent permanent drift
-    flake.vx += (flake.baseX - flake.x) * 0.0003;
+    // Gently return to base X position to prevent permanent drift
+    flake.vx += (flake.baseX - flake.x) * 0.0005;
     
     // Update position
     flake.x += flake.vx;
     flake.y += flake.vy;
     
-    // Only wrap at document top/bottom - not viewport
-    if (flake.y > docHeight + 50) {
-      // Reset to top of document
-      flake.y = -50;
-      flake.x = Math.random() * window.innerWidth;
+    // Respawn at top when falling off bottom of viewport
+    if (flake.y > viewportHeight + 20) {
+      flake.y = -20;
+      flake.x = Math.random() * viewportWidth;
       flake.baseX = flake.x;
       flake.vx = 0;
       flake.vy = flake.baseVy;
     }
     
-    // If somehow pushed above document, wrap to bottom
-    if (flake.y < -100) {
-      flake.y = docHeight + 50;
-    }
-    
-    // Wrap horizontally with smooth transition
-    if (flake.x < -30) {
-      flake.x = window.innerWidth + 30;
+    // Wrap horizontally
+    if (flake.x < -20) {
+      flake.x = viewportWidth + 20;
       flake.baseX = flake.x;
     }
-    if (flake.x > window.innerWidth + 30) {
-      flake.x = -30;
+    if (flake.x > viewportWidth + 20) {
+      flake.x = -20;
       flake.baseX = flake.x;
     }
     
-    // Update DOM - use fixed positioning relative to document
+    // Update DOM
     flake.element.style.transform = `translate(${flake.x}px, ${flake.y}px)`;
   });
   
