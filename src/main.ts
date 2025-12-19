@@ -14,7 +14,6 @@ import { launchConfetti } from './services/confetti-service';
 
 // Components
 import { createSnowflakesHtml, initSnowflakes } from './components/snowflakes';
-import { createLightsHtml } from './components/lights';
 import { renderActivityHeatmap } from './components/heatmap';
 import { renderContributionTypes } from './components/donut-chart';
 import { renderMonthlyTrend } from './components/monthly-trend';
