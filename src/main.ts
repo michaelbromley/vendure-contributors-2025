@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import contributorsData from './data/contributors-2025.json';
 import issueContributorsData from './data/issue-contributors-2025.json';
 import locationData from './data/contributor-locations-geocoded.json';
+import worldMapSvg from './assets/world-map.svg?raw';
 
 interface LocationContributor {
   login: string;
@@ -1044,13 +1045,9 @@ async function loadWorldMap() {
   if (!wrapper || !mapInner) return;
   
   try {
-    // Fetch the SVG map
-    const response = await fetch('/src/assets/world-map.svg');
-    const svgText = await response.text();
-    
-    // Parse and insert the SVG
+    // Parse the imported SVG
     const parser = new DOMParser();
-    const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+    const svgDoc = parser.parseFromString(worldMapSvg, 'image/svg+xml');
     const svgElement = svgDoc.querySelector('svg');
     
     if (svgElement) {
@@ -1283,10 +1280,11 @@ async function loadWorldMap() {
         });
         
         // Now render with offsets for overlapping dots
+        type IndividualPerson = { lat: number; lng: number; name: string; login: string; location: string; country: string; contributions: number };
         coordGroups.forEach((people) => {
           const count = people.length;
           
-          people.forEach((person, index) => {
+          people.forEach((person: IndividualPerson, index: number) => {
             const { x, y } = toSvgCoords(person.lat, person.lng);
             const size = Math.min(4 + Math.log(person.contributions + 1) * 1.5, 10);
             
