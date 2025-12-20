@@ -55,7 +55,7 @@ const MAP_CONFIG = {
   geoMaxLat: 83.600842,
   geoMinLat: -58.508473,
   minZoom: 0.5,
-  maxZoom: 10,
+  maxZoom: 25,
   clusterZoomThreshold: 2.5,
 };
 
@@ -320,9 +320,138 @@ export default function WorldMap() {
     return () => container.removeEventListener('wheel', handleWheel);
   }, []);
 
+  // Touch handlers for mobile pan and pinch-to-zoom
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let isTouching = false;
+    let isPinching = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartViewX = 0;
+    let touchStartViewY = 0;
+    let lastTapTime = 0;
+
+    const getDistance = (t1: Touch, t2: Touch) => {
+      const dx = t1.clientX - t2.clientX;
+      const dy = t1.clientY - t2.clientY;
+      return Math.sqrt(dx * dx + dy * dy);
+    };
+
+    const getCenter = (t1: Touch, t2: Touch) => ({
+      x: (t1.clientX + t2.clientX) / 2,
+      y: (t1.clientY + t2.clientY) / 2,
+    });
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        // Single finger - start pan
+        isTouching = true;
+        isPinching = false;
+        const touch = e.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        setViewBox(prev => {
+          touchStartViewX = prev.x;
+          touchStartViewY = prev.y;
+          return prev;
+        });
+      } else if (e.touches.length === 2) {
+        // Two fingers - start pinch
+        e.preventDefault();
+        isTouching = false;
+        isPinching = true;
+        const distance = getDistance(e.touches[0], e.touches[1]);
+        const center = getCenter(e.touches[0], e.touches[1]);
+        setViewBox(prev => {
+          pinchStart.current = {
+            distance,
+            viewBox: { ...prev },
+            centerX: center.x,
+            centerY: center.y,
+          };
+          return prev;
+        });
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isTouching && e.touches.length === 1) {
+        // Single finger pan
+        const touch = e.touches[0];
+        const rect = svgRef.current?.getBoundingClientRect();
+        if (!rect) return;
+
+        setViewBox(prev => {
+          const dx = (touch.clientX - touchStartX) * (prev.w / rect.width);
+          const dy = (touch.clientY - touchStartY) * (prev.h / rect.height);
+          return { ...prev, x: touchStartViewX - dx, y: touchStartViewY - dy };
+        });
+      } else if (isPinching && e.touches.length === 2) {
+        // Pinch zoom
+        e.preventDefault();
+        const currentDistance = getDistance(e.touches[0], e.touches[1]);
+        const scale = pinchStart.current.distance / currentDistance;
+
+        const rect = svgRef.current?.getBoundingClientRect();
+        if (!rect) return;
+
+        const { viewBox: startVB, centerX, centerY } = pinchStart.current;
+
+        // Calculate pinch center in SVG coordinates
+        const svgCenterX = ((centerX - rect.left) / rect.width) * startVB.w + startVB.x;
+        const svgCenterY = ((centerY - rect.top) / rect.height) * startVB.h + startVB.y;
+
+        const newW = startVB.w * scale;
+        const newH = startVB.h * scale;
+
+        // Check zoom limits
+        const newZoom = originalViewBox.current.w / newW;
+        if (newZoom < MAP_CONFIG.minZoom || newZoom > MAP_CONFIG.maxZoom) return;
+
+        setViewBox({
+          x: svgCenterX - (svgCenterX - startVB.x) * scale,
+          y: svgCenterY - (svgCenterY - startVB.y) * scale,
+          w: newW,
+          h: newH,
+        });
+      }
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      // Double-tap detection for reset
+      if (e.touches.length === 0 && !isPinching) {
+        const now = Date.now();
+        if (now - lastTapTime < 300) {
+          // Double tap - reset view
+          setViewBox({ ...originalViewBox.current });
+          lastTapTime = 0;
+        } else {
+          lastTapTime = now;
+        }
+      }
+      isTouching = false;
+      isPinching = false;
+    };
+
+    container.addEventListener('touchstart', handleTouchStart, { passive: false });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchend', handleTouchEnd);
+    container.addEventListener('touchcancel', handleTouchEnd);
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+      container.removeEventListener('touchcancel', handleTouchEnd);
+    };
+  }, []);
+
   // Pan handlers
   const [isPanning, setIsPanning] = useState(false);
   const panStart = useRef({ x: 0, y: 0, viewX: 0, viewY: 0 });
+  const pinchStart = useRef({ distance: 0, viewBox: { x: 0, y: 0, w: 0, h: 0 }, centerX: 0, centerY: 0 });
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button !== 0) return;
@@ -493,8 +622,11 @@ export default function WorldMap() {
               </svg>
             </div>
 
-            <div className="absolute bottom-4 left-4 text-xs text-text-secondary bg-bg-dark/50 px-2 py-1 rounded">
+            <div className="absolute bottom-4 left-4 text-xs text-text-secondary bg-bg-dark/50 px-2 py-1 rounded hidden md:block">
               Scroll to zoom, drag to pan, double-click to reset
+            </div>
+            <div className="absolute bottom-4 left-4 text-xs text-text-secondary bg-bg-dark/50 px-2 py-1 rounded md:hidden">
+              Pinch to zoom, drag to pan, double-tap to reset
             </div>
           </div>
 
