@@ -8,7 +8,7 @@ import { MONTH_NAMES } from '../utils/constants';
 import { escapeHtml } from '../utils/helpers';
 import type { Release } from '../types';
 import releasesData from '../data/releases-2025.json';
-import { initTooltip, showTooltip, hideTooltip, hideTooltipImmediate, getHeatmapTooltipContent, setTriggerElement, isTouch } from './tooltip';
+import { initTooltip, showTooltip, hideTooltip, getHeatmapTooltipContent, setTriggerElement, isTouch } from './tooltip';
 
 // Store data for interactive tooltips
 let heatmapData: {

@@ -13,7 +13,7 @@ const contributorAvatars: Record<string, string> = {};
 (contributorsData as Contributor[]).forEach(c => {
   contributorAvatars[c.login.toLowerCase()] = c.avatar_url;
 });
-(issueContributorsData as Contributor[]).forEach(c => {
+(issueContributorsData as unknown as Contributor[]).forEach(c => {
   if (!contributorAvatars[c.login.toLowerCase()]) {
     contributorAvatars[c.login.toLowerCase()] = c.avatar_url;
   }
