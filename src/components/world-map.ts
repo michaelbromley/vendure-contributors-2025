@@ -152,7 +152,6 @@ export async function loadWorldMap(): Promise<void> {
     
     // Touch state for pinch zoom
     let lastTouchDistance = 0;
-    let _lastTouchCenter = { x: 0, y: 0 };
     let isTouchPanning = false;
     
     const getZoomLevel = () => originalViewBox.w / viewBox.w;
@@ -265,7 +264,6 @@ export async function loadWorldMap(): Promise<void> {
         // Two touches - start pinch zoom
         isTouchPanning = false;
         lastTouchDistance = getTouchDistance(e.touches);
-        lastTouchCenter = getTouchCenter(e.touches);
         viewBoxStart = { ...viewBox };
       }
     }, { passive: true });
