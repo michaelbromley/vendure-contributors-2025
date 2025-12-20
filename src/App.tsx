@@ -35,16 +35,31 @@ export const useSnowMode = () => {
   return ctx;
 };
 
+const THEME_STORAGE_KEY = 'vendure-wrapped-theme';
+
 export default function App() {
   const data = useData();
   const [selectedMember, setSelectedMember] = useState<CommunityMember | null>(null);
-  const [snowMode, setSnowMode] = useState<SnowMode>('vienna');
+  const [snowMode, setSnowMode] = useState<SnowMode>(() => {
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    return stored === 'kitz' ? 'kitz' : 'vienna';
+  });
 
   // Initial confetti on load
   useEffect(() => {
     const timer = setTimeout(() => launchConfetti(), 500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Apply theme based on snow mode and persist to localStorage
+  useEffect(() => {
+    localStorage.setItem(THEME_STORAGE_KEY, snowMode);
+    if (snowMode === 'kitz') {
+      document.documentElement.setAttribute('data-theme', 'kitz');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }, [snowMode]);
 
   const handleOpenModal = (member: CommunityMember) => {
     setSelectedMember(member);

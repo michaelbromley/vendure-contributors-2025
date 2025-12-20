@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useDataContext } from '../../App';
+import { useDataContext, useSnowMode } from '../../App';
 import { getCommitType } from '../../utils/helpers';
 
 const COMMIT_TYPE_COLORS: Record<string, string> = {
@@ -37,6 +37,8 @@ const styles = {
 
 export default function DonutChart() {
   const { allCommits } = useDataContext();
+  const { mode } = useSnowMode();
+  const isKitz = mode === 'kitz';
   
   const { paths, sortedTypes, total } = useMemo(() => {
     const types: Record<string, number> = {};
@@ -120,10 +122,21 @@ export default function DonutChart() {
               <title>{type}: {count} ({percentage}%)</title>
             </path>
           ))}
-          <text x="80" y="80" textAnchor="middle" dy="0.3em" style={styles.centerText}>
+          <text
+            x="80"
+            y="80"
+            textAnchor="middle"
+            dy="0.3em"
+            style={{ ...styles.centerText, fill: isKitz ? '#0d9488' : '#e0f2fe' }}
+          >
             {total}
           </text>
-          <text x="80" y="94" textAnchor="middle" style={styles.centerLabel}>
+          <text
+            x="80"
+            y="94"
+            textAnchor="middle"
+            style={{ ...styles.centerLabel, fill: isKitz ? '#4b5563' : '#a8d8ea' }}
+          >
             commits
           </text>
         </svg>

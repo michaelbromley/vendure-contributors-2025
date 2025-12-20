@@ -10,24 +10,25 @@ import {
   FloatingPortal,
   autoUpdate,
 } from '@floating-ui/react';
+import { useSnowMode } from '../../App';
 
-// Inline styles for map dots
-const mapStyles = {
+// Inline styles for map dots - returns theme-aware styles
+const getMapStyles = (isKitz: boolean) => ({
   clusterDot: {
-    fill: 'rgba(23, 193, 255, 0.6)',
+    fill: isKitz ? 'rgba(20, 184, 198, 0.7)' : 'rgba(23, 193, 255, 0.6)',
     cursor: 'pointer',
     transition: 'filter 0.2s ease',
   },
   individualDot: {
-    fill: '#17c1ff',
+    fill: isKitz ? '#14b8c6' : '#17c1ff',
     cursor: 'pointer',
     transition: 'filter 0.2s ease',
   },
   dotGlow: {
-    fill: 'rgba(23, 193, 255, 0.2)',
+    fill: isKitz ? 'rgba(20, 184, 198, 0.25)' : 'rgba(23, 193, 255, 0.2)',
     pointerEvents: 'none' as const,
   },
-};
+});
 
 interface ClusterTooltipData {
   type: 'cluster';
@@ -54,7 +55,7 @@ const MAP_CONFIG = {
   geoMaxLng: 190.486279,
   geoMaxLat: 83.600842,
   geoMinLat: -58.508473,
-  minZoom: 0.5,
+  minZoom: 1,
   maxZoom: 25,
   clusterZoomThreshold: 2.5,
 };
@@ -100,6 +101,7 @@ interface Individual {
 }
 
 export default function WorldMap() {
+  const { mode } = useSnowMode();
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [viewBox, setViewBox] = useState({
@@ -132,6 +134,9 @@ export default function WorldMap() {
 
   // Scale dots inversely with zoom so they stay same screen size
   const dotScale = 1 / zoom;
+
+  // Theme-aware dot styles
+  const mapStyles = useMemo(() => getMapStyles(mode === 'kitz'), [mode]);
 
   const { countryCounts, clusters, individuals } = useMemo(() => {
     // Group contributors by approximate location for clusters
@@ -250,20 +255,27 @@ export default function WorldMap() {
     svgElement.style.cssText = 'width: 100%; height: 100%; cursor: grab;';
 
     // Style country paths with faint borders and hover effects
+    // Theme-aware colors
+    const isKitz = mode === 'kitz';
+    const baseFill = isKitz ? 'rgba(0, 0, 0, 0.04)' : 'rgba(255, 255, 255, 0.03)';
+    const baseStroke = isKitz ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.15)';
+    const hoverFill = isKitz ? 'rgba(14, 116, 144, 0.15)' : 'rgba(23, 193, 255, 0.1)';
+    const hoverStroke = isKitz ? 'rgba(14, 116, 144, 0.4)' : 'rgba(23, 193, 255, 0.3)';
+
     const paths = svgElement.querySelectorAll('path');
     paths.forEach(path => {
-      path.style.fill = 'rgba(255, 255, 255, 0.03)';
-      path.style.stroke = 'rgba(255, 255, 255, 0.15)';
+      path.style.fill = baseFill;
+      path.style.stroke = baseStroke;
       path.style.strokeWidth = '0.5';
       path.style.transition = 'fill 0.2s ease, stroke 0.2s ease';
 
       path.addEventListener('mouseenter', () => {
-        path.style.fill = 'rgba(23, 193, 255, 0.1)';
-        path.style.stroke = 'rgba(23, 193, 255, 0.3)';
+        path.style.fill = hoverFill;
+        path.style.stroke = hoverStroke;
       });
       path.addEventListener('mouseleave', () => {
-        path.style.fill = 'rgba(255, 255, 255, 0.03)';
-        path.style.stroke = 'rgba(255, 255, 255, 0.15)';
+        path.style.fill = baseFill;
+        path.style.stroke = baseStroke;
       });
     });
 
@@ -273,7 +285,7 @@ export default function WorldMap() {
     return () => {
       svgElement.remove();
     };
-  }, []);
+  }, [mode]);
 
   // Update viewBox
   useEffect(() => {

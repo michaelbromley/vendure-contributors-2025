@@ -9,14 +9,18 @@ export default function Header() {
       <div className="absolute top-4 right-4 flex items-center gap-2">
         <button
           onClick={() => setMode(mode === 'vienna' ? 'kitz' : 'vienna')}
-          className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all text-xs"
+          className={`group flex items-center gap-2 px-3 py-1.5 rounded-full transition-all text-xs ${
+            mode === 'kitz'
+              ? 'bg-slate-900/10 hover:bg-slate-900/20 border border-slate-900/20 hover:border-slate-900/30 text-slate-800'
+              : 'bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white'
+          }`}
           title={mode === 'vienna' ? 'Switch to Kitzbühel mode' : 'Switch to Vienna mode'}
         >
-          <span className={`transition-opacity ${mode === 'vienna' ? 'opacity-100' : 'opacity-40'}`}>
+          <span className={`transition-opacity ${mode === 'vienna' ? 'opacity-100' : 'opacity-50'}`}>
             Vienna
           </span>
-          <span className="text-white/30">|</span>
-          <span className={`transition-opacity ${mode === 'kitz' ? 'opacity-100' : 'opacity-40'}`}>
+          <span className={mode === 'kitz' ? 'text-slate-400' : 'text-white/30'}>|</span>
+          <span className={`transition-opacity ${mode === 'kitz' ? 'opacity-100' : 'opacity-50'}`}>
             Kitzbühel
           </span>
           <span className="text-base ml-0.5">{mode === 'kitz' ? '🏔️' : '🏛️'}</span>
@@ -61,13 +65,19 @@ export default function Header() {
           <h1 className="font-extrabold leading-none m-0">
             <span
               className="block text-[2.5rem] md:text-[3.5rem] font-black tracking-[-2px] leading-[1.1] bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(135deg, #fff 0%, #a8d8ea 100%)' }}
+              style={{ backgroundImage: mode === 'kitz'
+                ? 'linear-gradient(135deg, #1f2937 0%, #374151 100%)'
+                : 'linear-gradient(135deg, #fff 0%, #a8d8ea 100%)'
+              }}
             >
               Community
             </span>
             <span
               className="block text-[2.5rem] md:text-[3.5rem] font-black tracking-[-2px] leading-[1.1] bg-clip-text text-transparent animate-shimmer bg-[length:200%_auto]"
-              style={{ backgroundImage: 'linear-gradient(135deg, #17c1ff 0%, #93c5fd 50%, #17c1ff 100%)' }}
+              style={{ backgroundImage: mode === 'kitz'
+                ? 'linear-gradient(135deg, #0891b2 0%, #0e7490 50%, #0891b2 100%)'
+                : 'linear-gradient(135deg, #17c1ff 0%, #93c5fd 50%, #17c1ff 100%)'
+              }}
             >
               Wrapped
             </span>
@@ -82,7 +92,9 @@ export default function Header() {
             <span className="w-10 h-px bg-gradient-to-r from-transparent via-vendure-primary/50 to-transparent" aria-hidden="true" />
           </div>
 
-          <p className="text-[1.1rem] text-[rgba(168,216,234,0.8)] mt-4 font-normal tracking-[0.5px]">
+          <p className={`text-[1.1rem] mt-4 font-normal tracking-[0.5px] ${
+            mode === 'kitz' ? 'text-slate-600' : 'text-[rgba(168,216,234,0.8)]'
+          }`}>
             Celebrating the humans who pushed Vendure forward
           </p>
         </div>

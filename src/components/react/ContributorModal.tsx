@@ -153,15 +153,21 @@ export default function ContributorModal({ member, onClose }: ContributorModalPr
                           {/* Issues bar (on top) */}
                           {issues > 0 && (
                             <div
-                              className="w-3/4 bg-vendure-purple rounded-t transition-all duration-500"
-                              style={{ height: `${Math.max(issueHeight, 8)}%` }}
+                              className="w-3/4 rounded-t transition-all duration-500 shadow-sm"
+                              style={{
+                                height: `${Math.max(issueHeight, 8)}%`,
+                                background: 'linear-gradient(180deg, #c4b5fd 0%, #a78bfa 50%, #8b5cf6 100%)',
+                              }}
                             />
                           )}
                           {/* Commits bar (bottom) */}
                           {commits > 0 && (
                             <div
-                              className={`w-3/4 bg-vendure-primary transition-all duration-500 ${issues > 0 ? '' : 'rounded-t'} rounded-b`}
-                              style={{ height: `${Math.max(commitHeight, 8)}%` }}
+                              className={`w-3/4 transition-all duration-500 shadow-sm ${issues > 0 ? '' : 'rounded-t'} rounded-b`}
+                              style={{
+                                height: `${Math.max(commitHeight, 8)}%`,
+                                background: 'linear-gradient(180deg, #67e8f9 0%, #22d3ee 50%, #06b6d4 100%)',
+                              }}
                             />
                           )}
                           {/* Empty state indicator */}

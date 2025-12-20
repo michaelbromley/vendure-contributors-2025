@@ -1,5 +1,5 @@
 import { useMemo, useState, useRef, useCallback } from 'react';
-import { useDataContext } from '../../App';
+import { useDataContext, useSnowMode } from '../../App';
 import type { Release } from '../../types';
 import {
   useFloating,
@@ -70,6 +70,8 @@ interface TooltipData {
 
 export default function MonthlyTrend() {
   const { allCommits, releases, members } = useDataContext();
+  const { mode } = useSnowMode();
+  const isKitz = mode === 'kitz';
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
   const isTooltipHoveredRef = useRef(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -249,16 +251,34 @@ export default function MonthlyTrend() {
           >
             <defs>
               <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#17c1ff" stopOpacity="0.3"/>
-                <stop offset="100%" stopColor="#17c1ff" stopOpacity="0"/>
+                <stop offset="0%" stopColor={isKitz ? '#14b8c6' : '#17c1ff'} stopOpacity="0.3"/>
+                <stop offset="100%" stopColor={isKitz ? '#14b8c6' : '#17c1ff'} stopOpacity="0"/>
               </linearGradient>
             </defs>
 
             {/* Grid lines */}
             {gridLines.map(({ y, val }) => (
               <g key={val}>
-                <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} style={chartStyles.gridLine} />
-                <text x={padding.left - 5} y={y} style={chartStyles.axisLabel} textAnchor="end" dy="0.3em">
+                <line
+                  x1={padding.left}
+                  y1={y}
+                  x2={width - padding.right}
+                  y2={y}
+                  style={{
+                    ...chartStyles.gridLine,
+                    stroke: isKitz ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                  }}
+                />
+                <text
+                  x={padding.left - 5}
+                  y={y}
+                  style={{
+                    ...chartStyles.axisLabel,
+                    fill: isKitz ? '#4b5563' : '#a8d8ea',
+                  }}
+                  textAnchor="end"
+                  dy="0.3em"
+                >
                   {val}
                 </text>
               </g>
@@ -277,6 +297,30 @@ export default function MonthlyTrend() {
                 const dotRadius = release.release_type === 'minor' ? 6 : 3;
                 const isMinor = release.release_type === 'minor';
 
+                // Theme-aware release colors
+                const releaseLineStyle = isMinor
+                  ? {
+                      ...chartStyles.releaseLineMinor,
+                      stroke: isKitz ? '#b45309' : '#fbbf24',
+                    }
+                  : {
+                      ...chartStyles.releaseLinePatch,
+                      stroke: isKitz ? 'rgba(180, 83, 9, 0.5)' : 'rgba(251, 191, 36, 0.5)',
+                    };
+
+                const releaseDotStyle = isMinor
+                  ? {
+                      ...chartStyles.releaseDotMinor,
+                      fill: isKitz ? '#b45309' : '#fbbf24',
+                      filter: isKitz
+                        ? 'drop-shadow(0 0 6px rgba(180, 83, 9, 0.8))'
+                        : 'drop-shadow(0 0 6px rgba(251, 191, 36, 0.8))',
+                    }
+                  : {
+                      ...chartStyles.releaseDotPatch,
+                      fill: isKitz ? 'rgba(180, 83, 9, 0.6)' : 'rgba(251, 191, 36, 0.5)',
+                    };
+
                 return (
                   <g key={release.tag_name}>
                     <line
@@ -284,14 +328,14 @@ export default function MonthlyTrend() {
                       y1={padding.top}
                       x2={markerX}
                       y2={padding.top + chartHeight}
-                      style={isMinor ? chartStyles.releaseLineMinor : chartStyles.releaseLinePatch}
+                      style={releaseLineStyle}
                     />
                     <circle
                       cx={markerX}
                       cy={padding.top - 8}
                       r={dotRadius}
                       className="trend-release-dot"
-                      style={isMinor ? chartStyles.releaseDotMinor : chartStyles.releaseDotPatch}
+                      style={releaseDotStyle}
                       onMouseEnter={(e) => handleReleaseEnter(release, e.currentTarget)}
                       onMouseLeave={handleElementLeave}
                     />
@@ -302,7 +346,13 @@ export default function MonthlyTrend() {
 
             {/* Area and line */}
             <path d={areaPath} style={chartStyles.area} />
-            <path d={linePath} style={chartStyles.line} />
+            <path
+              d={linePath}
+              style={{
+                ...chartStyles.line,
+                stroke: isKitz ? '#14b8c6' : '#17c1ff',
+              }}
+            />
 
             {/* Data points */}
             {points.map((point) => (
@@ -312,7 +362,11 @@ export default function MonthlyTrend() {
                 cy={point.y}
                 r={5}
                 className="trend-data-point"
-                style={chartStyles.dataPoint}
+                style={{
+                  ...chartStyles.dataPoint,
+                  fill: isKitz ? '#14b8c6' : '#17c1ff',
+                  stroke: isKitz ? '#e5e7eb' : '#0a1929',
+                }}
                 onMouseEnter={(e) => handlePointEnter(point, e.currentTarget)}
                 onMouseLeave={handleElementLeave}
               />
@@ -324,7 +378,10 @@ export default function MonthlyTrend() {
                 key={month}
                 x={padding.left + (i / (months.length - 1 || 1)) * (width - padding.left - padding.right)}
                 y={height - 8}
-                style={chartStyles.axisLabel}
+                style={{
+                  ...chartStyles.axisLabel,
+                  fill: isKitz ? '#4b5563' : '#a8d8ea',
+                }}
                 textAnchor="middle"
               >
                 {month}

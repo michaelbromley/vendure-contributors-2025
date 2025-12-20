@@ -54,6 +54,30 @@ body {
   background: linear-gradient(135deg, #0a1929 0%, #0d2137 50%, #0a1929 100%);
   color: var(--color-text-primary);
   min-height: 100vh;
+  transition: background 0.5s ease, color 0.3s ease;
+}
+
+/* Kitzbühel snowy white theme */
+[data-theme="kitz"] {
+  --color-bg-dark: #e5e7eb;
+  --color-bg-card: rgba(255, 255, 255, 0.5);
+  --color-bg-card-hover: rgba(255, 255, 255, 0.65);
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #6b7280;
+  --color-vendure-primary: #14b8c6;
+  --color-vendure-primary-light: #5eead4;
+  --color-vendure-primary-dark: #0891b2;
+  --color-heatmap-0: rgba(20, 184, 198, 0.15);
+  --color-heatmap-1: rgba(20, 184, 198, 0.35);
+  --color-heatmap-2: rgba(20, 184, 198, 0.55);
+  --color-heatmap-3: rgba(20, 184, 198, 0.8);
+  --color-heatmap-4: #0d9ba8;
+}
+
+[data-theme="kitz"] body {
+  background: linear-gradient(135deg, #d1d5db 0%, #e5e7eb 30%, #d4d8dd 70%, #e2e5e9 100%);
+  color: var(--color-text-primary);
 }
 
 /* Scrollbar styling */
@@ -82,11 +106,30 @@ body {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass-card:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(23, 193, 255, 0.3);
+}
+
+/* Kitz theme glass cards - frosty grey glass */
+[data-theme="kitz"] .glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="kitz"] .glass-card:hover {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(20, 184, 198, 0.3);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 /* Glow effects */
@@ -102,6 +145,118 @@ body {
 .text-gradient {
   @apply bg-clip-text text-transparent;
   background-image: linear-gradient(135deg, #17c1ff 0%, #a78bfa 100%);
+}
+
+[data-theme="kitz"] .text-gradient {
+  background-image: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+}
+
+/* Kitz theme scrollbars */
+[data-theme="kitz"] ::-webkit-scrollbar-track {
+  background: rgba(20, 184, 198, 0.1);
+}
+
+[data-theme="kitz"] ::-webkit-scrollbar-thumb {
+  background: rgba(20, 184, 198, 0.3);
+}
+
+[data-theme="kitz"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(20, 184, 198, 0.5);
+}
+
+/* Kitz theme - override white text to dark */
+[data-theme="kitz"] .text-white {
+  color: #1f2937;
+}
+
+[data-theme="kitz"] .text-white\/80 {
+  color: rgba(31, 41, 55, 0.8);
+}
+
+[data-theme="kitz"] .text-text-primary {
+  color: #1f2937;
+}
+
+[data-theme="kitz"] .text-text-secondary {
+  color: #4b5563;
+}
+
+[data-theme="kitz"] .text-text-muted {
+  color: #6b7280;
+}
+
+/* Release colors in kitz - make more visible */
+[data-theme="kitz"] .text-release-minor {
+  color: #b45309;
+}
+
+/* Chart grid lines in kitz */
+[data-theme="kitz"] .stroke-white\/10 {
+  stroke: rgba(0, 0, 0, 0.1);
+}
+
+/* Contributor cards in kitz theme */
+[data-theme="kitz"] [role="button"] {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="kitz"] [role="button"]:hover {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Focus ring in kitz theme */
+[data-theme="kitz"] :focus-visible {
+  --tw-ring-offset-color: #e5e7eb;
+}
+
+/* Modal overlay and content in kitz theme */
+[data-theme="kitz"] [role="dialog"] {
+  background: rgba(150, 160, 170, 0.6);
+}
+
+[data-theme="kitz"] [role="dialog"] > div.glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Modal inner elements in kitz theme */
+[data-theme="kitz"] [role="dialog"] .hover\:bg-white\/10:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="kitz"] [role="dialog"] .bg-white\/5 {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="kitz"] [role="dialog"] .bg-white\/10 {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="kitz"] [role="dialog"] .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="kitz"] [role="dialog"] .border-white\/5 {
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="kitz"] [role="dialog"] .bg-bg-dark\/50 {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="kitz"] [role="dialog"] .bg-bg-card\/95 {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="kitz"] .bg-bg-card\/95 {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="kitz"] .bg-bg-dark\/50 {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 /* Animations */

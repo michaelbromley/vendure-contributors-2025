@@ -30,7 +30,7 @@ const SNOW_CONFIG = {
     mouseForce: 0.12,
   },
   kitz: {
-    count: 200,
+    count: 240,
     sizeMin: 0.4,
     sizeMax: 2.2,
     speedMin: 0.5,
@@ -137,9 +137,9 @@ export default function Snowflakes({ mode }: SnowflakesProps) {
     for (let i = 0; i < config.count; i++) {
       const span = document.createElement('span');
       span.className = 'fixed pointer-events-none select-none';
-      // Kitz mode: brighter blue-white like alpine sky, Vienna: pure white
+      // Kitz mode: darker grey-blue tones visible on light bg, Vienna: white on dark bg
       span.style.color = mode === 'kitz'
-        ? `hsl(195, ${70 + Math.random() * 30}%, ${85 + Math.random() * 15}%)`
+        ? `hsl(210, ${15 + Math.random() * 15}%, ${50 + Math.random() * 20}%)`
         : 'white';
       span.textContent = FLAKE_CHARS[Math.floor(Math.random() * FLAKE_CHARS.length)];
 
