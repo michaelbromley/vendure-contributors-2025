@@ -141,21 +141,21 @@ export default function ContributorModal({ member, onClose }: ContributorModalPr
                     const issueHeight = (issues / maxActivity) * 100;
 
                     return (
-                      <div key={month} className="flex-1 flex flex-col items-center gap-1">
-                        {/* Number label */}
-                        {total > 0 && (
-                          <span className="text-xs font-medium text-vendure-primary">
-                            {total}
-                          </span>
-                        )}
-                        {/* Stacked bars container */}
-                        <div className="w-full flex flex-col items-center justify-end h-20">
+                      <div key={month} className="flex-1 flex flex-col items-center">
+                        {/* Stacked bars container with number */}
+                        <div className="w-full flex flex-col items-center justify-end h-24">
+                          {/* Number label - sits directly above bars */}
+                          {total > 0 && (
+                            <span className="text-xs font-medium text-vendure-primary mb-1">
+                              {total}
+                            </span>
+                          )}
                           {/* Issues bar (on top) */}
                           {issues > 0 && (
                             <div
                               className="w-3/4 rounded-t transition-all duration-500 shadow-sm"
                               style={{
-                                height: `${Math.max(issueHeight, 8)}%`,
+                                height: `${Math.max(issueHeight, 8) * 0.8}%`,
                                 background: 'linear-gradient(180deg, #c4b5fd 0%, #a78bfa 50%, #8b5cf6 100%)',
                               }}
                             />
@@ -165,7 +165,7 @@ export default function ContributorModal({ member, onClose }: ContributorModalPr
                             <div
                               className={`w-3/4 transition-all duration-500 shadow-sm ${issues > 0 ? '' : 'rounded-t'} rounded-b`}
                               style={{
-                                height: `${Math.max(commitHeight, 8)}%`,
+                                height: `${Math.max(commitHeight, 8) * 0.8}%`,
                                 background: 'linear-gradient(180deg, #67e8f9 0%, #22d3ee 50%, #06b6d4 100%)',
                               }}
                             />
@@ -176,7 +176,7 @@ export default function ContributorModal({ member, onClose }: ContributorModalPr
                           )}
                         </div>
                         {/* Month label */}
-                        <span className="text-[10px] text-text-muted">{month}</span>
+                        <span className="text-[10px] text-text-muted mt-1">{month}</span>
                       </div>
                     );
                   })}

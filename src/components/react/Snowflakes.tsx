@@ -10,6 +10,8 @@ interface Snowflake {
   vy: number;
   baseVy: number;
   size: number;
+  rotation: number;
+  rotationSpeed: number;
 }
 
 const FLAKE_CHARS = ['❄', '❅', '❆', '✻', '✼', '❋'];
@@ -114,9 +116,12 @@ export default function Snowflakes({ mode }: SnowflakesProps) {
         flake.x = -20;
         flake.baseX = flake.x;
       }
-      
+
+      // Update rotation - influenced slightly by horizontal velocity for realism
+      flake.rotation += flake.rotationSpeed + flake.vx * 0.5;
+
       // Update DOM
-      flake.element.style.transform = `translate(${flake.x}px, ${flake.y}px)`;
+      flake.element.style.transform = `translate(${flake.x}px, ${flake.y}px) rotate(${flake.rotation}deg)`;
     }
     
     animationRef.current = requestAnimationFrame(animate);
@@ -147,14 +152,17 @@ export default function Snowflakes({ mode }: SnowflakesProps) {
       const x = Math.random() * viewportWidth;
       const y = Math.random() * viewportHeight;
       const baseVy = config.speedMin + Math.random() * (config.speedMax - config.speedMin);
+      const rotation = Math.random() * 360;
+      // Gentle rotation: -0.3 to 0.3 deg per frame, some clockwise some counter-clockwise
+      const rotationSpeed = (Math.random() - 0.5) * 0.6;
 
       span.style.fontSize = `${size}rem`;
       span.style.opacity = `${config.opacityMin + Math.random() * (config.opacityMax - config.opacityMin)}`;
-      span.style.transform = `translate(${x}px, ${y}px)`;
+      span.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
       span.style.willChange = 'transform';
-      
+
       container.appendChild(span);
-      
+
       snowflakesRef.current.push({
         element: span,
         x,
@@ -163,7 +171,9 @@ export default function Snowflakes({ mode }: SnowflakesProps) {
         vx: 0,
         vy: baseVy,
         baseVy,
-        size
+        size,
+        rotation,
+        rotationSpeed
       });
     }
     

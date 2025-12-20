@@ -116,20 +116,20 @@ body {
 
 /* Kitz theme glass cards - frosty grey glass */
 [data-theme="kitz"] .glass-card {
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow:
     0 4px 20px rgba(0, 0, 0, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(12px);
 }
 
 [data-theme="kitz"] .glass-card:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.3);
   border-color: rgba(20, 184, 198, 0.3);
   box-shadow:
     0 8px 30px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 /* Glow effects */
