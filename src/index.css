@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/* Custom theme for Vendure Community Wrapped */
+@theme {
+  /* Brand Colors */
+  --color-vendure-primary: #17c1ff;
+  --color-vendure-primary-light: #93c5fd;
+  --color-vendure-primary-dark: #0d6efd;
+  --color-vendure-accent: #60a5fa;
+  --color-vendure-accent-light: #bfdbfe;
+  --color-vendure-purple: #a78bfa;
+  --color-vendure-purple-dark: #7c3aed;
+  
+  /* Background colors */
+  --color-bg-dark: #0a1929;
+  --color-bg-card: rgba(23, 42, 69, 0.8);
+  --color-bg-card-hover: rgba(23, 42, 69, 0.95);
+  
+  /* Text colors */
+  --color-text-primary: #e0f2fe;
+  --color-text-secondary: #a8d8ea;
+  --color-text-muted: #64748b;
+  
+  /* Commit type colors */
+  --color-commit-feat: #17c1ff;
+  --color-commit-fix: #f87171;
+  --color-commit-docs: #a78bfa;
+  --color-commit-refactor: #fbbf24;
+  --color-commit-chore: #64748b;
+  --color-commit-test: #34d399;
+  
+  /* Release colors */
+  --color-release-minor: #fbbf24;
+  --color-release-patch: rgba(251, 191, 36, 0.5);
+  
+  /* Heatmap levels */
+  --color-heatmap-0: rgba(255, 255, 255, 0.1);
+  --color-heatmap-1: rgba(23, 193, 255, 0.25);
+  --color-heatmap-2: rgba(23, 193, 255, 0.5);
+  --color-heatmap-3: rgba(23, 193, 255, 0.75);
+  --color-heatmap-4: #17c1ff;
+  
+  /* Fonts */
+  --font-sans: 'Inter', 'Public Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans antialiased;
+  background: linear-gradient(135deg, #0a1929 0%, #0d2137 50%, #0a1929 100%);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(23, 193, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(23, 193, 255, 0.5);
+}
+
+/* Utility class for glassmorphism cards */
+.glass-card {
+  @apply rounded-2xl backdrop-blur-sm;
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card:hover {
+  background: var(--color-bg-card-hover);
+  border-color: rgba(23, 193, 255, 0.3);
+}
+
+/* Glow effects */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(23, 193, 255, 0.3);
+}
+
+.glow-primary-strong {
+  box-shadow: 0 0 40px rgba(23, 193, 255, 0.5);
+}
+
+/* Text gradient - used across multiple components */
+.text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #17c1ff 0%, #a78bfa 100%);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(23, 193, 255, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(23, 193, 255, 0.6); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Snowflake animations */
+@keyframes snowfall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+.snowflake {
+  @apply fixed pointer-events-none text-white/20;
+  animation: snowfall linear infinite;
+}
+
+/* Screen reader only */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* Focus visible styles */
+:focus-visible {
+  @apply outline-none ring-2 ring-offset-2;
+  --tw-ring-color: var(--color-vendure-primary);
+  --tw-ring-offset-color: var(--color-bg-dark);
+}
