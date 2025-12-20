@@ -1,51 +1,76 @@
 export default function Header() {
   return (
-    <header className="relative py-12 md:py-20 text-center overflow-hidden">
+    <header className="text-center pt-16 pb-12 relative z-10 overflow-hidden">
       {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-radial from-vendure-primary/10 via-transparent to-transparent opacity-50" />
-      
-      <div className="relative z-10 max-w-4xl mx-auto px-4">
-        {/* Vendure Logo */}
-        <div className="flex justify-center mb-4">
-          <svg 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 40 28" 
-            className="w-14 h-10 md:w-16 md:h-12"
-            aria-hidden="true"
-          >
-            <path d="M10.746 12.685v9.263c0 .166.093.323.237.405l8.407 4.762c.302.17.671.17.973 0l8.407-4.762a.466.466 0 0 0 .237-.405v-9.263a.476.476 0 0 0-.714-.404l-7.93 4.49a.996.996 0 0 1-.973 0l-7.93-4.49a.476.476 0 0 0-.714.404Z" fill="#17c1ff"/>
-            <path d="M8.893.75.486 5.51A.948.948 0 0 0 0 6.333v9.522c0 .167.092.324.237.405l8.176 4.633a.476.476 0 0 0 .714-.405v-8.982c0-.34.185-.655.487-.824l7.93-4.491a.463.463 0 0 0 0-.81L9.366.75a.48.48 0 0 0-.477 0h.003ZM30.86.74l8.407 4.76c.301.17.486.487.486.825v9.522a.47.47 0 0 1-.237.405l-8.176 4.633a.476.476 0 0 1-.714-.405v-8.982a.945.945 0 0 0-.486-.824l-7.93-4.491a.463.463 0 0 1 0-.81L30.386.742a.48.48 0 0 1 .477 0h-.003Z" fill="#17c1ff"/>
-          </svg>
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] pointer-events-none -z-10"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(23, 193, 255, 0.15) 0%, transparent 70%)' }}
+        aria-hidden="true"
+      />
+
+      <div className="flex items-center justify-center gap-8 max-w-[1000px] mx-auto relative">
+        {/* Left decoration */}
+        <div className="hidden md:flex items-center gap-4 opacity-60">
+          <div className="w-20 h-0.5 bg-gradient-to-r from-transparent to-vendure-primary" />
+          <div className="w-2 h-2 bg-vendure-primary rounded-full shadow-[0_0_10px_rgba(23,193,255,0.8)] animate-pulse-dot" />
         </div>
-        
-        {/* Eyebrow */}
-        <p className="text-vendure-primary/80 text-xs md:text-sm tracking-[0.2em] uppercase mb-1">
-          Vendure Open Source
-        </p>
-        
-        {/* Title - Community Wrapped on same line */}
-        <h1 className="mb-2">
-          <span 
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold italic leading-tight bg-clip-text text-transparent"
-            style={{ backgroundImage: 'linear-gradient(180deg, #17c1ff 0%, #93c5fd 50%, #60a5fa 100%)' }}
-          >
-            Community Wrapped
+
+        {/* Main content */}
+        <div className="flex flex-col items-center gap-2">
+          {/* Vendure Logo */}
+          <div className="mb-2 animate-float">
+            <svg
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 40 28"
+              className="w-[60px] h-[42px] md:w-20 md:h-14 drop-shadow-[0_0_20px_rgba(23,193,255,0.6)] hover:scale-110 transition-transform duration-300"
+              aria-hidden="true"
+            >
+              <path d="M10.746 12.685v9.263c0 .166.093.323.237.405l8.407 4.762c.302.17.671.17.973 0l8.407-4.762a.466.466 0 0 0 .237-.405v-9.263a.476.476 0 0 0-.714-.404l-7.93 4.49a.996.996 0 0 1-.973 0l-7.93-4.49a.476.476 0 0 0-.714.404Z" fill="#17c1ff"/>
+              <path d="M8.893.75.486 5.51A.948.948 0 0 0 0 6.333v9.522c0 .167.092.324.237.405l8.176 4.633a.476.476 0 0 0 .714-.405v-8.982c0-.34.185-.655.487-.824l7.93-4.491a.463.463 0 0 0 0-.81L9.366.75a.48.48 0 0 0-.477 0h.003ZM30.86.74l8.407 4.76c.301.17.486.487.486.825v9.522a.47.47 0 0 1-.237.405l-8.176 4.633a.476.476 0 0 1-.714-.405v-8.982a.945.945 0 0 0-.486-.824l-7.93-4.491a.463.463 0 0 1 0-.81L30.386.742a.48.48 0 0 1 .477 0h-.003Z" fill="#17c1ff"/>
+            </svg>
+          </div>
+
+          {/* Eyebrow */}
+          <span className="text-xs font-semibold uppercase tracking-[4px] text-vendure-primary opacity-90 mb-1">
+            Vendure Open Source
           </span>
-        </h1>
-        
-        {/* Year with lines */}
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <span className="h-px w-12 md:w-20 bg-gradient-to-r from-transparent to-vendure-primary/60" aria-hidden="true" />
-          <span className="text-2xl md:text-3xl font-bold text-vendure-primary tracking-wider">
-            2025
-          </span>
-          <span className="h-px w-12 md:w-20 bg-gradient-to-l from-transparent to-vendure-primary/60" aria-hidden="true" />
+
+          {/* Title - Community and Wrapped on separate lines */}
+          <h1 className="font-extrabold leading-none m-0">
+            <span
+              className="block text-[2.5rem] md:text-[3.5rem] font-black tracking-[-2px] leading-[1.1] bg-clip-text text-transparent"
+              style={{ backgroundImage: 'linear-gradient(135deg, #fff 0%, #a8d8ea 100%)' }}
+            >
+              Community
+            </span>
+            <span
+              className="block text-[2.5rem] md:text-[3.5rem] font-black tracking-[-2px] leading-[1.1] bg-clip-text text-transparent animate-shimmer bg-[length:200%_auto]"
+              style={{ backgroundImage: 'linear-gradient(135deg, #17c1ff 0%, #93c5fd 50%, #17c1ff 100%)' }}
+            >
+              Wrapped
+            </span>
+          </h1>
+
+          {/* Year with lines */}
+          <div className="flex items-center gap-4 mt-3">
+            <span className="w-10 h-px bg-gradient-to-r from-transparent via-vendure-primary/50 to-transparent" aria-hidden="true" />
+            <span className="text-xl md:text-2xl font-extrabold text-vendure-primary tracking-[8px] drop-shadow-[0_0_20px_rgba(23,193,255,0.5)]">
+              2025
+            </span>
+            <span className="w-10 h-px bg-gradient-to-r from-transparent via-vendure-primary/50 to-transparent" aria-hidden="true" />
+          </div>
+
+          <p className="text-[1.1rem] text-[rgba(168,216,234,0.8)] mt-4 font-normal tracking-[0.5px]">
+            Celebrating the humans who pushed Vendure forward
+          </p>
         </div>
-        
-        <p className="text-text-secondary text-base md:text-lg max-w-xl mx-auto">
-          Celebrating the humans who pushed Vendure forward
-        </p>
+
+        {/* Right decoration */}
+        <div className="hidden md:flex items-center gap-4 opacity-60">
+          <div className="w-2 h-2 bg-vendure-primary rounded-full shadow-[0_0_10px_rgba(23,193,255,0.8)] animate-pulse-dot" />
+          <div className="w-20 h-0.5 bg-gradient-to-l from-transparent to-vendure-primary" />
+        </div>
       </div>
     </header>
   );

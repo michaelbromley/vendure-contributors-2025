@@ -58,14 +58,16 @@ export default function App() {
               Community Activity
             </h2>
             
-            {/* Visualizations Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-              <ActivityHeatmap />
+            {/* Visualizations Grid - heatmap 2/3, donut 1/3 on desktop */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-2">
+                <ActivityHeatmap />
+              </div>
               <DonutChart />
+              <div className="md:col-span-3">
+                <MonthlyTrend />
+              </div>
             </div>
-            
-            {/* Full width chart */}
-            <MonthlyTrend />
           </section>
           
           <WorldMap />

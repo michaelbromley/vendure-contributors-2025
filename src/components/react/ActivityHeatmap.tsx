@@ -1,7 +1,14 @@
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useRef, useCallback } from 'react';
 import { useDataContext } from '../../App';
 import type { Release } from '../../types';
-import Tooltip from './Tooltip';
+import {
+  useFloating,
+  offset,
+  flip,
+  shift,
+  FloatingPortal,
+  autoUpdate,
+} from '@floating-ui/react';
 
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -18,46 +25,6 @@ interface TooltipData {
   date: string;
   commits: number;
   release?: Release;
-  x: number;
-  y: number;
-}
-
-interface CellProps {
-  date: string;
-  level: number;
-  release?: Release;
-  onHover: (date: string, e: React.MouseEvent) => void;
-  onLeave: () => void;
-  onClick: (date: string) => void;
-}
-
-function HeatmapCell({ date, level, release, onHover, onLeave, onClick }: CellProps) {
-  const baseStyle: React.CSSProperties = {
-    width: 12,
-    height: 12,
-    borderRadius: 2,
-    background: HEATMAP_COLORS[level as keyof typeof HEATMAP_COLORS],
-    transition: 'transform 0.2s, box-shadow 0.2s',
-    cursor: release ? 'pointer' : 'default',
-  };
-
-  // Add release glow
-  if (release?.release_type === 'minor') {
-    baseStyle.boxShadow = '0 0 8px rgba(251, 191, 36, 0.8), inset 0 0 0 1px rgba(251, 191, 36, 0.6)';
-  } else if (release?.release_type === 'patch') {
-    baseStyle.boxShadow = '0 0 4px rgba(251, 191, 36, 0.4), inset 0 0 0 1px rgba(251, 191, 36, 0.3)';
-  }
-
-  return (
-    <div
-      style={baseStyle}
-      className="hover:scale-130 hover:z-10"
-      role="gridcell"
-      onMouseEnter={(e) => onHover(date, e)}
-      onMouseLeave={onLeave}
-      onClick={() => onClick(date)}
-    />
-  );
 }
 
 function LegendCell({ level, isRelease, releaseType }: { level?: number; isRelease?: boolean; releaseType?: 'minor' | 'patch' }) {
@@ -78,89 +45,160 @@ function LegendCell({ level, isRelease, releaseType }: { level?: number; isRelea
 }
 
 export default function ActivityHeatmap() {
-  const { allCommits, releases } = useDataContext();
+  const { allCommits, releases, members } = useDataContext();
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  
+  const [isTooltipHovered, setIsTooltipHovered] = useState(false);
+  const isTooltipHoveredRef = useRef(false);
+  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+
+  const { refs, floatingStyles, context } = useFloating({
+    open: !!tooltip,
+    placement: 'top',
+    middleware: [
+      offset(8),
+      flip({ fallbackAxisSideDirection: 'start' }),
+      shift({ padding: 10 }),
+    ],
+    whileElementsMounted: autoUpdate,
+  });
+
+  // Simple CSS transition instead of useTransitionStyles for reliability
+  const isOpen = !!tooltip;
+
   const { weeks, commitsByDate, releasesByDate, maxCommits } = useMemo(() => {
     const commitsByDate: Record<string, number> = {};
     const releasesByDate: Record<string, Release> = {};
-    
+
     allCommits.forEach(commit => {
       const date = new Date(commit.date).toISOString().split('T')[0];
       commitsByDate[date] = (commitsByDate[date] || 0) + 1;
     });
-    
+
     releases.forEach(r => {
       releasesByDate[r.published_at] = r;
     });
-    
+
     const startDate = new Date('2025-01-01');
     const endDate = new Date();
     const weeks: string[][] = [];
     let currentWeek: string[] = [];
-    
+
     const firstDayOfWeek = startDate.getDay();
     for (let i = 0; i < firstDayOfWeek; i++) {
       currentWeek.push('');
     }
-    
+
     const current = new Date(startDate);
     while (current <= endDate) {
       const dateStr = current.toISOString().split('T')[0];
       currentWeek.push(dateStr);
-      
+
       if (current.getDay() === 6) {
         weeks.push(currentWeek);
         currentWeek = [];
       }
       current.setDate(current.getDate() + 1);
     }
-    
+
     if (currentWeek.length > 0) {
       weeks.push(currentWeek);
     }
-    
+
     const maxCommits = Math.max(...Object.values(commitsByDate), 1);
-    
+
     return { weeks, commitsByDate, releasesByDate, maxCommits };
   }, [allCommits, releases]);
-  
+
+  // Create a lookup map for member avatars
+  const membersByLogin = useMemo(() => {
+    const map: Record<string, { avatar_url: string; html_url: string }> = {};
+    members.forEach(m => {
+      map[m.login] = { avatar_url: m.avatar_url, html_url: m.html_url };
+    });
+    return map;
+  }, [members]);
+
   const currentMonth = new Date().getMonth();
   const monthLabels = MONTH_NAMES.slice(0, currentMonth + 1);
-  
+
   const minorCount = releases.filter(r => r.release_type === 'minor').length;
   const patchCount = releases.filter(r => r.release_type === 'patch').length;
-  
-  const handleCellHover = (date: string, e: React.MouseEvent) => {
+
+  // Clear any pending hide timeout
+  const clearHideTimeout = useCallback(() => {
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = undefined;
+    }
+  }, []);
+
+  // Schedule tooltip hide with delay
+  const scheduleHide = useCallback(() => {
+    clearHideTimeout();
+    hideTimeoutRef.current = setTimeout(() => {
+      // Only hide if not hovering the tooltip itself - use ref for current value
+      if (!isTooltipHoveredRef.current) {
+        setTooltip(null);
+      }
+    }, 150);
+  }, [clearHideTimeout]);
+
+  const handleCellEnter = useCallback((date: string, element: HTMLElement) => {
     if (!date) return;
-    const rect = (e.target as HTMLElement).getBoundingClientRect();
+
+    clearHideTimeout();
+    refs.setReference(element);
     setTooltip({
       date,
       commits: commitsByDate[date] || 0,
       release: releasesByDate[date],
-      x: rect.right,
-      y: rect.top,
     });
-  };
-  
-  const handleCellClick = (date: string) => {
-    const release = releasesByDate[date];
-    if (release) {
-      window.open(release.html_url, '_blank');
-    }
-  };
-  
+  }, [commitsByDate, releasesByDate, refs, clearHideTimeout]);
+
+  const handleCellLeave = useCallback(() => {
+    scheduleHide();
+  }, [scheduleHide]);
+
+  const handleTooltipEnter = useCallback(() => {
+    clearHideTimeout();
+    isTooltipHoveredRef.current = true;
+    setIsTooltipHovered(true);
+  }, [clearHideTimeout]);
+
+  const handleTooltipLeave = useCallback(() => {
+    isTooltipHoveredRef.current = false;
+    setIsTooltipHovered(false);
+    scheduleHide();
+  }, [scheduleHide]);
+
   const getLevel = (count: number) => {
     if (count === 0) return 0;
     return Math.min(4, Math.ceil((count / maxCommits) * 4));
   };
-  
+
+  const getCellStyle = (level: number, release?: Release): React.CSSProperties => {
+    const style: React.CSSProperties = {
+      width: 12,
+      height: 12,
+      borderRadius: 2,
+      background: HEATMAP_COLORS[level as keyof typeof HEATMAP_COLORS],
+      transition: 'transform 0.2s, box-shadow 0.2s',
+    };
+
+    if (release?.release_type === 'minor') {
+      style.boxShadow = '0 0 8px rgba(251, 191, 36, 0.8), inset 0 0 0 1px rgba(251, 191, 36, 0.6)';
+    } else if (release?.release_type === 'patch') {
+      style.boxShadow = '0 0 4px rgba(251, 191, 36, 0.4), inset 0 0 0 1px rgba(251, 191, 36, 0.3)';
+    }
+
+    return style;
+  };
+
   return (
     <div className="glass-card p-4 md:p-6" role="region" aria-label="Activity heatmap">
       <h3 className="text-lg font-semibold text-text-primary mb-4">Activity Heatmap</h3>
-      
-      <div className="overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0" ref={containerRef}>
+
+      <div className="overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0">
         <div className="min-w-[700px] md:min-w-0">
           {/* Month labels */}
           <div className="flex mb-1 text-xs text-text-secondary">
@@ -168,7 +206,7 @@ export default function ActivityHeatmap() {
               <span key={m} className="flex-1 text-center">{m}</span>
             ))}
           </div>
-          
+
           {/* Heatmap grid */}
           <div className="flex gap-[3px]" role="grid" aria-label="Commit activity calendar">
             {weeks.map((week, wi) => (
@@ -177,20 +215,19 @@ export default function ActivityHeatmap() {
                   if (!date) {
                     return <div key={di} className="w-3 h-3" />;
                   }
-                  
+
                   const count = commitsByDate[date] || 0;
                   const level = getLevel(count);
                   const release = releasesByDate[date];
-                  
+
                   return (
-                    <HeatmapCell
+                    <div
                       key={date}
-                      date={date}
-                      level={level}
-                      release={release}
-                      onHover={handleCellHover}
-                      onLeave={() => setTooltip(null)}
-                      onClick={handleCellClick}
+                      style={getCellStyle(level, release)}
+                      className="hover:scale-125 hover:z-10"
+                      role="gridcell"
+                      onMouseEnter={(e) => handleCellEnter(date, e.currentTarget)}
+                      onMouseLeave={handleCellLeave}
                     />
                   );
                 })}
@@ -199,7 +236,7 @@ export default function ActivityHeatmap() {
           </div>
         </div>
       </div>
-      
+
       {/* Legend */}
       <div className="flex items-center justify-end gap-2 mt-4 text-xs text-text-secondary flex-wrap">
         <span>Less</span>
@@ -213,37 +250,59 @@ export default function ActivityHeatmap() {
         <LegendCell isRelease releaseType="patch" />
         <span>Patch ({patchCount})</span>
       </div>
-      
-      {tooltip && (
-        <Tooltip x={tooltip.x} y={tooltip.y}>
-          <HeatmapTooltipContent 
-            date={tooltip.date} 
-            commits={tooltip.commits} 
-            release={tooltip.release} 
-          />
-        </Tooltip>
+
+      {/* Tooltip using floating-ui - interactive so users can click links */}
+      {isOpen && tooltip && (
+        <FloatingPortal>
+          <div
+            ref={refs.setFloating}
+            style={{
+              ...floatingStyles,
+              zIndex: 10000,
+              maxWidth: 'min(320px, calc(100vw - 20px))',
+            }}
+            onMouseEnter={handleTooltipEnter}
+            onMouseLeave={handleTooltipLeave}
+          >
+            <div className="bg-bg-dark/95 backdrop-blur-sm rounded-lg border border-white/10 shadow-xl p-3 text-sm">
+              <HeatmapTooltipContent
+                date={tooltip.date}
+                commits={tooltip.commits}
+                release={tooltip.release}
+                membersByLogin={membersByLogin}
+              />
+            </div>
+          </div>
+        </FloatingPortal>
       )}
     </div>
   );
 }
 
-function HeatmapTooltipContent({ date, commits, release }: { date: string; commits: number; release?: Release }) {
+interface HeatmapTooltipProps {
+  date: string;
+  commits: number;
+  release?: Release;
+  membersByLogin: Record<string, { avatar_url: string; html_url: string }>;
+}
+
+function HeatmapTooltipContent({ date, commits, release, membersByLogin }: HeatmapTooltipProps) {
   const dateFormatted = new Date(date).toLocaleDateString('en-US', {
     weekday: 'short',
     year: 'numeric',
     month: 'short',
     day: 'numeric'
   });
-  
+
   return (
-    <div className="min-w-[200px]">
+    <>
       <div className="text-white font-medium">{dateFormatted}</div>
       <div className="text-text-secondary mt-1">
         <span className="text-vendure-primary font-semibold">{commits}</span> commit{commits !== 1 ? 's' : ''}
       </div>
-      
+
       {release && (
-        <div 
+        <div
           className="mt-3 p-2 rounded border-l-2"
           style={{
             borderColor: release.release_type === 'minor' ? '#fbbf24' : 'rgba(251, 191, 36, 0.5)',
@@ -252,21 +311,50 @@ function HeatmapTooltipContent({ date, commits, release }: { date: string; commi
         >
           <div className="flex items-center gap-2">
             <span>🚀</span>
-            <span 
-              className="font-semibold"
+            <a
+              href={release.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold hover:underline"
               style={{ color: release.release_type === 'minor' ? '#fbbf24' : 'rgba(255,255,255,0.8)' }}
             >
               {release.tag_name}
-            </span>
+            </a>
           </div>
           {release.highlights && (
             <p className="text-text-secondary text-xs mt-1 line-clamp-2">
               {release.highlights}
             </p>
           )}
-          <p className="text-vendure-primary text-xs mt-2">Click to view release notes →</p>
+          {release.contributors.length > 0 && (
+            <div className="mt-2 pt-2 border-t border-white/10">
+              <div className="text-text-secondary text-xs mb-1.5">Contributors:</div>
+              <div className="flex flex-wrap gap-1.5">
+                {release.contributors.map(login => {
+                  const member = membersByLogin[login];
+                  return (
+                    <a
+                      key={login}
+                      href={member?.html_url || `https://github.com/${login}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-white/5 hover:bg-white/10 transition-colors"
+                      title={login}
+                    >
+                      <img
+                        src={member?.avatar_url || `https://github.com/${login}.png?size=40`}
+                        alt=""
+                        className="w-4 h-4 rounded-full"
+                      />
+                      <span className="text-xs text-text-secondary">{login}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }

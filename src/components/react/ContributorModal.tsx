@@ -44,16 +44,28 @@ export default function ContributorModal({ member, onClose }: ContributorModalPr
     : 0;
   const closedIssues = member.issues.filter(i => i.state === 'closed').length;
   
-  // Monthly commit data for timeline
-  const monthlyData: Record<string, number> = {};
-  MONTH_NAMES.forEach(m => monthlyData[m] = 0);
+  // Monthly data for timeline (commits and issues)
+  const monthlyCommits: Record<string, number> = {};
+  const monthlyIssues: Record<string, number> = {};
+  MONTH_NAMES.forEach(m => {
+    monthlyCommits[m] = 0;
+    monthlyIssues[m] = 0;
+  });
   member.commits.forEach(commit => {
     const month = MONTH_NAMES[new Date(commit.date).getMonth()];
-    monthlyData[month] = (monthlyData[month] || 0) + 1;
+    monthlyCommits[month] = (monthlyCommits[month] || 0) + 1;
+  });
+  member.issues.forEach(issue => {
+    const month = MONTH_NAMES[new Date(issue.created_at).getMonth()];
+    monthlyIssues[month] = (monthlyIssues[month] || 0) + 1;
   });
   const currentMonth = new Date().getMonth();
   const relevantMonths = MONTH_NAMES.slice(0, currentMonth + 1);
-  const maxCommits = Math.max(...Object.values(monthlyData), 1);
+  const maxActivity = Math.max(
+    ...Object.values(monthlyCommits),
+    ...Object.values(monthlyIssues),
+    1
+  );
   
   return createPortal(
     <div
@@ -116,29 +128,66 @@ export default function ContributorModal({ member, onClose }: ContributorModalPr
           </div>
           
           {/* Contribution timeline */}
-          {member.commitCount > 0 && (
+          {(member.commitCount > 0 || member.issueCount > 0) && (
             <div>
-              <h3 className="text-lg font-semibold text-text-primary mb-3">Contribution Timeline</h3>
-              <div className="flex items-end gap-1 h-24">
-                {relevantMonths.map(month => {
-                  const count = monthlyData[month];
-                  const height = (count / maxCommits) * 100;
-                  return (
-                    <div key={month} className="flex-1 flex flex-col items-center">
-                      <div 
-                        className="w-full bg-vendure-primary/80 rounded-t transition-all duration-500 relative group"
-                        style={{ height: `${Math.max(height, 4)}%` }}
-                      >
-                        {count > 0 && (
-                          <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-xs text-vendure-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                            {count}
+              <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider mb-3">Contribution Timeline</h3>
+              <div className="bg-bg-dark/50 rounded-xl p-4">
+                <div className="flex items-end gap-2 h-28">
+                  {relevantMonths.map(month => {
+                    const commits = monthlyCommits[month];
+                    const issues = monthlyIssues[month];
+                    const total = commits + issues;
+                    const commitHeight = (commits / maxActivity) * 100;
+                    const issueHeight = (issues / maxActivity) * 100;
+
+                    return (
+                      <div key={month} className="flex-1 flex flex-col items-center gap-1">
+                        {/* Number label */}
+                        {total > 0 && (
+                          <span className="text-xs font-medium text-vendure-primary">
+                            {total}
                           </span>
                         )}
+                        {/* Stacked bars container */}
+                        <div className="w-full flex flex-col items-center justify-end h-20">
+                          {/* Issues bar (on top) */}
+                          {issues > 0 && (
+                            <div
+                              className="w-3/4 bg-vendure-purple rounded-t transition-all duration-500"
+                              style={{ height: `${Math.max(issueHeight, 8)}%` }}
+                            />
+                          )}
+                          {/* Commits bar (bottom) */}
+                          {commits > 0 && (
+                            <div
+                              className={`w-3/4 bg-vendure-primary transition-all duration-500 ${issues > 0 ? '' : 'rounded-t'} rounded-b`}
+                              style={{ height: `${Math.max(commitHeight, 8)}%` }}
+                            />
+                          )}
+                          {/* Empty state indicator */}
+                          {total === 0 && (
+                            <div className="w-3/4 h-1 bg-white/10 rounded" />
+                          )}
+                        </div>
+                        {/* Month label */}
+                        <span className="text-[10px] text-text-muted">{month}</span>
                       </div>
-                      <span className="text-[10px] text-text-secondary mt-1">{month}</span>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+                {/* Legend */}
+                {(member.commitCount > 0 && member.issueCount > 0) && (
+                  <div className="flex items-center justify-center gap-4 mt-3 pt-3 border-t border-white/5">
+                    <span className="flex items-center gap-1.5 text-xs text-text-secondary">
+                      <span className="w-2.5 h-2.5 rounded-sm bg-vendure-primary" />
+                      Commits
+                    </span>
+                    <span className="flex items-center gap-1.5 text-xs text-text-secondary">
+                      <span className="w-2.5 h-2.5 rounded-sm bg-vendure-purple" />
+                      Issues
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           )}

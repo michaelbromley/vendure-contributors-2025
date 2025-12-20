@@ -78,14 +78,14 @@ body {
 
 /* Utility class for glassmorphism cards */
 .glass-card {
-  @apply rounded-2xl backdrop-blur-sm;
-  background: var(--color-bg-card);
+  @apply rounded-2xl;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .glass-card:hover {
-  background: var(--color-bg-card-hover);
+  background: rgba(255, 255, 255, 0.1);
   border-color: rgba(23, 193, 255, 0.3);
 }
 
@@ -107,7 +107,7 @@ body {
 /* Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-8px); }
 }
 
 @keyframes pulse-glow {
@@ -116,8 +116,13 @@ body {
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 @keyframes spin {
@@ -126,11 +131,19 @@ body {
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
 }
 
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 
 /* Snowflake animations */
