@@ -304,7 +304,6 @@ export async function loadWorldMap(): Promise<void> {
         }
         
         lastTouchDistance = newDistance;
-        lastTouchCenter = newCenter;
       }
     }, { passive: false });
     
