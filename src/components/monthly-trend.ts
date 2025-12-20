@@ -8,7 +8,7 @@ import { MONTH_NAMES } from '../utils/constants';
 import { getMonthName, escapeHtml } from '../utils/helpers';
 import type { Release } from '../types';
 import releasesData from '../data/releases-2025.json';
-import { initTooltip, showTooltip, hideTooltip, getChartTooltipContent, getReleaseTooltipContent } from './tooltip';
+import { initTooltip, showTooltip, hideTooltip, getChartTooltipContent, getReleaseTooltipContent, setTriggerElement, isTouch } from './tooltip';
 
 // Store data for interactive tooltips
 let chartData: {
@@ -113,9 +113,10 @@ export function renderMonthlyTrend(): string {
       const offsetX = releaseCount > 1 ? (ri - (releaseCount - 1) / 2) * 10 : 0;
       const markerX = x + offsetX;
       const typeClass = release.release_type;
+      const dotRadius = release.release_type === 'minor' ? 6 : 3;
       return `
         <line x1="${markerX}" y1="${padding.top}" x2="${markerX}" y2="${padding.top + chartHeight}" class="release-marker-line ${typeClass}" />
-        <circle cx="${markerX}" cy="${padding.top - 8}" r="5" class="release-marker-dot ${typeClass}" data-release="${escapeHtml(release.tag_name)}"></circle>
+        <circle cx="${markerX}" cy="${padding.top - 8}" r="${dotRadius}" class="release-marker-dot ${typeClass}" data-release="${escapeHtml(release.tag_name)}"></circle>
       `;
     }).join('');
   }).join('');
@@ -130,20 +131,22 @@ export function renderMonthlyTrend(): string {
     <div class="viz-card viz-card-wide" role="region" aria-label="Monthly activity trend chart">
       <h3>Monthly Activity Trend</h3>
       <p class="sr-only">Chart showing ${totalCommits} total commits over ${months.length} months, averaging ${avgCommits} commits per month. ${releases.length} releases marked.</p>
-      <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="line-chart" role="img" aria-label="Line chart of monthly commit activity" id="monthly-trend-chart">
-        <defs>
-          <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#17c1ff" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#17c1ff" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        ${gridLines}
-        ${releaseMarkers}
-        <path d="${areaPath}" class="chart-area"/>
-        <path d="${linePath}" class="chart-line"/>
-        ${dataPoints}
-        ${xLabels}
-      </svg>
+      <div class="chart-scroll-container">
+        <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="line-chart" role="img" aria-label="Line chart of monthly commit activity" id="monthly-trend-chart">
+          <defs>
+            <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#17c1ff" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#17c1ff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          ${gridLines}
+          ${releaseMarkers}
+          <path d="${areaPath}" class="chart-area"/>
+          <path d="${linePath}" class="chart-line"/>
+          ${dataPoints}
+          ${xLabels}
+        </svg>
+      </div>
       <div class="chart-legend">
         <span class="legend-item"><span class="legend-dot commits"></span> Commits</span>
         <span class="legend-item"><span class="legend-dot minor"></span> Minor (${minorCount})</span>
@@ -162,42 +165,67 @@ export function initChartInteractivity(): void {
   const chart = document.getElementById('monthly-trend-chart');
   if (!chart || !chartData) return;
   
-  // Data point hover
+  // Helper to show data point tooltip
+  const showDataPointTooltip = (el: SVGCircleElement, clientX: number, clientY: number) => {
+    const month = el.dataset.month;
+    const commits = parseInt(el.dataset.commits || '0', 10);
+    if (!month) return;
+    
+    const releases = chartData!.releasesByMonth[month] || [];
+    const content = getChartTooltipContent(month, commits, releases);
+    setTriggerElement(el);
+    showTooltip(content, clientX, clientY);
+  };
+  
+  // Helper to show release tooltip
+  const showReleaseTooltip = (el: SVGCircleElement, clientX: number, clientY: number) => {
+    const tagName = el.dataset.release;
+    if (!tagName) return;
+    
+    const release = chartData!.releases.find(r => r.tag_name === tagName);
+    if (!release) return;
+    
+    const content = getReleaseTooltipContent(release);
+    setTriggerElement(el);
+    showTooltip(content, clientX, clientY);
+  };
+  
+  // Data point interactions
   chart.querySelectorAll('.data-point').forEach(point => {
+    // Mouse events
     point.addEventListener('mouseenter', (e) => {
       const el = e.target as SVGCircleElement;
-      const month = el.dataset.month;
-      const commits = parseInt(el.dataset.commits || '0', 10);
-      if (!month) return;
-      
-      const releases = chartData!.releasesByMonth[month] || [];
-      const content = getChartTooltipContent(month, commits, releases);
-      
       const rect = el.getBoundingClientRect();
-      showTooltip(content, rect.right, rect.top);
+      showDataPointTooltip(el, rect.right, rect.top);
     });
-    
     point.addEventListener('mouseleave', hideTooltip);
+    
+    // Touch events - use touchend to not block scrolling
+    point.addEventListener('touchend', (e) => {
+      const el = e.target as SVGCircleElement;
+      const touch = (e as TouchEvent).changedTouches[0];
+      showDataPointTooltip(el, touch.clientX, touch.clientY);
+    }, { passive: true });
   });
   
-  // Release marker hover
+  // Release marker interactions
   chart.querySelectorAll('.release-marker-dot').forEach(dot => {
+    // Mouse events
     dot.addEventListener('mouseenter', (e) => {
       const el = e.target as SVGCircleElement;
-      const tagName = el.dataset.release;
-      if (!tagName) return;
-      
-      const release = chartData!.releases.find(r => r.tag_name === tagName);
-      if (!release) return;
-      
-      const content = getReleaseTooltipContent(release);
       const rect = el.getBoundingClientRect();
-      showTooltip(content, rect.right, rect.top);
+      showReleaseTooltip(el, rect.right, rect.top);
     });
-    
     dot.addEventListener('mouseleave', hideTooltip);
     
-    // Click opens release page
+    // Touch events - use touchend to not block scrolling
+    dot.addEventListener('touchend', (e) => {
+      const el = e.target as SVGCircleElement;
+      const touch = (e as TouchEvent).changedTouches[0];
+      showReleaseTooltip(el, touch.clientX, touch.clientY);
+    }, { passive: true });
+    
+    // Click opens release page (works for both mouse and second tap on touch)
     dot.addEventListener('click', (e) => {
       const el = e.target as SVGCircleElement;
       const tagName = el.dataset.release;
@@ -205,7 +233,10 @@ export function initChartInteractivity(): void {
       
       const release = chartData!.releases.find(r => r.tag_name === tagName);
       if (release) {
-        window.open(release.html_url, '_blank');
+        // On touch, tooltip shows on first tap - only open on explicit click
+        if (!isTouch()) {
+          window.open(release.html_url, '_blank');
+        }
       }
     });
   });

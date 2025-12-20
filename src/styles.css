@@ -297,7 +297,7 @@ body {
 }
 
 /* Mobile adjustments */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .header-decoration {
     display: none;
   }
@@ -1161,7 +1161,11 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  overflow: hidden;
+}
+
+.heatmap-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .heatmap-months {
@@ -1170,27 +1174,26 @@ footer a:hover {
   margin-bottom: 0.25rem;
   font-size: 0.7rem;
   color: #a8d8ea;
+  min-width: 700px;
 }
 
 .heatmap-months span {
   flex: 1;
   text-align: center;
+  min-width: 50px;
 }
 
 .heatmap {
   display: flex;
   gap: 3px;
-  overflow-x: auto;
-  overflow-y: visible;
-  padding-bottom: 0.5rem;
-  padding-right: 8px;
-  margin-right: -8px;
+  min-width: 700px;
 }
 
 .heatmap-week {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  flex-shrink: 0;
 }
 
 .heatmap-cell {
@@ -1199,6 +1202,7 @@ footer a:hover {
   border-radius: 2px;
   background: rgba(255, 255, 255, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
 }
 
 .heatmap-cell:hover {
@@ -1392,6 +1396,11 @@ footer a:hover {
   fill: #f9a8d4;
 }
 
+/* Chart scroll container */
+.chart-scroll-container {
+  overflow: visible;
+}
+
 /* Chart legend */
 .chart-legend {
   display: flex;
@@ -1565,6 +1574,39 @@ footer a:hover {
   font-style: italic;
 }
 
+/* Avatar grid in release tooltip */
+.tooltip-avatars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 0.4rem;
+  max-width: 280px;
+}
+
+.tooltip-avatar-link {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 2px solid transparent;
+}
+
+.tooltip-avatar-link:hover {
+  transform: scale(1.15);
+  border-color: #17c1ff;
+  box-shadow: 0 0 8px rgba(23, 193, 255, 0.5);
+  z-index: 1;
+}
+
+.tooltip-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .tooltip-click-hint {
   display: block;
   margin-top: 0.5rem;
@@ -1620,11 +1662,28 @@ footer a:hover {
 
 .tooltip-release-item.minor {
   border-left: 3px solid #fbbf24;
-  background: rgba(251, 191, 36, 0.08);
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.tooltip-release-item.minor .tooltip-release-tag {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.tooltip-release-item.minor .tooltip-release-date {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .tooltip-release-item.patch {
   border-left: 2px solid rgba(251, 191, 36, 0.35);
+}
+
+.tooltip-release-item.patch .tooltip-release-tag {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tooltip-release-item.patch .tooltip-release-date {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Minor vs Patch release marker styles */
@@ -1650,12 +1709,10 @@ footer a:hover {
 .release-marker-dot.minor {
   fill: #fbbf24;
   filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.8));
-  r: 6;
 }
 
 .release-marker-dot.patch {
   fill: rgba(251, 191, 36, 0.5);
-  r: 4;
 }
 
 /* Legend updates for minor/patch */
@@ -1927,7 +1984,7 @@ footer a:hover {
 }
 
 /* Responsive adjustments for visualizations */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .viz-grid {
     grid-template-columns: 1fr;
   }
@@ -1941,34 +1998,14 @@ footer a:hover {
     gap: 1rem;
   }
 
-  /* Heatmap - horizontal scroll on mobile */
-  .heatmap-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .heatmap-months {
-    min-width: 700px;
-  }
-
-  .heatmap {
-    justify-content: flex-start;
-    min-width: 700px;
-  }
-
+  /* Heatmap - smaller cells on mobile */
   .heatmap-cell {
     width: 10px;
     height: 10px;
   }
-
-  /* Line chart - ensure it scales down */
-  .line-chart {
-    min-height: 150px;
-  }
-
-  .viz-card {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  
+  .heatmap-months {
+    font-size: 0.6rem;
   }
 
   /* Compact stats banner on mobile */
@@ -2004,6 +2041,96 @@ footer a:hover {
 
   .issue-monthly-chart {
     gap: 0.25rem !important;
+  }
+  
+  /* Contributors grid - 2 columns on mobile */
+  .contributors-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  
+  .contributor-card {
+    width: auto;
+    padding: 0.75rem;
+    min-width: 0; /* Allow shrinking */
+  }
+  
+  .contributor-card .avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .contributor-card .avatar-ring {
+    width: 58px;
+    height: 58px;
+  }
+  
+  .contributor-card .card-name {
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  
+  .contributor-card .card-stats {
+    font-size: 0.6rem;
+  }
+  
+  .contributor-card .stat-bar {
+    max-width: 60px;
+  }
+  
+  /* Monthly chart - scrollable container, fixed header */
+  .viz-card-wide {
+    overflow: visible;
+  }
+  
+  .chart-scroll-container {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+  }
+  
+  .chart-scroll-container .line-chart {
+    min-width: 600px;
+    width: 600px;
+    min-height: 180px;
+  }
+  
+  /* World map section - full width country list on mobile */
+  .world-map-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0;
+  }
+  
+  .world-map-wrapper {
+    width: 100%;
+    max-width: none;
+    border-radius: 12px;
+    margin: 0 -1rem;
+    width: calc(100% + 2rem);
+  }
+  
+  .map-legend {
+    width: calc(100% + 2rem);
+    margin: 0 -1rem;
+    border-radius: 0;
+    min-width: auto;
+    max-height: 300px;
+  }
+  
+  .country-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem 1rem;
+    max-height: 250px;
+    overflow-y: auto;
   }
 }
 

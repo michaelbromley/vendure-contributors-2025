@@ -85,7 +85,7 @@ export function renderWorldMapHtml(): string {
         <div class="world-map-wrapper" id="world-map-wrapper">
           <div class="map-inner">
             <!-- Map will be loaded here -->
-            <div class="map-controls-hint" aria-hidden="true">Scroll to zoom, drag to pan, double-click to reset</div>
+            <div class="map-controls-hint" aria-hidden="true">Pinch to zoom, drag to pan, double-tap to reset</div>
           </div>
         </div>
         
@@ -150,6 +150,11 @@ export async function loadWorldMap(): Promise<void> {
     let panStart = { x: 0, y: 0 };
     let viewBoxStart = { ...viewBox };
     
+    // Touch state for pinch zoom
+    let lastTouchDistance = 0;
+    let lastTouchCenter = { x: 0, y: 0 };
+    let isTouchPanning = false;
+    
     const getZoomLevel = () => originalViewBox.w / viewBox.w;
     
     const updateViewBox = () => {
@@ -171,11 +176,28 @@ export async function loadWorldMap(): Promise<void> {
       }
     };
     
-    const getSvgPoint = (e: MouseEvent | WheelEvent): { x: number; y: number } => {
+    const getSvgPoint = (clientX: number, clientY: number): { x: number; y: number } => {
       const rect = svgElement.getBoundingClientRect();
       return {
-        x: ((e.clientX - rect.left) / rect.width) * viewBox.w + viewBox.x,
-        y: ((e.clientY - rect.top) / rect.height) * viewBox.h + viewBox.y
+        x: ((clientX - rect.left) / rect.width) * viewBox.w + viewBox.x,
+        y: ((clientY - rect.top) / rect.height) * viewBox.h + viewBox.y
+      };
+    };
+    
+    const getTouchDistance = (touches: TouchList): number => {
+      if (touches.length < 2) return 0;
+      const dx = touches[0].clientX - touches[1].clientX;
+      const dy = touches[0].clientY - touches[1].clientY;
+      return Math.sqrt(dx * dx + dy * dy);
+    };
+    
+    const getTouchCenter = (touches: TouchList): { x: number; y: number } => {
+      if (touches.length < 2) {
+        return { x: touches[0].clientX, y: touches[0].clientY };
+      }
+      return {
+        x: (touches[0].clientX + touches[1].clientX) / 2,
+        y: (touches[0].clientY + touches[1].clientY) / 2
       };
     };
     
@@ -188,7 +210,7 @@ export async function loadWorldMap(): Promise<void> {
       
       if (newZoom < MAP_CONFIG.minZoom || newZoom > MAP_CONFIG.maxZoom) return;
       
-      const point = getSvgPoint(e);
+      const point = getSvgPoint(e.clientX, e.clientY);
       const newW = viewBox.w * zoomFactor;
       const newH = viewBox.h * zoomFactor;
       
@@ -232,7 +254,76 @@ export async function loadWorldMap(): Promise<void> {
     svgElement.addEventListener('mouseup', handleMouseUp);
     svgElement.addEventListener('mouseleave', handleMouseUp);
     
-    // Double-click to reset zoom
+    // Touch events for mobile pan and pinch-zoom
+    svgElement.addEventListener('touchstart', (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        // Single touch - start panning
+        isTouchPanning = true;
+        panStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        viewBoxStart = { ...viewBox };
+      } else if (e.touches.length === 2) {
+        // Two touches - start pinch zoom
+        isTouchPanning = false;
+        lastTouchDistance = getTouchDistance(e.touches);
+        lastTouchCenter = getTouchCenter(e.touches);
+        viewBoxStart = { ...viewBox };
+      }
+    }, { passive: true });
+    
+    svgElement.addEventListener('touchmove', (e: TouchEvent) => {
+      e.preventDefault(); // Prevent page scroll
+      
+      if (e.touches.length === 1 && isTouchPanning) {
+        // Single touch pan
+        const rect = svgElement.getBoundingClientRect();
+        const dx = (e.touches[0].clientX - panStart.x) * (viewBox.w / rect.width);
+        const dy = (e.touches[0].clientY - panStart.y) * (viewBox.h / rect.height);
+        viewBox.x = viewBoxStart.x - dx;
+        viewBox.y = viewBoxStart.y - dy;
+        updateViewBox();
+      } else if (e.touches.length === 2) {
+        // Pinch zoom
+        const newDistance = getTouchDistance(e.touches);
+        const newCenter = getTouchCenter(e.touches);
+        
+        if (lastTouchDistance > 0) {
+          const zoomFactor = lastTouchDistance / newDistance;
+          const currentZoom = getZoomLevel();
+          const newZoom = currentZoom / zoomFactor;
+          
+          if (newZoom >= MAP_CONFIG.minZoom && newZoom <= MAP_CONFIG.maxZoom) {
+            const point = getSvgPoint(newCenter.x, newCenter.y);
+            const newW = viewBox.w * zoomFactor;
+            const newH = viewBox.h * zoomFactor;
+            
+            viewBox.x = point.x - (point.x - viewBox.x) * zoomFactor;
+            viewBox.y = point.y - (point.y - viewBox.y) * zoomFactor;
+            viewBox.w = newW;
+            viewBox.h = newH;
+            
+            updateViewBox();
+          }
+        }
+        
+        lastTouchDistance = newDistance;
+        lastTouchCenter = newCenter;
+      }
+    }, { passive: false });
+    
+    svgElement.addEventListener('touchend', (e: TouchEvent) => {
+      if (e.touches.length === 0) {
+        isTouchPanning = false;
+        lastTouchDistance = 0;
+      } else if (e.touches.length === 1) {
+        // Switched from pinch to pan
+        isTouchPanning = true;
+        panStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        viewBoxStart = { ...viewBox };
+        lastTouchDistance = 0;
+      }
+    }, { passive: true });
+    
+    // Double-click/double-tap to reset zoom
     svgElement.addEventListener('dblclick', () => {
       viewBox = { ...originalViewBox };
       updateViewBox();
@@ -315,7 +406,7 @@ export async function loadWorldMap(): Promise<void> {
         circle.setAttribute('role', 'button');
         circle.setAttribute('aria-label', `${dot.country}: ${dot.count} contributors`);
         
-        // Custom tooltip
+        // Custom tooltip - mouse events
         circle.addEventListener('mouseenter', (e) => {
           const content = `
             <div class="tooltip-country">${dot.country}</div>
@@ -330,6 +421,22 @@ export async function loadWorldMap(): Promise<void> {
         });
         circle.addEventListener('mousemove', (e) => moveTooltip(e as MouseEvent));
         circle.addEventListener('mouseleave', hideTooltip);
+        
+        // Touch event for mobile
+        circle.addEventListener('touchstart', (e) => {
+          e.stopPropagation(); // Don't trigger map pan
+          const touch = (e as TouchEvent).touches[0];
+          const content = `
+            <div class="tooltip-country">${dot.country}</div>
+            <div class="tooltip-names">${dot.names}</div>
+            <div class="tooltip-stats">
+              <span class="tooltip-count">${dot.count}</span> contributors
+              <span class="tooltip-dot">•</span>
+              <span class="tooltip-contributions">${dot.contributions}</span> contributions
+            </div>
+          `;
+          showTooltip({ clientX: touch.clientX, clientY: touch.clientY, pageX: touch.pageX, pageY: touch.pageY } as MouseEvent, content);
+        }, { passive: true });
         
         clustersGroup.appendChild(glow);
         clustersGroup.appendChild(circle);
@@ -385,7 +492,7 @@ export async function loadWorldMap(): Promise<void> {
           circle.setAttribute('role', 'button');
           circle.setAttribute('aria-label', `${person.name}: ${person.contributions} contributions`);
           
-          // Custom tooltip for individuals
+          // Custom tooltip for individuals - mouse events
           circle.addEventListener('mouseenter', (e) => {
             const content = `
               <div class="tooltip-name">${person.name}</div>
@@ -399,6 +506,21 @@ export async function loadWorldMap(): Promise<void> {
           });
           circle.addEventListener('mousemove', (e) => moveTooltip(e as MouseEvent));
           circle.addEventListener('mouseleave', hideTooltip);
+          
+          // Touch event for mobile
+          circle.addEventListener('touchstart', (e) => {
+            e.stopPropagation(); // Don't trigger map pan
+            const touch = (e as TouchEvent).touches[0];
+            const content = `
+              <div class="tooltip-name">${person.name}</div>
+              <div class="tooltip-login">@${person.login}</div>
+              <div class="tooltip-location">${person.location || person.country}</div>
+              <div class="tooltip-stats">
+                <span class="tooltip-contributions">${person.contributions}</span> contributions
+              </div>
+            `;
+            showTooltip({ clientX: touch.clientX, clientY: touch.clientY, pageX: touch.pageX, pageY: touch.pageY } as MouseEvent, content);
+          }, { passive: true });
           
           individualsGroup.appendChild(glow);
           individualsGroup.appendChild(circle);

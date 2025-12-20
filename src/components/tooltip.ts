@@ -3,12 +3,36 @@
 // Reusable interactive tooltip/overlay for charts
 // =====================================================
 
-import type { Release } from '../types';
+import type { Release, Contributor } from '../types';
 import { escapeHtml } from '../utils/helpers';
+import contributorsData from '../data/contributors-2025.json';
+import issueContributorsData from '../data/issue-contributors-2025.json';
+
+// Build a lookup map for contributor avatars
+const contributorAvatars: Record<string, string> = {};
+(contributorsData as Contributor[]).forEach(c => {
+  contributorAvatars[c.login.toLowerCase()] = c.avatar_url;
+});
+(issueContributorsData as Contributor[]).forEach(c => {
+  if (!contributorAvatars[c.login.toLowerCase()]) {
+    contributorAvatars[c.login.toLowerCase()] = c.avatar_url;
+  }
+});
+
+/**
+ * Get avatar URL for a contributor login
+ */
+function getAvatarUrl(login: string): string {
+  return contributorAvatars[login.toLowerCase()] || `https://github.com/${login}.png?size=40`;
+}
 
 let tooltipEl: HTMLElement | null = null;
 let hideTimeout: ReturnType<typeof setTimeout> | null = null;
 let isTooltipHovered = false;
+let currentTriggerElement: Element | null = null;
+
+// Track if device supports touch
+const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 /**
  * Initialize the global tooltip element
@@ -42,6 +66,31 @@ export function initTooltip(): void {
     isTooltipHovered = false;
     hideTooltip();
   });
+  
+  // Close tooltip when tapping outside on touch devices
+  document.addEventListener('touchstart', (e) => {
+    if (!tooltipEl) return;
+    const target = e.target as Node;
+    // If tap is outside tooltip and outside the trigger element, hide it
+    if (!tooltipEl.contains(target) && 
+        (!currentTriggerElement || !currentTriggerElement.contains(target))) {
+      hideTooltipImmediate();
+    }
+  }, { passive: true });
+}
+
+/**
+ * Set the current trigger element (for touch handling)
+ */
+export function setTriggerElement(el: Element | null): void {
+  currentTriggerElement = el;
+}
+
+/**
+ * Check if touch device
+ */
+export function isTouch(): boolean {
+  return isTouchDevice();
 }
 
 /**
@@ -100,8 +149,24 @@ export function hideTooltip(): void {
   hideTimeout = setTimeout(() => {
     if (!isTooltipHovered && tooltipEl) {
       tooltipEl.style.opacity = '0';
+      currentTriggerElement = null;
     }
   }, 100);
+}
+
+/**
+ * Hide tooltip immediately (for touch interactions)
+ */
+export function hideTooltipImmediate(): void {
+  if (hideTimeout) {
+    clearTimeout(hideTimeout);
+    hideTimeout = null;
+  }
+  if (tooltipEl) {
+    tooltipEl.style.opacity = '0';
+  }
+  currentTriggerElement = null;
+  isTooltipHovered = false;
 }
 
 /**
@@ -132,6 +197,15 @@ export function getHeatmapTooltipContent(
     const releaseTypeClass = release.release_type === 'minor' ? 'release-minor' : 'release-patch';
     const releaseTypeLabel = release.release_type === 'minor' ? 'Minor Release' : 'Patch Release';
     
+    // Generate contributor avatars - show ALL contributors
+    const contributorAvatarsHtml = release.contributors.length > 0 
+      ? release.contributors.map(login => `
+          <a href="https://github.com/${escapeHtml(login)}" target="_blank" class="tooltip-avatar-link" title="@${escapeHtml(login)}">
+            <img src="${getAvatarUrl(login)}" alt="@${escapeHtml(login)}" class="tooltip-avatar" loading="lazy" />
+          </a>
+        `).join('')
+      : '';
+    
     content += `
       <div class="tooltip-release ${releaseTypeClass}">
         <div class="tooltip-release-header">
@@ -142,9 +216,10 @@ export function getHeatmapTooltipContent(
         ${release.highlights ? `<div class="tooltip-release-highlights">${escapeHtml(release.highlights.substring(0, 120))}${release.highlights.length > 120 ? '...' : ''}</div>` : ''}
         ${release.contributors.length > 0 ? `
           <div class="tooltip-release-contributors">
-            <span class="tooltip-label">Contributors:</span>
-            ${release.contributors.slice(0, 5).map(c => `<span class="tooltip-contributor">@${escapeHtml(c)}</span>`).join(' ')}
-            ${release.contributors.length > 5 ? `<span class="tooltip-more">+${release.contributors.length - 5} more</span>` : ''}
+            <span class="tooltip-label">Contributors (${release.contributors.length}):</span>
+            <div class="tooltip-avatars">
+              ${contributorAvatarsHtml}
+            </div>
           </div>
         ` : ''}
       </div>
@@ -210,6 +285,15 @@ export function getReleaseTooltipContent(release: Release): string {
     day: 'numeric'
   });
   
+  // Generate contributor avatars - show ALL contributors
+  const contributorAvatarsHtml = release.contributors.length > 0 
+    ? release.contributors.map(login => `
+        <a href="https://github.com/${escapeHtml(login)}" target="_blank" class="tooltip-avatar-link" title="@${escapeHtml(login)}">
+          <img src="${getAvatarUrl(login)}" alt="@${escapeHtml(login)}" class="tooltip-avatar" loading="lazy" />
+        </a>
+      `).join('')
+    : '';
+  
   return `
     <div class="tooltip-release-full ${releaseTypeClass}">
       <div class="tooltip-release-header">
@@ -223,9 +307,10 @@ export function getReleaseTooltipContent(release: Release): string {
       ${release.highlights ? `<div class="tooltip-release-highlights">${escapeHtml(release.highlights.substring(0, 150))}${release.highlights.length > 150 ? '...' : ''}</div>` : ''}
       ${release.contributors.length > 0 ? `
         <div class="tooltip-release-contributors">
-          <span class="tooltip-label">Contributors:</span>
-          ${release.contributors.slice(0, 6).map(c => `<span class="tooltip-contributor">@${escapeHtml(c)}</span>`).join(' ')}
-          ${release.contributors.length > 6 ? `<span class="tooltip-more">+${release.contributors.length - 6} more</span>` : ''}
+          <span class="tooltip-label">Contributors (${release.contributors.length}):</span>
+          <div class="tooltip-avatars">
+            ${contributorAvatarsHtml}
+          </div>
         </div>
       ` : ''}
       <a href="${escapeHtml(release.html_url)}" target="_blank" class="tooltip-click-hint">Click to view release notes →</a>

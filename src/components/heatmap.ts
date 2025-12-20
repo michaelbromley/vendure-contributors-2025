@@ -8,7 +8,7 @@ import { MONTH_NAMES } from '../utils/constants';
 import { escapeHtml } from '../utils/helpers';
 import type { Release } from '../types';
 import releasesData from '../data/releases-2025.json';
-import { initTooltip, showTooltip, hideTooltip, getHeatmapTooltipContent } from './tooltip';
+import { initTooltip, showTooltip, hideTooltip, hideTooltipImmediate, getHeatmapTooltipContent, setTriggerElement, isTouch } from './tooltip';
 
 // Store data for interactive tooltips
 let heatmapData: {
@@ -97,8 +97,10 @@ export function renderActivityHeatmap(): string {
     <div class="viz-card" role="region" aria-label="Activity heatmap showing commits per day">
       <h3>Activity Heatmap</h3>
       <div class="heatmap-container">
-        <div class="heatmap-months" aria-hidden="true">${monthLabels}</div>
-        <div class="heatmap" role="grid" aria-label="Commit activity calendar" id="activity-heatmap">${cells}</div>
+        <div class="heatmap-scroll-wrapper">
+          <div class="heatmap-months" aria-hidden="true">${monthLabels}</div>
+          <div class="heatmap" role="grid" aria-label="Commit activity calendar" id="activity-heatmap">${cells}</div>
+        </div>
         <div class="heatmap-legend" aria-hidden="true">
           <span>Less</span>
           <div class="heatmap-cell level-0"></div>
@@ -127,10 +129,7 @@ export function initHeatmapInteractivity(): void {
   const heatmap = document.getElementById('activity-heatmap');
   if (!heatmap || !heatmapData) return;
   
-  heatmap.addEventListener('mouseover', (e) => {
-    const cell = (e.target as HTMLElement).closest('.heatmap-cell[data-date]') as HTMLElement;
-    if (!cell) return;
-    
+  const showCellTooltip = (cell: HTMLElement, clientX: number, clientY: number) => {
     const date = cell.dataset.date;
     if (!date) return;
     
@@ -138,8 +137,16 @@ export function initHeatmapInteractivity(): void {
     const release = heatmapData!.releasesByDate[date];
     
     const content = getHeatmapTooltipContent(date, commits, release);
+    setTriggerElement(cell);
+    showTooltip(content, clientX, clientY);
+  };
+  
+  // Mouse events for desktop
+  heatmap.addEventListener('mouseover', (e) => {
+    const cell = (e.target as HTMLElement).closest('.heatmap-cell[data-date]') as HTMLElement;
+    if (!cell) return;
     const rect = cell.getBoundingClientRect();
-    showTooltip(content, rect.right, rect.top);
+    showCellTooltip(cell, rect.right, rect.top);
   });
   
   heatmap.addEventListener('mouseout', (e) => {
@@ -149,7 +156,35 @@ export function initHeatmapInteractivity(): void {
     }
   });
   
-  // Click on release days opens the release page
+  // Touch events for mobile - tap to show tooltip
+  // Use touchend instead of touchstart to not interfere with scrolling
+  let touchStartTime = 0;
+  let touchStartPos = { x: 0, y: 0 };
+  
+  heatmap.addEventListener('touchstart', (e) => {
+    touchStartTime = Date.now();
+    touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  }, { passive: true });
+  
+  heatmap.addEventListener('touchend', (e) => {
+    const cell = (e.target as HTMLElement).closest('.heatmap-cell[data-date]') as HTMLElement;
+    if (!cell) return;
+    
+    // Only show tooltip if it was a tap (not a scroll)
+    const touchDuration = Date.now() - touchStartTime;
+    const touch = e.changedTouches[0];
+    const touchDistance = Math.sqrt(
+      Math.pow(touch.clientX - touchStartPos.x, 2) + 
+      Math.pow(touch.clientY - touchStartPos.y, 2)
+    );
+    
+    // If touch was quick and didn't move much, it's a tap
+    if (touchDuration < 300 && touchDistance < 10) {
+      showCellTooltip(cell, touch.clientX, touch.clientY);
+    }
+  }, { passive: true });
+  
+  // Click on release days opens the release page (works for both mouse and touch)
   heatmap.addEventListener('click', (e) => {
     const cell = (e.target as HTMLElement).closest('.heatmap-cell.release-day') as HTMLElement;
     if (!cell) return;
@@ -159,7 +194,16 @@ export function initHeatmapInteractivity(): void {
     
     const release = heatmapData.releasesByDate[date];
     if (release) {
-      window.open(release.html_url, '_blank');
+      // On touch devices, first tap shows tooltip, second tap opens link
+      if (isTouch()) {
+        // Check if tooltip is already showing for this cell
+        const tooltip = document.getElementById('chart-tooltip');
+        if (tooltip && tooltip.style.opacity === '1') {
+          window.open(release.html_url, '_blank');
+        }
+      } else {
+        window.open(release.html_url, '_blank');
+      }
     }
   });
 }

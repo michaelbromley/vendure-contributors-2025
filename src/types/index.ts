@@ -111,3 +111,12 @@ export interface Release {
   contributors: string[];
   highlights: string;
 }
+
+// Contributor data (from contributors JSON)
+export interface Contributor {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  contributions: number;
+  commits: CommitDetail[];
+}
