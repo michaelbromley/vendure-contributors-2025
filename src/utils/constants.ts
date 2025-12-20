@@ -9,13 +9,13 @@ export const ISSUE_WEIGHT = 1;
 // Month names - used across the app
 export const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as const;
 
-// Vendure brand colors
+// Vendure brand colors - Blue theme
 export const COLORS = {
   primary: '#17c1ff',
-  primaryLight: '#5eead4',
-  primaryDark: '#0d9488',
-  accent: '#2dd4bf',
-  accentLight: '#99f6e4',
+  primaryLight: '#93c5fd',
+  primaryDark: '#0d6efd',
+  accent: '#60a5fa',
+  accentLight: '#bfdbfe',
   purple: '#a78bfa',
   purpleDark: '#7c3aed',
 } as const;
@@ -36,8 +36,8 @@ export const COMMIT_TYPE_COLORS: Record<string, string> = {
   other: '#475569'
 };
 
-// Confetti colors
-export const CONFETTI_COLORS = ['#17c1ff', '#5eead4', '#0d9488', '#2dd4bf', '#99f6e4'];
+// Confetti colors - Blue theme
+export const CONFETTI_COLORS = ['#17c1ff', '#93c5fd', '#0d6efd', '#60a5fa', '#bfdbfe'];
 
 // Map configuration
 export const MAP_CONFIG = {
