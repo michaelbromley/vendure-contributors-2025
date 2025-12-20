@@ -12,6 +12,9 @@ import Snowflakes from './components/react/Snowflakes';
 import type { CommunityMember } from './types';
 import { launchConfetti } from './services/confetti-service';
 
+// Snow mode type
+export type SnowMode = 'vienna' | 'kitz';
+
 // Create context for data
 const DataCtx = createContext<DataContext | null>(null);
 export const useDataContext = () => {
@@ -20,9 +23,22 @@ export const useDataContext = () => {
   return ctx;
 };
 
+// Create context for snow mode
+interface SnowModeContext {
+  mode: SnowMode;
+  setMode: (mode: SnowMode) => void;
+}
+const SnowModeCtx = createContext<SnowModeContext | null>(null);
+export const useSnowMode = () => {
+  const ctx = useContext(SnowModeCtx);
+  if (!ctx) throw new Error('useSnowMode must be used within SnowModeProvider');
+  return ctx;
+};
+
 export default function App() {
   const data = useData();
   const [selectedMember, setSelectedMember] = useState<CommunityMember | null>(null);
+  const [snowMode, setSnowMode] = useState<SnowMode>('vienna');
 
   // Initial confetti on load
   useEffect(() => {
@@ -41,8 +57,9 @@ export default function App() {
 
   return (
     <DataCtx.Provider value={data}>
+      <SnowModeCtx.Provider value={{ mode: snowMode, setMode: setSnowMode }}>
       <div className="min-h-screen relative overflow-x-hidden">
-        <Snowflakes />
+        <Snowflakes mode={snowMode} />
         
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-vendure-primary focus:text-bg-dark focus:rounded">
           Skip to main content
@@ -91,12 +108,13 @@ export default function App() {
         </footer>
         
         {selectedMember && (
-          <ContributorModal 
-            member={selectedMember} 
-            onClose={handleCloseModal} 
+          <ContributorModal
+            member={selectedMember}
+            onClose={handleCloseModal}
           />
         )}
       </div>
+      </SnowModeCtx.Provider>
     </DataCtx.Provider>
   );
 }

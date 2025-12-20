@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
+import type { SnowMode } from '../../App';
 
 interface Snowflake {
   element: HTMLSpanElement;
@@ -12,24 +13,58 @@ interface Snowflake {
 }
 
 const FLAKE_CHARS = ['❄', '❅', '❆', '✻', '✼', '❋'];
-const SNOWFLAKE_COUNT = 60;
 
-export default function Snowflakes() {
+// Mode-specific settings
+const SNOW_CONFIG = {
+  vienna: {
+    count: 60,
+    sizeMin: 0.5,
+    sizeMax: 1.7,
+    speedMin: 0.2,
+    speedMax: 0.6,
+    windStrength: 0.015,
+    windSpeed: 8000,
+    opacityMin: 0.3,
+    opacityMax: 0.8,
+    mouseRadius: 100,
+    mouseForce: 0.12,
+  },
+  kitz: {
+    count: 200,
+    sizeMin: 0.4,
+    sizeMax: 2.2,
+    speedMin: 0.5,
+    speedMax: 1.4,
+    windStrength: 0.06,
+    windSpeed: 3000,
+    opacityMin: 0.4,
+    opacityMax: 0.95,
+    mouseRadius: 200,
+    mouseForce: 0.35,
+  },
+};
+
+interface SnowflakesProps {
+  mode: SnowMode;
+}
+
+export default function Snowflakes({ mode }: SnowflakesProps) {
+  const config = SNOW_CONFIG[mode];
   const containerRef = useRef<HTMLDivElement>(null);
   const snowflakesRef = useRef<Snowflake[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const animationRef = useRef<number | null>(null);
   
   const animate = useCallback(() => {
-    const mouseInfluenceRadius = 100;
-    const mouseForce = 0.12;
+    const mouseInfluenceRadius = config.mouseRadius;
+    const mouseForce = config.mouseForce;
     const friction = 0.98;
     const viewportHeight = window.innerHeight;
     const viewportWidth = window.innerWidth;
-    
-    // Gentle oscillating wind
-    const time = Date.now() / 8000;
-    const windVariation = Math.sin(time) * 0.015;
+
+    // Oscillating wind - wilder in kitz mode
+    const time = Date.now() / config.windSpeed;
+    const windVariation = Math.sin(time) * config.windStrength + Math.sin(time * 2.3) * config.windStrength * 0.5;
     
     for (const flake of snowflakesRef.current) {
       // Calculate distance from mouse
@@ -85,7 +120,7 @@ export default function Snowflakes() {
     }
     
     animationRef.current = requestAnimationFrame(animate);
-  }, []);
+  }, [config]);
   
   useEffect(() => {
     const container = containerRef.current;
@@ -99,18 +134,22 @@ export default function Snowflakes() {
     const viewportHeight = window.innerHeight;
     
     // Create snowflakes
-    for (let i = 0; i < SNOWFLAKE_COUNT; i++) {
+    for (let i = 0; i < config.count; i++) {
       const span = document.createElement('span');
-      span.className = 'fixed pointer-events-none text-white select-none';
+      span.className = 'fixed pointer-events-none select-none';
+      // Kitz mode: brighter blue-white like alpine sky, Vienna: pure white
+      span.style.color = mode === 'kitz'
+        ? `hsl(195, ${70 + Math.random() * 30}%, ${85 + Math.random() * 15}%)`
+        : 'white';
       span.textContent = FLAKE_CHARS[Math.floor(Math.random() * FLAKE_CHARS.length)];
-      
-      const size = 0.5 + Math.random() * 1.2;
+
+      const size = config.sizeMin + Math.random() * (config.sizeMax - config.sizeMin);
       const x = Math.random() * viewportWidth;
       const y = Math.random() * viewportHeight;
-      const baseVy = 0.2 + Math.random() * 0.4;
-      
+      const baseVy = config.speedMin + Math.random() * (config.speedMax - config.speedMin);
+
       span.style.fontSize = `${size}rem`;
-      span.style.opacity = `${0.3 + Math.random() * 0.5}`;
+      span.style.opacity = `${config.opacityMin + Math.random() * (config.opacityMax - config.opacityMin)}`;
       span.style.transform = `translate(${x}px, ${y}px)`;
       span.style.willChange = 'transform';
       
@@ -143,7 +182,7 @@ export default function Snowflakes() {
       }
       document.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [animate]);
+  }, [animate, config, mode]);
   
   return (
     <div 

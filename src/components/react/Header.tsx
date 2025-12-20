@@ -1,6 +1,27 @@
+import { useSnowMode } from '../../App';
+
 export default function Header() {
+  const { mode, setMode } = useSnowMode();
+
   return (
     <header className="text-center pt-16 pb-12 relative z-10 overflow-hidden">
+      {/* Mode toggle - subtle top right */}
+      <div className="absolute top-4 right-4 flex items-center gap-2">
+        <button
+          onClick={() => setMode(mode === 'vienna' ? 'kitz' : 'vienna')}
+          className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all text-xs"
+          title={mode === 'vienna' ? 'Switch to Kitzbühel mode' : 'Switch to Vienna mode'}
+        >
+          <span className={`transition-opacity ${mode === 'vienna' ? 'opacity-100' : 'opacity-40'}`}>
+            Vienna
+          </span>
+          <span className="text-white/30">|</span>
+          <span className={`transition-opacity ${mode === 'kitz' ? 'opacity-100' : 'opacity-40'}`}>
+            Kitzbühel
+          </span>
+          <span className="text-base ml-0.5">{mode === 'kitz' ? '🏔️' : '🏛️'}</span>
+        </button>
+      </div>
       {/* Background glow */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] pointer-events-none -z-10"
