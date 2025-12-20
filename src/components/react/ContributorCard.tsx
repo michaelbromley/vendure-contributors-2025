@@ -13,7 +13,7 @@ export default function ContributorCard({ member, onClick }: ContributorCardProp
   
   return (
     <div
-      className="group relative bg-white/[0.08] backdrop-blur-sm rounded-[20px] p-6 text-center border-2 border-transparent cursor-pointer transition-all duration-400 overflow-hidden hover:-translate-y-2.5 hover:scale-105 hover:border-vendure-primary/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(23,193,255,0.2)] focus:-translate-y-2.5 focus:scale-105 focus:border-vendure-primary/50 focus:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(23,193,255,0.2)] outline-none"
+      className="group relative bg-white/[0.08] backdrop-blur-sm rounded-[20px] p-6 text-center border-2 border-transparent cursor-pointer transition-all duration-400 overflow-hidden hover:-translate-y-2.5 hover:scale-105 hover:border-vendure-primary/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(23,193,255,0.2)] focus-visible:-translate-y-2.5 focus-visible:scale-105 focus-visible:border-vendure-primary/50 focus-visible:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(23,193,255,0.2)] outline-none"
       onClick={onClick}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
