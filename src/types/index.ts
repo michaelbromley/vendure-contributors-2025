@@ -99,3 +99,15 @@ export interface MapData {
 export interface MapSvgElement extends SVGSVGElement {
   _updateDotsVisibility?: () => void;
 }
+
+// Release data type
+export interface Release {
+  tag_name: string;
+  name: string;
+  published_at: string; // YYYY-MM-DD format
+  is_prerelease: boolean;
+  html_url: string;
+  release_type: 'minor' | 'patch';
+  contributors: string[];
+  highlights: string;
+}

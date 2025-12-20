@@ -1,0 +1,222 @@
+[
+  {
+    "tag_name": "v3.5.2",
+    "name": "v3.5.2",
+    "published_at": "2025-12-19",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.5.2",
+    "release_type": "patch",
+    "contributors": ["BibiSebi", "nezerk", "PavanendraBaahubali", "dev-ish", "MuhammadAnas8", "SiebelsTim", "DeltaSAMP", "gabriellbui", "dlhck", "grolmus", "k2cult", "alingabrieldm", "biggamesmallworld", "michaelbromley", "starry-osean", "mohamed7-dev", "colinpieper", "monrostar"],
+    "highlights": "New Next.js Storefront option in @vendure/create • Drag-drop collection reordering • Order modification surcharges • Major perf fix for self-referencing entities • Postgres scheduled task fix"
+  },
+  {
+    "tag_name": "v3.5.1",
+    "name": "v3.5.1",
+    "published_at": "2025-11-14",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.5.1",
+    "release_type": "patch",
+    "contributors": ["jirkavrba", "oliverstreissi", "oidt", "HouseinIsProgramming", "BibiSebi", "dlhck", "asonnleitner", "michaelbromley", "Preport", "SiebelsTim", "twlite", "DeltaSAMP", "gabriellbui", "guicalmeida", "ahmed-e-elhor", "biggamesmallworld", "dev-ish"],
+    "highlights": "Dashboard extension localization support • Fixed @swc/core compilation issues • Windows compilation improvements • compatibilityMode no longer required"
+  },
+  {
+    "tag_name": "v3.5.0",
+    "name": "v3.5.0",
+    "published_at": "2025-10-22",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.5.0",
+    "release_type": "minor",
+    "contributors": ["dlhck", "michaelbromley", "HouseinIsProgramming", "BibiSebi", "SiebelsTim"],
+    "highlights": "Dashboard stable release! React + Tailwind + Shadcn/ui • New CLI 'schema' command for GraphQL generation • Improved monorepo support • SettingsStore read/write permissions • SentryPlugin migration to @sentry/nestjs"
+  },
+  {
+    "tag_name": "v3.4.4",
+    "name": "v3.4.4",
+    "published_at": "2025-10-08",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.4.4",
+    "release_type": "patch",
+    "contributors": ["DanielBiegler"],
+    "highlights": "Fix Order.customFields saving on price adjustments • Package resolution fix in monorepos"
+  },
+  {
+    "tag_name": "v3.4.3",
+    "name": "v3.4.3",
+    "published_at": "2025-10-02",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.4.3",
+    "release_type": "patch",
+    "contributors": ["michaelbromley", "casperiv0", "dlhck", "iamgerwin"],
+    "highlights": "Critical dependency fix for @vendure/core install issue • Apollo Server conflict resolution • Dashboard variant table improvements • Asset focal point fixes"
+  },
+  {
+    "tag_name": "v3.4.2",
+    "name": "v3.4.2",
+    "published_at": "2025-09-11",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.4.2",
+    "release_type": "patch",
+    "contributors": ["HouseinIsProgramming", "oidt", "DanielBiegler", "gabriellbui", "BibiSebi", "martijnvdbrug", "mohdbk", "casperiv0", "biggamesmallworld", "michaelbromley"],
+    "highlights": "SettingsStoreService API standardization (ctx arg position) • CollectionEvent emission fix • Stale lock handling for scheduled tasks • Dashboard form components refactor"
+  },
+  {
+    "tag_name": "v3.4.1",
+    "name": "v3.4.1",
+    "published_at": "2025-08-25",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.4.1",
+    "release_type": "patch",
+    "contributors": ["tianyingchun", "michaelbromley", "HouseinIsProgramming", "dlhck", "knoid", "qx54", "gabriellbui", "colinpieper"],
+    "highlights": "New Custom Form Components documentation • Dashboard form refactor • Spanish translation fixes • StockMovements type filtering • Scheduled task registration fix"
+  },
+  {
+    "tag_name": "v3.4.0",
+    "name": "v3.4.0",
+    "published_at": "2025-08-01",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.4.0",
+    "release_type": "minor",
+    "contributors": ["gabriellbui", "DeltaSAMP", "sonntag-philipp", "martijnvdbrug", "HouseinIsProgramming", "nxmad", "grolmus", "kkerti", "oidt", "michaelbromley", "LeftoversTodayAppAdmin", "mohdbk", "dlhck"],
+    "highlights": "Dashboard Release Candidate - stable developer APIs! • CLI non-interactive mode for scripting • New Settings Store API for plugin configuration • Near feature-parity with old Admin UI"
+  },
+  {
+    "tag_name": "v3.3.8",
+    "name": "v3.3.8",
+    "published_at": "2025-08-01",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.3.8",
+    "release_type": "patch",
+    "contributors": ["dlhck", "michaelbromley", "HouseinIsProgramming", "Draykee", "twlite", "knoid", "ApplePedlar", "biggamesmallworld"],
+    "highlights": "Order tracking code display fix • Refund status in order coverage calculation • Windows plugin detection fix • Stripe metadata in createPayment"
+  },
+  {
+    "tag_name": "v3.3.7",
+    "name": "v3.3.7",
+    "published_at": "2025-07-18",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.3.7",
+    "release_type": "patch",
+    "contributors": ["michaelbromley", "gabriellbui", "williamrijksen", "Draykee"],
+    "highlights": "Custom field defaults on entity creation • Nested filter ID decoding fix • Multiple fulfillment lines quantity calculation • SelfRefreshingCache documentation"
+  },
+  {
+    "tag_name": "v3.3.6",
+    "name": "v3.3.6",
+    "published_at": "2025-07-14",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.3.6",
+    "release_type": "patch",
+    "contributors": ["Dominic-Preap", "DeltaSAMP", "michaelbromley", "dlhck", "HouseinIsProgramming", "sarifmiaa", "gabriellbui", "grolmus", "kwerie", "Draykee", "jezzzm", "knoid"],
+    "highlights": "Spanish translation improvements • Collection visibility fix • UUID entity creation fix • Dashboard RichTextInput import fix • Common utilities export"
+  },
+  {
+    "tag_name": "v3.3.5",
+    "name": "v3.3.5",
+    "published_at": "2025-06-27",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.3.5",
+    "release_type": "patch",
+    "contributors": ["dlhck", "HouseinIsProgramming", "floze", "martijnvdbrug", "michaelbromley", "Ankish76"],
+    "highlights": "Shipping address only for tax zone determination • tsconfig comments allowed in migrate command • Dashboard Windows extension loading fix • Bulk facet value editing fix"
+  },
+  {
+    "tag_name": "v3.3.4",
+    "name": "v3.3.4",
+    "published_at": "2025-06-19",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.3.4",
+    "release_type": "patch",
+    "contributors": [],
+    "highlights": "BullMQ job listing 500x performance improvement • New clean-job-queue-index scheduled task • Default scheduler stability improvements • ProductOptionGroup soft-delete handling"
+  },
+  {
+    "tag_name": "v3.3.3",
+    "name": "v3.3.3",
+    "published_at": "2025-06-06",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.3.3",
+    "release_type": "patch",
+    "contributors": ["mkstayalive", "AdnaneKhan"],
+    "highlights": "Product/variant columns link to detail pages in order table • Custom fields on activePaymentMethods/activeShippingMethods • Dashboard auth & channel selection fixes • OrderableAsset export"
+  },
+  {
+    "tag_name": "v3.3.2",
+    "name": "v3.3.2",
+    "published_at": "2025-05-28",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.3.2",
+    "release_type": "patch",
+    "contributors": [],
+    "highlights": "Telemetry spans for same-class method calls • Enhanced error handling in logger • Dashboard authenticated status race condition fix"
+  },
+  {
+    "tag_name": "v3.3.1",
+    "name": "v3.3.1",
+    "published_at": "2025-05-20",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.3.1",
+    "release_type": "patch",
+    "contributors": ["TaharMeddeb03", "Hen2609"],
+    "highlights": "Arabic & French translation improvements • Circular merge-deep stack overflow fix • Klarna payment via Mollie enabled • GraphiQL pnpm asset path fix"
+  },
+  {
+    "tag_name": "v3.3.0",
+    "name": "v3.3.0",
+    "published_at": "2025-05-12",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.3.0",
+    "release_type": "minor",
+    "contributors": [],
+    "highlights": "New Dashboard Beta with extension APIs! • Native Scheduled Tasks support with DefaultSchedulerPlugin • New @vendure/telemetry-plugin for OpenTelemetry • New GraphiQL plugin replacing deprecated playground"
+  },
+  {
+    "tag_name": "v3.2.4",
+    "name": "v3.2.4",
+    "published_at": "2025-05-05",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.2.4",
+    "release_type": "patch",
+    "contributors": ["Meriamhrz", "Balgha03", "HouseinIsProgramming", "baboons"],
+    "highlights": "Admin UI sendFile absolute paths fix • Proxy middleware v2→v3 migration fix • Circular collection ancestor detection • Password validation maxLength option"
+  },
+  {
+    "tag_name": "v3.2.3",
+    "name": "v3.2.3",
+    "published_at": "2025-04-17",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.2.3",
+    "release_type": "patch",
+    "contributors": [],
+    "highlights": "Missing product variant list tab fix • Express v4/v5 types alignment • Express typings relaxation for compatibility"
+  },
+  {
+    "tag_name": "v3.2.2",
+    "name": "v3.2.2",
+    "published_at": "2025-04-03",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.2.2",
+    "release_type": "patch",
+    "contributors": [],
+    "highlights": "Dashboard plugin publishing fix"
+  },
+  {
+    "tag_name": "v3.2.1",
+    "name": "v3.2.1",
+    "published_at": "2025-04-03",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.2.1",
+    "release_type": "patch",
+    "contributors": [],
+    "highlights": "BullMQ Redis keys custom prefix fix • Sass compilation warnings silenced • Angular v19 compatibility for ui-devkit"
+  },
+  {
+    "tag_name": "v3.2.0",
+    "name": "v3.2.0",
+    "published_at": "2025-04-02",
+    "is_prerelease": false,
+    "html_url": "https://github.com/vendure-ecommerce/vendure/releases/tag/v3.2.0",
+    "release_type": "minor",
+    "contributors": ["xtul9", "Winne4r", "HerclasNido", "putermancer", "c4nzin", "jhmen", "flobacher", "hooooooouzx", "ankitdev10", "kamil-maslowski", "ApplePedlar", "jantokic", "Szbuli", "Ryrahul", "apoca"],
+    "highlights": "New React Dashboard Alpha Preview! • Major dependency updates: NestJS v11, Express v5, TypeScript v5.8.2, Angular v19 • Performance improvements from dependency upgrades • Public demo at react.demo.vendure.io"
+  }
+]

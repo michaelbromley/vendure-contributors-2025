@@ -14,9 +14,9 @@ import { launchConfetti } from './services/confetti-service';
 
 // Components
 import { createSnowflakesHtml, initSnowflakes } from './components/snowflakes';
-import { renderActivityHeatmap } from './components/heatmap';
+import { renderActivityHeatmap, initHeatmapInteractivity } from './components/heatmap';
 import { renderContributionTypes } from './components/donut-chart';
-import { renderMonthlyTrend } from './components/monthly-trend';
+import { renderMonthlyTrend, initChartInteractivity } from './components/monthly-trend';
 import { renderContributorCards } from './components/contributor-card';
 import { renderModalHtml, openModal, setupModalListeners } from './components/modal';
 import { renderWorldMapHtml, loadWorldMap } from './components/world-map';
@@ -322,6 +322,8 @@ function init(): void {
     setupEventListeners();
     initSnowflakes();
     loadWorldMap();
+    initHeatmapInteractivity();
+    initChartInteractivity();
     
     // Animate the stat counters
     setTimeout(animateCounters, 300);

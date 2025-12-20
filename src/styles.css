@@ -1161,6 +1161,7 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  overflow: hidden;
 }
 
 .heatmap-months {
@@ -1180,7 +1181,10 @@ footer a:hover {
   display: flex;
   gap: 3px;
   overflow-x: auto;
+  overflow-y: visible;
   padding-bottom: 0.5rem;
+  padding-right: 8px;
+  margin-right: -8px;
 }
 
 .heatmap-week {
@@ -1240,6 +1244,23 @@ footer a:hover {
 .heatmap-legend .heatmap-cell:hover {
   transform: none;
   box-shadow: none;
+}
+
+.heatmap-legend .legend-separator {
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0 0.25rem;
+}
+
+.heatmap-legend .release-marker {
+  background: transparent;
+  border: 2px solid #f472b6;
+  border-radius: 2px;
+}
+
+/* Heatmap release day marker */
+.heatmap-cell.release-day {
+  position: relative;
+  box-shadow: inset 0 0 0 2px #f472b6;
 }
 
 /* Donut Chart */
@@ -1349,6 +1370,302 @@ footer a:hover {
 .axis-label {
   fill: #a8d8ea;
   font-size: 0.7rem;
+}
+
+/* Release markers on line chart */
+.release-marker-line {
+  stroke: rgba(244, 114, 182, 0.4);
+  stroke-width: 1;
+  stroke-dasharray: 4 2;
+}
+
+.release-marker-dot {
+  fill: #f472b6;
+  stroke: #fff;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: r 0.2s ease, fill 0.2s ease;
+}
+
+.release-marker-dot:hover {
+  r: 6;
+  fill: #f9a8d4;
+}
+
+/* Chart legend */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: #a8d8ea;
+}
+
+.chart-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chart-legend .legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.chart-legend .legend-dot.commits {
+  background: #17c1ff;
+}
+
+.chart-legend .legend-dot.releases {
+  background: #f472b6;
+}
+
+.chart-legend .legend-dot.minor {
+  background: #fbbf24;
+  box-shadow: 0 0 4px rgba(251, 191, 36, 0.6);
+}
+
+.chart-legend .legend-dot.patch {
+  background: rgba(251, 191, 36, 0.4);
+}
+
+/* =====================================================
+   CHART TOOLTIP STYLES
+   ===================================================== */
+
+.chart-tooltip {
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 0.875rem 1rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  max-width: 320px;
+  font-size: 0.85rem;
+  color: #fff;
+  pointer-events: auto;
+}
+
+.tooltip-header {
+  margin-bottom: 0.5rem;
+}
+
+.tooltip-date,
+.tooltip-month {
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.tooltip-stats {
+  color: #a8d8ea;
+  margin-bottom: 0.5rem;
+}
+
+.tooltip-commits {
+  color: #17c1ff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Release section in tooltip */
+.tooltip-release,
+.tooltip-releases,
+.tooltip-release-full {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tooltip-release-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.tooltip-release-icon {
+  font-size: 1rem;
+}
+
+.tooltip-release-tag {
+  color: #f472b6;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.tooltip-release-tag:hover {
+  color: #f9a8d4;
+  text-decoration: underline;
+}
+
+.tooltip-release-type {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tooltip-release.release-minor .tooltip-release-type,
+.tooltip-release-full.release-minor .tooltip-release-type,
+.tooltip-release-badge.minor {
+  background: rgba(251, 191, 36, 0.25);
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.tooltip-release.release-patch .tooltip-release-type,
+.tooltip-release-full.release-patch .tooltip-release-type,
+.tooltip-release-badge.patch {
+  background: rgba(251, 191, 36, 0.12);
+  color: rgba(251, 191, 36, 0.7);
+}
+
+.tooltip-release-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.tooltip-release-date {
+  color: #a8d8ea;
+  font-size: 0.75rem;
+}
+
+.tooltip-release-highlights {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 0.5rem 0;
+}
+
+.tooltip-release-contributors {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.tooltip-label {
+  color: #a8d8ea;
+  margin-right: 0.25rem;
+}
+
+.tooltip-contributor {
+  color: #17c1ff;
+  margin-right: 0.25rem;
+}
+
+.tooltip-more {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.tooltip-click-hint {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: right;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.tooltip-click-hint:hover {
+  color: #17c1ff;
+}
+
+/* Release badges in tooltip */
+.tooltip-releases-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.tooltip-release-badge {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.tooltip-release-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tooltip-release-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.tooltip-release-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tooltip-release-item .tooltip-release-tag {
+  font-size: 0.8rem;
+}
+
+.tooltip-release-item.minor {
+  border-left: 3px solid #fbbf24;
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.tooltip-release-item.patch {
+  border-left: 2px solid rgba(251, 191, 36, 0.35);
+}
+
+/* Minor vs Patch release marker styles */
+/* Minor releases: bright gold/amber - highly prominent */
+.heatmap-cell.release-day.release-minor {
+  box-shadow: inset 0 0 0 2px #fbbf24, 0 0 8px rgba(251, 191, 36, 0.5);
+}
+
+/* Patch releases: muted amber - subtle */
+.heatmap-cell.release-day.release-patch {
+  box-shadow: inset 0 0 0 2px rgba(251, 191, 36, 0.35);
+}
+
+.release-marker-line.minor {
+  stroke: rgba(251, 191, 36, 0.6);
+  stroke-width: 2;
+}
+
+.release-marker-line.patch {
+  stroke: rgba(251, 191, 36, 0.2);
+}
+
+.release-marker-dot.minor {
+  fill: #fbbf24;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.8));
+  r: 6;
+}
+
+.release-marker-dot.patch {
+  fill: rgba(251, 191, 36, 0.5);
+  r: 4;
+}
+
+/* Legend updates for minor/patch */
+.heatmap-legend .release-marker.minor {
+  border-color: #fbbf24;
+  box-shadow: 0 0 4px rgba(251, 191, 36, 0.6);
+}
+
+.heatmap-legend .release-marker.patch {
+  border-color: rgba(251, 191, 36, 0.35);
 }
 
 /* World Map */
