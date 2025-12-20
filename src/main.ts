@@ -37,15 +37,43 @@ function renderPage(members: CommunityMember[]): string {
     <a href="#main-content" class="sr-only skip-link">Skip to main content</a>
     
     <header class="header" role="banner">
-      <div class="vendure-logo">
-        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 28" width="60" height="42" aria-hidden="true">
-          <path d="M10.746 12.685v9.263c0 .166.093.323.237.405l8.407 4.762c.302.17.671.17.973 0l8.407-4.762a.466.466 0 0 0 .237-.405v-9.263a.476.476 0 0 0-.714-.404l-7.93 4.49a.996.996 0 0 1-.973 0l-7.93-4.49a.476.476 0 0 0-.714.404Z" fill="#17c1ff"></path>
-          <path d="M8.893.75.486 5.51A.948.948 0 0 0 0 6.333v9.522c0 .167.092.324.237.405l8.176 4.633a.476.476 0 0 0 .714-.405v-8.982c0-.34.185-.655.487-.824l7.93-4.491a.463.463 0 0 0 0-.81L9.366.75a.48.48 0 0 0-.477 0h.003ZM30.86.74l8.407 4.76c.301.17.486.487.486.825v9.522a.47.47 0 0 1-.237.405l-8.176 4.633a.476.476 0 0 1-.714-.405v-8.982a.945.945 0 0 0-.486-.824l-7.93-4.491a.463.463 0 0 1 0-.81L30.386.742a.48.48 0 0 1 .477 0h-.003Z" fill="#17c1ff"></path>
-        </svg>
+      <div class="header-content">
+        <div class="header-decoration header-decoration-left" aria-hidden="true">
+          <div class="decoration-line"></div>
+          <div class="decoration-dot"></div>
+        </div>
+        
+        <div class="header-main">
+          <div class="vendure-logo">
+            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 28" width="80" height="56" aria-hidden="true">
+              <path d="M10.746 12.685v9.263c0 .166.093.323.237.405l8.407 4.762c.302.17.671.17.973 0l8.407-4.762a.466.466 0 0 0 .237-.405v-9.263a.476.476 0 0 0-.714-.404l-7.93 4.49a.996.996 0 0 1-.973 0l-7.93-4.49a.476.476 0 0 0-.714.404Z" fill="#17c1ff"></path>
+              <path d="M8.893.75.486 5.51A.948.948 0 0 0 0 6.333v9.522c0 .167.092.324.237.405l8.176 4.633a.476.476 0 0 0 .714-.405v-8.982c0-.34.185-.655.487-.824l7.93-4.491a.463.463 0 0 0 0-.81L9.366.75a.48.48 0 0 0-.477 0h.003ZM30.86.74l8.407 4.76c.301.17.486.487.486.825v9.522a.47.47 0 0 1-.237.405l-8.176 4.633a.476.476 0 0 1-.714-.405v-8.982a.945.945 0 0 0-.486-.824l-7.93-4.491a.463.463 0 0 1 0-.81L30.386.742a.48.48 0 0 1 .477 0h-.003Z" fill="#17c1ff"></path>
+            </svg>
+          </div>
+          
+          <div class="title-group">
+            <span class="title-eyebrow">Vendure Open Source</span>
+            <h1>
+              <span class="title-line title-line-1">Community</span>
+              <span class="title-line title-line-2">Wrapped</span>
+            </h1>
+            <div class="year-display">
+              <span class="year-line" aria-hidden="true"></span>
+              <span class="year-text">2025</span>
+              <span class="year-line" aria-hidden="true"></span>
+            </div>
+          </div>
+          
+          <p class="subtitle">Celebrating the humans who pushed Vendure forward</p>
+        </div>
+        
+        <div class="header-decoration header-decoration-right" aria-hidden="true">
+          <div class="decoration-dot"></div>
+          <div class="decoration-line"></div>
+        </div>
       </div>
-      <h1>Vendure Community Wrapped 2025</h1>
-      <p class="subtitle">Celebrating those who pushed Vendure forward in 2025</p>
-      <span class="year-badge" aria-hidden="true">2025</span>
+      
+      <div class="header-glow" aria-hidden="true"></div>
     </header>
     
     <main id="main-content">

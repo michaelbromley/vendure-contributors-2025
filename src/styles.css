@@ -113,57 +113,208 @@ body {
 
 .header {
   text-align: center;
-  padding: 3rem 1rem 2rem;
+  padding: 4rem 1rem 3rem;
   position: relative;
   z-index: 10;
+  overflow: hidden;
 }
 
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.header-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse at center, rgba(23, 193, 255, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Decorative elements */
+.header-decoration {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0.6;
+}
+
+.header-decoration-left {
+  flex-direction: row;
+}
+
+.header-decoration-right {
+  flex-direction: row;
+}
+
+.decoration-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #17c1ff);
+}
+
+.header-decoration-right .decoration-line {
+  background: linear-gradient(90deg, #17c1ff, transparent);
+}
+
+.decoration-dot {
+  width: 8px;
+  height: 8px;
+  background: #17c1ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(23, 193, 255, 0.8);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Logo */
 .vendure-logo {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 .vendure-logo svg {
-  filter: drop-shadow(0 0 10px rgba(23, 193, 255, 0.5));
-  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 20px rgba(23, 193, 255, 0.6));
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .vendure-logo svg:hover {
   transform: scale(1.1);
+  filter: drop-shadow(0 0 30px rgba(23, 193, 255, 0.8));
+}
+
+/* Eyebrow text */
+.title-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #17c1ff;
+  margin-bottom: 0.25rem;
+  opacity: 0.9;
+}
+
+/* Main title */
+.title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header h1 {
   font-family: 'Inter', 'Public Sans', sans-serif;
-  font-size: 3rem;
+  font-size: 1rem;
   font-weight: 800;
   color: #fff;
-  text-shadow: 
-    0 0 10px rgba(23, 193, 255, 0.5),
-    0 0 20px rgba(23, 193, 255, 0.3),
-    0 0 30px rgba(23, 193, 255, 0.2);
-  margin-bottom: 0.5rem;
-  letter-spacing: -1px;
+  margin: 0;
+  line-height: 1;
 }
 
+.title-line {
+  display: block;
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
+.title-line-1 {
+  background: linear-gradient(135deg, #fff 0%, #a8d8ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.title-line-2 {
+  background: linear-gradient(135deg, #17c1ff 0%, #93c5fd 50%, #17c1ff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Year display */
+.year-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.year-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(23, 193, 255, 0.5), transparent);
+}
+
+.year-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #17c1ff;
+  letter-spacing: 8px;
+  text-shadow: 0 0 20px rgba(23, 193, 255, 0.5);
+}
+
+/* Subtitle */
 .header .subtitle {
-  font-size: 1.3rem;
-  color: #a8d8ea;
-  margin-bottom: 1rem;
-}
-
-.header .year-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, #17c1ff, #0d6efd);
-  padding: 0.5rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 700;
   font-size: 1.1rem;
-  box-shadow: 0 4px 15px rgba(23, 193, 255, 0.4);
-  animation: pulse 2s ease-in-out infinite;
+  color: rgba(168, 216, 234, 0.8);
+  margin-top: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .header-decoration {
+    display: none;
+  }
+  
+  .title-line {
+    font-size: 2.5rem;
+  }
+  
+  .year-text {
+    font-size: 1.2rem;
+    letter-spacing: 6px;
+  }
+  
+  .vendure-logo svg {
+    width: 60px;
+    height: 42px;
+  }
 }
 
 .stats-banner {
