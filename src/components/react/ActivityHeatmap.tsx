@@ -47,11 +47,10 @@ function LegendCell({ level, isRelease, releaseType }: { level?: number; isRelea
 export default function ActivityHeatmap() {
   const { allCommits, releases, members } = useDataContext();
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
-  const [isTooltipHovered, setIsTooltipHovered] = useState(false);
   const isTooltipHoveredRef = useRef(false);
-  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const { refs, floatingStyles, context } = useFloating({
+  const { refs, floatingStyles } = useFloating({
     open: !!tooltip,
     placement: 'top',
     middleware: [
@@ -126,9 +125,9 @@ export default function ActivityHeatmap() {
 
   // Clear any pending hide timeout
   const clearHideTimeout = useCallback(() => {
-    if (hideTimeoutRef.current) {
+    if (hideTimeoutRef.current !== null) {
       clearTimeout(hideTimeoutRef.current);
-      hideTimeoutRef.current = undefined;
+      hideTimeoutRef.current = null;
     }
   }, []);
 
@@ -162,12 +161,10 @@ export default function ActivityHeatmap() {
   const handleTooltipEnter = useCallback(() => {
     clearHideTimeout();
     isTooltipHoveredRef.current = true;
-    setIsTooltipHovered(true);
   }, [clearHideTimeout]);
 
   const handleTooltipLeave = useCallback(() => {
     isTooltipHoveredRef.current = false;
-    setIsTooltipHovered(false);
     scheduleHide();
   }, [scheduleHide]);
 

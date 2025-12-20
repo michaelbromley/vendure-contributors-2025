@@ -1,20 +1,51 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import type { LocationContributor } from '../../types';
 import locationData from '../../data/contributor-locations-geocoded.json';
 import worldMapSvg from '../../assets/world-map.svg?raw';
+import {
+  useFloating,
+  offset,
+  flip,
+  shift,
+  FloatingPortal,
+  autoUpdate,
+} from '@floating-ui/react';
 
 // Inline styles for map dots
 const mapStyles = {
-  dot: {
+  clusterDot: {
+    fill: 'rgba(23, 193, 255, 0.6)',
+    cursor: 'pointer',
+    transition: 'filter 0.2s ease',
+  },
+  individualDot: {
     fill: '#17c1ff',
     cursor: 'pointer',
-    transition: 'r 0.2s ease, filter 0.2s ease',
+    transition: 'filter 0.2s ease',
   },
   dotGlow: {
-    fill: 'rgba(23, 193, 255, 0.3)',
+    fill: 'rgba(23, 193, 255, 0.2)',
     pointerEvents: 'none' as const,
   },
 };
+
+interface ClusterTooltipData {
+  type: 'cluster';
+  names: string;
+  country: string;
+  count: number;
+  contributions: number;
+}
+
+interface IndividualTooltipData {
+  type: 'individual';
+  name: string;
+  login: string;
+  location: string;
+  contributions: number;
+}
+
+type TooltipData = ClusterTooltipData | IndividualTooltipData;
 
 const MAP_CONFIG = {
   width: 1009.6727,
@@ -38,28 +69,72 @@ function toSvgCoords(lat: number, lng: number): { x: number; y: number } {
   const mercatorMaxY = latToMercatorY(MAP_CONFIG.geoMaxLat);
   const mercatorMinY = latToMercatorY(MAP_CONFIG.geoMinLat);
   const mercatorYRange = mercatorMaxY - mercatorMinY;
-  
+
   return {
     x: ((lng - MAP_CONFIG.geoMinLng) / geoLngRange) * MAP_CONFIG.width,
     y: ((mercatorMaxY - latToMercatorY(lat)) / mercatorYRange) * MAP_CONFIG.height
   };
 }
 
+interface Cluster {
+  lat: number;
+  lng: number;
+  x: number;
+  y: number;
+  names: string;
+  country: string;
+  count: number;
+  contributions: number;
+}
+
+interface Individual {
+  lat: number;
+  lng: number;
+  x: number;
+  y: number;
+  name: string;
+  login: string;
+  location: string;
+  country: string;
+  contributions: number;
+}
+
 export default function WorldMap() {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [viewBox, setViewBox] = useState({ 
-    x: 0, y: 0, 
-    w: MAP_CONFIG.width, 
-    h: MAP_CONFIG.height 
+  const [viewBox, setViewBox] = useState({
+    x: 0, y: 0,
+    w: MAP_CONFIG.width,
+    h: MAP_CONFIG.height
   });
   const originalViewBox = useRef({ x: 0, y: 0, w: MAP_CONFIG.width, h: MAP_CONFIG.height });
-  
+  const [tooltip, setTooltip] = useState<TooltipData | null>(null);
+  const isTooltipHoveredRef = useRef(false);
+  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const { refs, floatingStyles } = useFloating({
+    open: !!tooltip,
+    placement: 'top',
+    middleware: [
+      offset(8),
+      flip({ fallbackAxisSideDirection: 'start' }),
+      shift({ padding: 10 }),
+    ],
+    whileElementsMounted: autoUpdate,
+  });
+
   const contributors = locationData as LocationContributor[];
   const withCoords = contributors.filter(c => c.coords !== null);
-  
-  const { countryCounts, clusters } = useMemo(() => {
-    // Group contributors by approximate location
+
+  // Calculate zoom level
+  const zoom = originalViewBox.current.w / viewBox.w;
+  const showIndividuals = zoom > MAP_CONFIG.clusterZoomThreshold;
+
+  // Scale dots inversely with zoom so they stay same screen size
+  const dotScale = 1 / zoom;
+
+  const { countryCounts, clusters, individuals } = useMemo(() => {
+    // Group contributors by approximate location for clusters
     const locationGroups = new Map<string, LocationContributor[]>();
     withCoords.forEach(c => {
       if (!c.coords) return;
@@ -69,7 +144,7 @@ export default function WorldMap() {
       }
       locationGroups.get(key)!.push(c);
     });
-    
+
     // Country stats
     const countryCounts: Record<string, { count: number; contributions: number }> = {};
     withCoords.forEach(c => {
@@ -80,102 +155,181 @@ export default function WorldMap() {
       countryCounts[country].count++;
       countryCounts[country].contributions += c.commitCount + c.issueCount;
     });
-    
+
     // Create clusters
-    const clusters = Array.from(locationGroups.entries()).map(([_, group]) => {
+    const clusters: Cluster[] = Array.from(locationGroups.entries()).map(([_, group]) => {
       const avgLat = group.reduce((sum, c) => sum + (c.coords?.lat || 0), 0) / group.length;
       const avgLng = group.reduce((sum, c) => sum + (c.coords?.lng || 0), 0) / group.length;
       const totalContributions = group.reduce((sum, c) => sum + c.commitCount + c.issueCount, 0);
-      const names = group.slice(0, 3).map(c => c.name || c.login).join(', ') + 
-                    (group.length > 3 ? ` +${group.length - 3} more` : '');
-      return { 
-        lat: avgLat, 
-        lng: avgLng, 
-        names, 
-        country: group[0].country || 'Unknown', 
-        count: group.length, 
+      const names = group.slice(0, 3).map(c => c.name || c.login).join(', ') +
+        (group.length > 3 ? ` +${group.length - 3} more` : '');
+      return {
+        lat: avgLat,
+        lng: avgLng,
+        names,
+        country: group[0].country || 'Unknown',
+        count: group.length,
         contributions: totalContributions,
         ...toSvgCoords(avgLat, avgLng)
       };
     });
-    
-    return { countryCounts, clusters };
+
+    // Create individuals with spiral offset for overlapping dots
+    const coordGroups = new Map<string, LocationContributor[]>();
+    withCoords.forEach(c => {
+      if (!c.coords) return;
+      const key = `${c.coords.lat},${c.coords.lng}`;
+      if (!coordGroups.has(key)) {
+        coordGroups.set(key, []);
+      }
+      coordGroups.get(key)!.push(c);
+    });
+
+    const individuals: Individual[] = [];
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5)); // ~137.5 degrees
+
+    coordGroups.forEach((people) => {
+      const count = people.length;
+
+      people.forEach((person, index) => {
+        if (!person.coords) return;
+        const { x, y } = toSvgCoords(person.coords.lat, person.coords.lng);
+        const contributions = person.commitCount + person.issueCount;
+        const size = Math.min(4 + Math.log(contributions + 1) * 1.5, 10);
+
+        // Calculate offset for overlapping dots - golden angle spiral pattern
+        let offsetX = 0;
+        let offsetY = 0;
+
+        if (count > 1) {
+          const spacing = size * 0.13; // Tight packing based on dot size
+          const angle = index * goldenAngle;
+          const r = spacing * Math.sqrt(index); // Spiral outward
+          offsetX = r * Math.cos(angle);
+          offsetY = r * Math.sin(angle);
+        }
+
+        individuals.push({
+          lat: person.coords.lat,
+          lng: person.coords.lng,
+          x: x + offsetX,
+          y: y + offsetY,
+          name: person.name || person.login,
+          login: person.login,
+          location: person.location || '',
+          country: person.country || 'Unknown',
+          contributions,
+        });
+      });
+    });
+
+    return { countryCounts, clusters, individuals };
   }, [withCoords]);
-  
+
   const sortedCountries = Object.entries(countryCounts).sort((a, b) => b[1].count - a[1].count);
-  
-  // Load SVG map
+
+  // Load SVG map with country styles
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    
+
     const mapInner = container.querySelector('.map-inner');
     if (!mapInner) return;
-    
+
     // Parse and insert SVG
     const parser = new DOMParser();
     const svgDoc = parser.parseFromString(worldMapSvg, 'image/svg+xml');
     const svgElement = svgDoc.querySelector('svg');
-    
+
     if (!svgElement) return;
-    
+
     svgElement.classList.add('world-map-svg');
     svgElement.setAttribute('role', 'img');
     svgElement.setAttribute('aria-label', 'Interactive world map showing contributor locations');
+    svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
     svgElement.style.cssText = 'width: 100%; height: 100%; cursor: grab;';
-    
+
+    // Style country paths with faint borders and hover effects
+    const paths = svgElement.querySelectorAll('path');
+    paths.forEach(path => {
+      path.style.fill = 'rgba(255, 255, 255, 0.03)';
+      path.style.stroke = 'rgba(255, 255, 255, 0.15)';
+      path.style.strokeWidth = '0.5';
+      path.style.transition = 'fill 0.2s ease, stroke 0.2s ease';
+
+      path.addEventListener('mouseenter', () => {
+        path.style.fill = 'rgba(23, 193, 255, 0.1)';
+        path.style.stroke = 'rgba(23, 193, 255, 0.3)';
+      });
+      path.addEventListener('mouseleave', () => {
+        path.style.fill = 'rgba(255, 255, 255, 0.03)';
+        path.style.stroke = 'rgba(255, 255, 255, 0.15)';
+      });
+    });
+
     mapInner.insertBefore(svgElement, mapInner.firstChild);
     svgRef.current = svgElement;
-    
+
     return () => {
       svgElement.remove();
     };
   }, []);
-  
+
   // Update viewBox
   useEffect(() => {
     if (!svgRef.current) return;
     svgRef.current.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
   }, [viewBox]);
-  
-  // Zoom handler
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    const zoomFactor = e.deltaY > 0 ? 1.12 : 0.88;
-    const currentZoom = originalViewBox.current.w / viewBox.w;
-    const newZoom = currentZoom / zoomFactor;
-    
-    if (newZoom < MAP_CONFIG.minZoom || newZoom > MAP_CONFIG.maxZoom) return;
-    
-    setViewBox(prev => {
-      const rect = svgRef.current?.getBoundingClientRect();
-      if (!rect) return prev;
-      
-      const mouseX = ((e.clientX - rect.left) / rect.width) * prev.w + prev.x;
-      const mouseY = ((e.clientY - rect.top) / rect.height) * prev.h + prev.y;
-      
-      const newW = prev.w * zoomFactor;
-      const newH = prev.h * zoomFactor;
-      
-      return {
-        x: mouseX - (mouseX - prev.x) * zoomFactor,
-        y: mouseY - (mouseY - prev.y) * zoomFactor,
-        w: newW,
-        h: newH
-      };
-    });
-  };
-  
+
+  // Zoom handler - use native event listener to prevent page scroll
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const zoomFactor = e.deltaY > 0 ? 1.12 : 0.88;
+
+      setViewBox(prev => {
+        const currentZoom = originalViewBox.current.w / prev.w;
+        const newZoom = currentZoom / zoomFactor;
+
+        if (newZoom < MAP_CONFIG.minZoom || newZoom > MAP_CONFIG.maxZoom) return prev;
+
+        const rect = svgRef.current?.getBoundingClientRect();
+        if (!rect) return prev;
+
+        const mouseX = ((e.clientX - rect.left) / rect.width) * prev.w + prev.x;
+        const mouseY = ((e.clientY - rect.top) / rect.height) * prev.h + prev.y;
+
+        const newW = prev.w * zoomFactor;
+        const newH = prev.h * zoomFactor;
+
+        return {
+          x: mouseX - (mouseX - prev.x) * zoomFactor,
+          y: mouseY - (mouseY - prev.y) * zoomFactor,
+          w: newW,
+          h: newH
+        };
+      });
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    return () => container.removeEventListener('wheel', handleWheel);
+  }, []);
+
   // Pan handlers
   const [isPanning, setIsPanning] = useState(false);
   const panStart = useRef({ x: 0, y: 0, viewX: 0, viewY: 0 });
-  
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button !== 0) return;
     setIsPanning(true);
     panStart.current = { x: e.clientX, y: e.clientY, viewX: viewBox.x, viewY: viewBox.y };
   };
-  
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isPanning || !svgRef.current) return;
     const rect = svgRef.current.getBoundingClientRect();
@@ -183,16 +337,68 @@ export default function WorldMap() {
     const dy = (e.clientY - panStart.current.y) * (viewBox.h / rect.height);
     setViewBox(prev => ({ ...prev, x: panStart.current.viewX - dx, y: panStart.current.viewY - dy }));
   };
-  
+
   const handleMouseUp = () => setIsPanning(false);
-  
+
   const handleDoubleClick = () => {
     setViewBox({ ...originalViewBox.current });
   };
-  
-  const zoom = originalViewBox.current.w / viewBox.w;
-  const dotScale = 1 / zoom;
-  
+
+  // Tooltip handlers
+  const clearHideTimeout = useCallback(() => {
+    if (hideTimeoutRef.current !== null) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
+    }
+  }, []);
+
+  const scheduleHide = useCallback(() => {
+    clearHideTimeout();
+    hideTimeoutRef.current = setTimeout(() => {
+      if (!isTooltipHoveredRef.current) {
+        setTooltip(null);
+      }
+    }, 150);
+  }, [clearHideTimeout]);
+
+  const handleClusterEnter = useCallback((cluster: Cluster, element: SVGElement) => {
+    clearHideTimeout();
+    refs.setReference(element as unknown as HTMLElement);
+    setTooltip({
+      type: 'cluster',
+      names: cluster.names,
+      country: cluster.country,
+      count: cluster.count,
+      contributions: cluster.contributions,
+    });
+  }, [refs, clearHideTimeout]);
+
+  const handleIndividualEnter = useCallback((individual: Individual, element: SVGElement) => {
+    clearHideTimeout();
+    refs.setReference(element as unknown as HTMLElement);
+    setTooltip({
+      type: 'individual',
+      name: individual.name,
+      login: individual.login,
+      location: individual.location || individual.country,
+      contributions: individual.contributions,
+    });
+  }, [refs, clearHideTimeout]);
+
+  const handleDotLeave = useCallback(() => {
+    scheduleHide();
+  }, [scheduleHide]);
+
+  const handleTooltipEnter = useCallback(() => {
+    clearHideTimeout();
+    isTooltipHoveredRef.current = true;
+  }, [clearHideTimeout]);
+
+  const handleTooltipLeave = useCallback(() => {
+    isTooltipHoveredRef.current = false;
+    scheduleHide();
+  }, [scheduleHide]);
+
   return (
     <section className="py-12 px-4" role="region" aria-label="Global contributor map">
       <div className="max-w-7xl mx-auto">
@@ -202,13 +408,12 @@ export default function WorldMap() {
         <p className="text-text-secondary text-center mb-8">
           {withCoords.length} contributors from {Object.keys(countryCounts).length} countries
         </p>
-        
+
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Map */}
-          <div 
+          <div
             ref={containerRef}
             className="glass-card flex-1 min-h-[300px] md:min-h-[400px] lg:min-h-[500px] relative overflow-hidden"
-            onWheel={handleWheel}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -219,45 +424,80 @@ export default function WorldMap() {
               <style>{`
                 .map-dot-hover:hover { filter: brightness(1.3); }
               `}</style>
-              
+
               {/* SVG map inserted here by useEffect */}
-              
+
               {/* Contributor dots overlay */}
-              <svg 
+              <svg
                 className="absolute inset-0 pointer-events-none"
+                style={{ width: '100%', height: '100%' }}
                 viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`}
                 preserveAspectRatio="xMidYMid meet"
               >
-                {clusters.map((cluster, i) => {
-                  const size = Math.min(5 + cluster.count * 3, 15) * dotScale;
-                  return (
-                    <g key={i}>
-                      <circle
-                        cx={cluster.x}
-                        cy={cluster.y}
-                        r={size + 4 * dotScale}
-                        style={mapStyles.dotGlow}
-                      />
-                      <circle
-                        cx={cluster.x}
-                        cy={cluster.y}
-                        r={size}
-                        className="map-dot-hover pointer-events-auto"
-                        style={mapStyles.dot}
-                      >
-                        <title>{cluster.country}: {cluster.count} contributors, {cluster.contributions} contributions</title>
-                      </circle>
-                    </g>
-                  );
-                })}
+                {/* Clusters - shown when zoomed out */}
+                <g style={{ opacity: showIndividuals ? 0 : 1, transition: 'opacity 0.3s ease' }}>
+                  {clusters.map((cluster, i) => {
+                    const baseSize = Math.min(5 + cluster.count * 3, 15);
+                    const size = Math.min(baseSize + Math.log(cluster.contributions + 1) * 2, 25) * dotScale;
+                    const glowSize = size + 4 * dotScale;
+
+                    return (
+                      <g key={`cluster-${i}`}>
+                        <circle
+                          cx={cluster.x}
+                          cy={cluster.y}
+                          r={glowSize}
+                          style={mapStyles.dotGlow}
+                        />
+                        <circle
+                          cx={cluster.x}
+                          cy={cluster.y}
+                          r={size}
+                          className="map-dot-hover pointer-events-auto"
+                          style={mapStyles.clusterDot}
+                          onMouseEnter={(e) => handleClusterEnter(cluster, e.currentTarget)}
+                          onMouseLeave={handleDotLeave}
+                        />
+                      </g>
+                    );
+                  })}
+                </g>
+
+                {/* Individuals - shown when zoomed in */}
+                <g style={{ opacity: showIndividuals ? 1 : 0, transition: 'opacity 0.3s ease' }}>
+                  {individuals.map((individual, i) => {
+                    const size = Math.min(4 + Math.log(individual.contributions + 1) * 1.5, 10) * dotScale;
+                    const glowSize = size + 3 * dotScale;
+
+                    return (
+                      <g key={`individual-${i}`}>
+                        <circle
+                          cx={individual.x}
+                          cy={individual.y}
+                          r={glowSize}
+                          style={mapStyles.dotGlow}
+                        />
+                        <circle
+                          cx={individual.x}
+                          cy={individual.y}
+                          r={size}
+                          className="map-dot-hover pointer-events-auto"
+                          style={mapStyles.individualDot}
+                          onMouseEnter={(e) => handleIndividualEnter(individual, e.currentTarget)}
+                          onMouseLeave={handleDotLeave}
+                        />
+                      </g>
+                    );
+                  })}
+                </g>
               </svg>
             </div>
-            
+
             <div className="absolute bottom-4 left-4 text-xs text-text-secondary bg-bg-dark/50 px-2 py-1 rounded">
               Scroll to zoom, drag to pan, double-click to reset
             </div>
           </div>
-          
+
           {/* Country list */}
           <div className="glass-card p-4 lg:w-64 max-h-[400px] lg:max-h-[500px] overflow-hidden flex flex-col">
             <h4 className="font-semibold text-text-primary mb-3">
@@ -275,6 +515,48 @@ export default function WorldMap() {
             </div>
           </div>
         </div>
+
+        {/* Floating tooltip */}
+        {tooltip && (
+          <FloatingPortal>
+            <div
+              ref={refs.setFloating}
+              style={{
+                ...floatingStyles,
+                zIndex: 10000,
+                maxWidth: 'min(280px, calc(100vw - 20px))',
+              }}
+              onMouseEnter={handleTooltipEnter}
+              onMouseLeave={handleTooltipLeave}
+            >
+              <div className="bg-bg-dark/95 backdrop-blur-sm rounded-lg border border-white/10 shadow-xl p-3 text-sm">
+                {tooltip.type === 'cluster' ? (
+                  <>
+                    <div className="text-white font-medium">{tooltip.country}</div>
+                    <div className="text-text-secondary mt-1">
+                      <span className="text-vendure-primary font-semibold">{tooltip.count}</span> contributor{tooltip.count !== 1 ? 's' : ''}
+                    </div>
+                    <div className="text-text-secondary">
+                      <span className="text-vendure-primary font-semibold">{tooltip.contributions}</span> contribution{tooltip.contributions !== 1 ? 's' : ''}
+                    </div>
+                    <div className="text-text-muted text-xs mt-2 border-t border-white/10 pt-2">
+                      {tooltip.names}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-white font-medium">{tooltip.name}</div>
+                    <div className="text-vendure-primary text-xs">@{tooltip.login}</div>
+                    <div className="text-text-muted text-xs mt-1">{tooltip.location}</div>
+                    <div className="text-text-secondary mt-2 border-t border-white/10 pt-2">
+                      <span className="text-vendure-primary font-semibold">{tooltip.contributions}</span> contribution{tooltip.contributions !== 1 ? 's' : ''}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </FloatingPortal>
+        )}
       </div>
     </section>
   );
