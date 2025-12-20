@@ -73,6 +73,10 @@ body {
   --color-heatmap-2: rgba(20, 184, 198, 0.55);
   --color-heatmap-3: rgba(20, 184, 198, 0.8);
   --color-heatmap-4: #0d9ba8;
+
+  /* Release colors - darker yellow for better contrast on light bg */
+  --color-release-minor: #ca8a04;
+  --color-release-patch: rgba(202, 138, 4, 0.5);
 }
 
 [data-theme="kitz"] body {
@@ -116,20 +120,20 @@ body {
 
 /* Kitz theme glass cards - frosty grey glass */
 [data-theme="kitz"] .glass-card {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(12px);
+    0 4px 20px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
 }
 
 [data-theme="kitz"] .glass-card:hover {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(20, 184, 198, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(20, 184, 198, 0.2);
   box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    0 8px 30px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 /* Glow effects */
@@ -187,7 +191,7 @@ body {
 
 /* Release colors in kitz - make more visible */
 [data-theme="kitz"] .text-release-minor {
-  color: #b45309;
+  color: #ca8a04;
 }
 
 /* Chart grid lines in kitz */

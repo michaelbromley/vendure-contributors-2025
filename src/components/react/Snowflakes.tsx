@@ -130,16 +130,22 @@ export default function Snowflakes({ mode }: SnowflakesProps) {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    
+
     // Clear existing
     container.innerHTML = '';
     snowflakesRef.current = [];
-    
+
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-    
+
+    // Mobile adjustments: 50% count, 50% size
+    const isMobile = viewportWidth < 768;
+    const countMultiplier = isMobile ? 0.5 : 1;
+    const sizeMultiplier = isMobile ? 0.5 : 1;
+    const flakeCount = Math.floor(config.count * countMultiplier);
+
     // Create snowflakes
-    for (let i = 0; i < config.count; i++) {
+    for (let i = 0; i < flakeCount; i++) {
       const span = document.createElement('span');
       span.className = 'fixed pointer-events-none select-none';
       // Kitz mode: darker grey-blue tones visible on light bg, Vienna: white on dark bg
@@ -148,7 +154,7 @@ export default function Snowflakes({ mode }: SnowflakesProps) {
         : 'white';
       span.textContent = FLAKE_CHARS[Math.floor(Math.random() * FLAKE_CHARS.length)];
 
-      const size = config.sizeMin + Math.random() * (config.sizeMax - config.sizeMin);
+      const size = (config.sizeMin + Math.random() * (config.sizeMax - config.sizeMin)) * sizeMultiplier;
       const x = Math.random() * viewportWidth;
       const y = Math.random() * viewportHeight;
       const baseVy = config.speedMin + Math.random() * (config.speedMax - config.speedMin);

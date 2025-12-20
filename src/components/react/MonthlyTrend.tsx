@@ -297,28 +297,28 @@ export default function MonthlyTrend() {
                 const dotRadius = release.release_type === 'minor' ? 6 : 3;
                 const isMinor = release.release_type === 'minor';
 
-                // Theme-aware release colors
+                // Theme-aware release colors (matching CSS variables)
                 const releaseLineStyle = isMinor
                   ? {
                       ...chartStyles.releaseLineMinor,
-                      stroke: isKitz ? '#b45309' : '#fbbf24',
+                      stroke: isKitz ? '#ca8a04' : '#fbbf24',
                     }
                   : {
                       ...chartStyles.releaseLinePatch,
-                      stroke: isKitz ? 'rgba(180, 83, 9, 0.5)' : 'rgba(251, 191, 36, 0.5)',
+                      stroke: isKitz ? 'rgba(202, 138, 4, 0.5)' : 'rgba(251, 191, 36, 0.5)',
                     };
 
                 const releaseDotStyle = isMinor
                   ? {
                       ...chartStyles.releaseDotMinor,
-                      fill: isKitz ? '#b45309' : '#fbbf24',
+                      fill: isKitz ? '#ca8a04' : '#fbbf24',
                       filter: isKitz
-                        ? 'drop-shadow(0 0 6px rgba(180, 83, 9, 0.8))'
+                        ? 'drop-shadow(0 0 6px rgba(202, 138, 4, 0.8))'
                         : 'drop-shadow(0 0 6px rgba(251, 191, 36, 0.8))',
                     }
                   : {
                       ...chartStyles.releaseDotPatch,
-                      fill: isKitz ? 'rgba(180, 83, 9, 0.6)' : 'rgba(251, 191, 36, 0.5)',
+                      fill: isKitz ? 'rgba(202, 138, 4, 0.6)' : 'rgba(251, 191, 36, 0.5)',
                     };
 
                 return (

@@ -1,5 +1,5 @@
 import { useMemo, useState, useRef, useCallback } from 'react';
-import { useDataContext } from '../../App';
+import { useDataContext, useSnowMode } from '../../App';
 import type { Release } from '../../types';
 import {
   useFloating,
@@ -12,14 +12,23 @@ import {
 
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-// Heatmap color levels
-const HEATMAP_COLORS = {
-  0: 'rgba(255, 255, 255, 0.1)',
-  1: 'rgba(23, 193, 255, 0.25)',
-  2: 'rgba(23, 193, 255, 0.5)',
-  3: 'rgba(23, 193, 255, 0.75)',
-  4: '#17c1ff',
-} as const;
+// Theme-aware heatmap colors
+const getHeatmapColors = (isKitz: boolean) => ({
+  0: isKitz ? 'rgba(20, 184, 198, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+  1: isKitz ? 'rgba(20, 184, 198, 0.35)' : 'rgba(23, 193, 255, 0.25)',
+  2: isKitz ? 'rgba(20, 184, 198, 0.55)' : 'rgba(23, 193, 255, 0.5)',
+  3: isKitz ? 'rgba(20, 184, 198, 0.8)' : 'rgba(23, 193, 255, 0.75)',
+  4: isKitz ? '#0d9ba8' : '#17c1ff',
+} as const);
+
+// Theme-aware release glow colors
+const getReleaseGlow = (isKitz: boolean, type: 'minor' | 'patch') => {
+  const color = isKitz ? '202, 138, 4' : '251, 191, 36';
+  if (type === 'minor') {
+    return `0 0 8px rgba(${color}, 0.8), inset 0 0 0 1px rgba(${color}, 0.6)`;
+  }
+  return `0 0 4px rgba(${color}, 0.4), inset 0 0 0 1px rgba(${color}, 0.3)`;
+};
 
 interface TooltipData {
   date: string;
@@ -27,18 +36,17 @@ interface TooltipData {
   release?: Release;
 }
 
-function LegendCell({ level, isRelease, releaseType }: { level?: number; isRelease?: boolean; releaseType?: 'minor' | 'patch' }) {
+function LegendCell({ level, isRelease, releaseType, isKitz }: { level?: number; isRelease?: boolean; releaseType?: 'minor' | 'patch'; isKitz: boolean }) {
+  const heatmapColors = getHeatmapColors(isKitz);
   const style: React.CSSProperties = {
     width: 12,
     height: 12,
     borderRadius: 2,
-    background: level !== undefined ? HEATMAP_COLORS[level as keyof typeof HEATMAP_COLORS] : HEATMAP_COLORS[0],
+    background: level !== undefined ? heatmapColors[level as keyof typeof heatmapColors] : heatmapColors[0],
   };
 
-  if (isRelease && releaseType === 'minor') {
-    style.boxShadow = '0 0 8px rgba(251, 191, 36, 0.8), inset 0 0 0 1px rgba(251, 191, 36, 0.6)';
-  } else if (isRelease && releaseType === 'patch') {
-    style.boxShadow = '0 0 4px rgba(251, 191, 36, 0.4), inset 0 0 0 1px rgba(251, 191, 36, 0.3)';
+  if (isRelease && releaseType) {
+    style.boxShadow = getReleaseGlow(isKitz, releaseType);
   }
 
   return <div style={style} />;
@@ -46,6 +54,9 @@ function LegendCell({ level, isRelease, releaseType }: { level?: number; isRelea
 
 export default function ActivityHeatmap() {
   const { allCommits, releases, members } = useDataContext();
+  const { mode } = useSnowMode();
+  const isKitz = mode === 'kitz';
+  const heatmapColors = getHeatmapColors(isKitz);
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
   const isTooltipHoveredRef = useRef(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -178,14 +189,14 @@ export default function ActivityHeatmap() {
       width: 12,
       height: 12,
       borderRadius: 2,
-      background: HEATMAP_COLORS[level as keyof typeof HEATMAP_COLORS],
+      background: heatmapColors[level as keyof typeof heatmapColors],
       transition: 'transform 0.2s, box-shadow 0.2s',
     };
 
     if (release?.release_type === 'minor') {
-      style.boxShadow = '0 0 8px rgba(251, 191, 36, 0.8), inset 0 0 0 1px rgba(251, 191, 36, 0.6)';
+      style.boxShadow = getReleaseGlow(isKitz, 'minor');
     } else if (release?.release_type === 'patch') {
-      style.boxShadow = '0 0 4px rgba(251, 191, 36, 0.4), inset 0 0 0 1px rgba(251, 191, 36, 0.3)';
+      style.boxShadow = getReleaseGlow(isKitz, 'patch');
     }
 
     return style;
@@ -238,13 +249,13 @@ export default function ActivityHeatmap() {
       <div className="flex items-center justify-end gap-2 mt-4 text-xs text-text-secondary flex-wrap">
         <span>Less</span>
         {[0, 1, 2, 3, 4].map(level => (
-          <LegendCell key={level} level={level} />
+          <LegendCell key={level} level={level} isKitz={isKitz} />
         ))}
         <span>More</span>
-        <span className="mx-2 text-white/30">|</span>
-        <LegendCell isRelease releaseType="minor" />
+        <span className={isKitz ? 'mx-2 text-black/20' : 'mx-2 text-white/30'}>|</span>
+        <LegendCell isRelease releaseType="minor" isKitz={isKitz} />
         <span>Minor ({minorCount})</span>
-        <LegendCell isRelease releaseType="patch" />
+        <LegendCell isRelease releaseType="patch" isKitz={isKitz} />
         <span>Patch ({patchCount})</span>
       </div>
 
