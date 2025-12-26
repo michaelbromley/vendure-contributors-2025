@@ -103,6 +103,7 @@ interface Individual {
 export default function WorldMap() {
   const { mode } = useSnowMode();
   const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [viewBox, setViewBox] = useState({
     x: 0, y: 0,
@@ -113,6 +114,10 @@ export default function WorldMap() {
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
   const isTooltipHoveredRef = useRef(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Animation state
+  const [isVisible, setIsVisible] = useState(false);
+  const [animationProgress, setAnimationProgress] = useState(0);
 
   const { refs, floatingStyles } = useFloating({
     open: !!tooltip,
@@ -460,6 +465,46 @@ export default function WorldMap() {
     };
   }, []);
 
+  // Intersection observer for dot animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.7 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isVisible]);
+
+  // Animation loop for dots
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const duration = 2000; // 2 seconds for all dots to appear
+    const startTime = Date.now();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Use easeOutQuad for smooth deceleration
+      const eased = 1 - Math.pow(1 - progress, 2);
+      setAnimationProgress(eased);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isVisible]);
+
   // Pan handlers
   const [isPanning, setIsPanning] = useState(false);
   const panStart = useRef({ x: 0, y: 0, viewX: 0, viewY: 0 });
@@ -541,7 +586,7 @@ export default function WorldMap() {
   }, [scheduleHide]);
 
   return (
-    <section className="py-12 px-4" role="region" aria-label="Global contributor map">
+    <section ref={sectionRef} className="py-12 px-4" role="region" aria-label="Global contributor map">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-gradient">
           Global Community
@@ -582,8 +627,20 @@ export default function WorldMap() {
                     const size = Math.min(baseSize + Math.log(cluster.contributions + 1) * 2, 25) * dotScale;
                     const glowSize = size + 4 * dotScale;
 
+                    // Staggered animation - each dot appears based on its index
+                    const dotThreshold = i / clusters.length;
+                    const dotVisible = animationProgress >= dotThreshold;
+                    const dotScale2 = dotVisible ? 1 : 0;
+
                     return (
-                      <g key={`cluster-${i}`}>
+                      <g
+                        key={`cluster-${i}`}
+                        style={{
+                          transform: `scale(${dotScale2})`,
+                          transformOrigin: `${cluster.x}px ${cluster.y}px`,
+                          transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                        }}
+                      >
                         <circle
                           cx={cluster.x}
                           cy={cluster.y}
@@ -610,8 +667,20 @@ export default function WorldMap() {
                     const size = Math.min(4 + Math.log(individual.contributions + 1) * 1.5, 10) * dotScale;
                     const glowSize = size + 3 * dotScale;
 
+                    // Staggered animation
+                    const dotThreshold = i / individuals.length;
+                    const dotVisible = animationProgress >= dotThreshold;
+                    const dotScale2 = dotVisible ? 1 : 0;
+
                     return (
-                      <g key={`individual-${i}`}>
+                      <g
+                        key={`individual-${i}`}
+                        style={{
+                          transform: `scale(${dotScale2})`,
+                          transformOrigin: `${individual.x}px ${individual.y}px`,
+                          transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                        }}
+                      >
                         <circle
                           cx={individual.x}
                           cy={individual.y}
