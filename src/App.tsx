@@ -5,6 +5,7 @@ import StatsBanner from './components/react/StatsBanner';
 import ActivityHeatmap from './components/react/ActivityHeatmap';
 import DonutChart from './components/react/DonutChart';
 import MonthlyTrend from './components/react/MonthlyTrend';
+import StarGrowth from './components/react/StarGrowth';
 import WorldMap from './components/react/WorldMap';
 import Leaderboard from './components/react/Leaderboard';
 import ContributorModal from './components/react/ContributorModal';
@@ -98,6 +99,9 @@ export default function App() {
               <DonutChart />
               <div className="md:col-span-3">
                 <MonthlyTrend />
+              </div>
+              <div className="md:col-span-3">
+                <StarGrowth />
               </div>
             </div>
           </section>
