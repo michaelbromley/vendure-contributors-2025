@@ -115,9 +115,10 @@ export default function WorldMap() {
   const isTooltipHoveredRef = useRef(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Animation state
+  // Animation state - throttled for performance
   const [isVisible, setIsVisible] = useState(false);
   const [animationProgress, setAnimationProgress] = useState(0);
+  const lastUpdateRef = useRef(0);
 
   const { refs, floatingStyles } = useFloating({
     open: !!tooltip,
@@ -483,19 +484,25 @@ export default function WorldMap() {
     return () => observer.disconnect();
   }, [isVisible]);
 
-  // Animation loop for dots
+  // Animation loop for dots - throttled to ~30fps for better performance
   useEffect(() => {
     if (!isVisible) return;
 
-    const duration = 2000; // 2 seconds for all dots to appear
+    const duration = 2000;
     const startTime = Date.now();
+    const updateInterval = 33; // ~30fps
 
     const animate = () => {
-      const elapsed = Date.now() - startTime;
+      const now = Date.now();
+      const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Use easeOutQuad for smooth deceleration
       const eased = 1 - Math.pow(1 - progress, 2);
-      setAnimationProgress(eased);
+
+      // Throttle React state updates to ~30fps
+      if (now - lastUpdateRef.current >= updateInterval || progress >= 1) {
+        lastUpdateRef.current = now;
+        setAnimationProgress(eased);
+      }
 
       if (progress < 1) {
         requestAnimationFrame(animate);

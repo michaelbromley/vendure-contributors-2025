@@ -13,7 +13,7 @@ export default function ContributorCard({ member, onClick }: ContributorCardProp
   
   return (
     <div
-      className="group relative bg-white/[0.08] backdrop-blur-sm rounded-[20px] p-6 text-center border-2 border-transparent cursor-pointer transition-all duration-400 overflow-hidden hover:-translate-y-2.5 hover:scale-105 hover:border-vendure-primary/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(23,193,255,0.2)] focus-visible:-translate-y-2.5 focus-visible:scale-105 focus-visible:border-vendure-primary/50 focus-visible:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(23,193,255,0.2)] outline-none"
+      className="group relative bg-white/[0.08] backdrop-blur-[1px] rounded-[20px] p-6 text-center border-2 border-transparent cursor-pointer transition-all duration-400 overflow-hidden hover:-translate-y-2.5 hover:scale-105 hover:border-vendure-primary/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(23,193,255,0.2)] focus-visible:-translate-y-2.5 focus-visible:scale-105 focus-visible:border-vendure-primary/50 focus-visible:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(23,193,255,0.2)] outline-none"
       onClick={onClick}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -27,21 +27,11 @@ export default function ContributorCard({ member, onClick }: ContributorCardProp
     >
       {/* Hover gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-vendure-primary/15 via-teal-500/10 to-vendure-primary/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      
+
       {/* Avatar container */}
       <div className="relative w-[100px] h-[100px] mx-auto mb-4">
-        {/* Animated dashed ring */}
-        <div 
-          className="absolute -inset-[5px] rounded-full border-2 border-dashed border-vendure-primary/40 group-hover:border-vendure-primary/80 transition-colors"
-          style={{ 
-            animation: 'spin 10s linear infinite',
-          }}
-        />
-        <style>{`
-          .group:hover div[style*="spin"] {
-            animation-duration: 3s !important;
-          }
-        `}</style>
+        {/* Animated dashed ring - only spins on hover */}
+        <div className="absolute -inset-[5px] rounded-full border-2 border-dashed border-vendure-primary/40 group-hover:border-vendure-primary/80 transition-colors animate-spin-slow [animation-play-state:paused] group-hover:[animation-play-state:running]" />
         <img
           src={member.avatar_url}
           alt=""

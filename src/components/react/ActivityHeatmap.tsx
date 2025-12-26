@@ -184,23 +184,29 @@ export default function ActivityHeatmap() {
     return Math.min(4, Math.ceil((count / maxCommits) * 4));
   };
 
-  const getCellStyle = (level: number, release?: Release): React.CSSProperties => {
-    const style: React.CSSProperties = {
-      width: 12,
-      height: 12,
-      borderRadius: 2,
-      background: heatmapColors[level as keyof typeof heatmapColors],
-      transition: 'transform 0.2s, box-shadow 0.2s',
-    };
+  // Memoize cell styles to avoid recreating objects on every render
+  const cellBaseStyle = useMemo(() => ({
+    width: 12,
+    height: 12,
+    borderRadius: 2,
+    transition: 'transform 0.2s, box-shadow 0.2s',
+  }), []);
 
-    if (release?.release_type === 'minor') {
-      style.boxShadow = getReleaseGlow(isKitz, 'minor');
-    } else if (release?.release_type === 'patch') {
-      style.boxShadow = getReleaseGlow(isKitz, 'patch');
+  // Event delegation handler - single handler instead of 365+ individual handlers
+  const handleGridMouseOver = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    const date = target.dataset.date;
+    if (date) {
+      handleCellEnter(date, target);
     }
+  }, [handleCellEnter]);
 
-    return style;
-  };
+  const handleGridMouseOut = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.dataset.date) {
+      handleCellLeave();
+    }
+  }, [handleCellLeave]);
 
   return (
     <div className="glass-card p-4 md:p-6" role="region" aria-label="Activity heatmap">
@@ -215,8 +221,14 @@ export default function ActivityHeatmap() {
             ))}
           </div>
 
-          {/* Heatmap grid */}
-          <div className="flex gap-[3px]" role="grid" aria-label="Commit activity calendar">
+          {/* Heatmap grid - uses event delegation instead of individual handlers */}
+          <div
+            className="flex gap-[3px]"
+            role="grid"
+            aria-label="Commit activity calendar"
+            onMouseOver={handleGridMouseOver}
+            onMouseOut={handleGridMouseOut}
+          >
             {weeks.map((week, wi) => (
               <div key={wi} className="flex flex-col gap-[3px]" role="row">
                 {week.map((date, di) => {
@@ -227,15 +239,19 @@ export default function ActivityHeatmap() {
                   const count = commitsByDate[date] || 0;
                   const level = getLevel(count);
                   const release = releasesByDate[date];
+                  const releaseType = release?.release_type;
 
                   return (
                     <div
                       key={date}
-                      style={getCellStyle(level, release)}
-                      className="hover:scale-125 hover:z-10"
+                      data-date={date}
+                      style={{
+                        ...cellBaseStyle,
+                        background: heatmapColors[level as keyof typeof heatmapColors],
+                        boxShadow: releaseType ? getReleaseGlow(isKitz, releaseType) : undefined,
+                      }}
+                      className="hover:scale-125 hover:z-10 cursor-pointer"
                       role="gridcell"
-                      onMouseEnter={(e) => handleCellEnter(date, e.currentTarget)}
-                      onMouseLeave={handleCellLeave}
                     />
                   );
                 })}

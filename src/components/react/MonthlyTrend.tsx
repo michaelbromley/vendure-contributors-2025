@@ -81,11 +81,12 @@ export default function MonthlyTrend() {
   const isTooltipHoveredRef = useRef(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Animation state
+  // Animation state - throttled for performance
   const [animationProgress, setAnimationProgress] = useState(0);
   const [lineProgress, setLineProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const lastUpdateRef = useRef(0);
 
   const { refs, floatingStyles } = useFloating({
     open: !!tooltip,
@@ -281,26 +282,29 @@ export default function MonthlyTrend() {
     return () => observer.disconnect();
   }, [isVisible]);
 
-  // Animation loop
+  // Animation loop - throttled to ~30fps for better performance
   useEffect(() => {
     if (!isVisible) return;
 
-    const dotDuration = 1500; // 1.5 seconds for dots
-    const lineDuration = 3000; // 3 seconds for line
+    const dotDuration = 1500;
+    const lineDuration = 3000;
     const startTime = Date.now();
+    const updateInterval = 33; // ~30fps
 
     const animate = () => {
-      const elapsed = Date.now() - startTime;
+      const now = Date.now();
+      const elapsed = now - startTime;
 
-      // Dots complete faster with easing
       const dotProgress = Math.min(elapsed / dotDuration, 1);
       const easedDotProgress = easeOutCubic(dotProgress);
-
-      // Line draws more slowly
       const lineProgressVal = Math.min(elapsed / lineDuration, 1);
 
-      setAnimationProgress(easedDotProgress);
-      setLineProgress(lineProgressVal);
+      // Throttle React state updates to ~30fps
+      if (now - lastUpdateRef.current >= updateInterval || lineProgressVal >= 1) {
+        lastUpdateRef.current = now;
+        setAnimationProgress(easedDotProgress);
+        setLineProgress(lineProgressVal);
+      }
 
       if (lineProgressVal < 1) {
         requestAnimationFrame(animate);

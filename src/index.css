@@ -289,6 +289,11 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+/* Slow spin for contributor card rings - 3s when playing */
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }

@@ -2,11 +2,6 @@ import { useMemo, useState, useEffect, useRef } from 'react';
 import { useSnowMode } from '../../App';
 import starsData from '../../data/stars-2025.json';
 
-// Easing function for smooth animation
-function easeOutCubic(t: number): number {
-  return 1 - Math.pow(1 - t, 3);
-}
-
 // Get ISO week number from date
 function getWeekNumber(date: Date): number {
   const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
@@ -31,14 +26,22 @@ interface WeeklyData {
   total: number;
 }
 
+// Easing function
+function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
+
 export default function StarGrowth() {
   const { mode } = useSnowMode();
   const isKitz = mode === 'kitz';
-  const [animationProgress, setAnimationProgress] = useState(0); // Eased progress for dots
-  const [lineProgress, setLineProgress] = useState(0); // Linear progress for lines
+
+  // Animation state - throttled updates for better performance
   const [isVisible, setIsVisible] = useState(false);
+  const [animationProgress, setAnimationProgress] = useState(0);
+  const [lineProgress, setLineProgress] = useState(0);
   const [hoveredWeekIndex, setHoveredWeekIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const lastUpdateRef = useRef(0);
 
   // Aggregate daily data into weekly data
   const weeklyData = useMemo(() => {
@@ -105,26 +108,30 @@ export default function StarGrowth() {
     return () => observer.disconnect();
   }, [isVisible]);
 
-  // Animation loop
+  // Animation loop - throttled to ~30fps for state updates (better performance)
   useEffect(() => {
     if (!isVisible) return;
 
-    const dotDuration = 2500; // 2.5 seconds for dots
-    const lineDuration = 7500; // 7.5 seconds for lines (3x longer)
+    const dotDuration = 2500;
+    const lineDuration = 7500;
     const startTime = Date.now();
+    const updateInterval = 33; // ~30fps for React state updates
 
     const animate = () => {
-      const elapsed = Date.now() - startTime;
+      const now = Date.now();
+      const elapsed = now - startTime;
 
-      // Dots complete in 2.5s with easing
       const dotProgress = Math.min(elapsed / dotDuration, 1);
       const easedDotProgress = easeOutCubic(dotProgress);
-
-      // Lines complete in 7.5s (3x longer)
       const lineProgressVal = Math.min(elapsed / lineDuration, 1);
 
-      setAnimationProgress(easedDotProgress); // Eased for dots
-      setLineProgress(lineProgressVal); // Slower linear for lines
+      // Only update React state every ~33ms (30fps) instead of 60fps
+      // This halves the number of re-renders while keeping smooth CSS transitions
+      if (now - lastUpdateRef.current >= updateInterval || lineProgressVal >= 1) {
+        lastUpdateRef.current = now;
+        setAnimationProgress(easedDotProgress);
+        setLineProgress(lineProgressVal);
+      }
 
       if (lineProgressVal < 1) {
         requestAnimationFrame(animate);

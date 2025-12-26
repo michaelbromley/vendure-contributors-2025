@@ -1,7 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import { useDataContext } from '../../App';
 import type { CommunityMember } from '../../types';
 import ContributorCard from './ContributorCard';
+
+const INITIAL_ITEMS = 36; // 6 columns x 6 rows - good initial batch
+const LOAD_MORE_COUNT = 24; // Load 24 more at a time
 
 interface LeaderboardProps {
   onSelectMember: (member: CommunityMember) => void;
@@ -11,12 +14,14 @@ export default function Leaderboard({ onSelectMember }: LeaderboardProps) {
   const { members } = useDataContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState<'all' | 'commits' | 'issues'>('all');
+  const [displayCount, setDisplayCount] = useState(INITIAL_ITEMS);
+  const sentinelRef = useRef<HTMLDivElement>(null);
   
   const filteredMembers = useMemo(() => {
     return members.filter(member => {
       // Search filter
       const matchesSearch = member.login.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       // Type filter
       let matchesFilter = true;
       if (filter === 'commits') {
@@ -24,10 +29,45 @@ export default function Leaderboard({ onSelectMember }: LeaderboardProps) {
       } else if (filter === 'issues') {
         matchesFilter = member.issueCount > 0;
       }
-      
+
       return matchesSearch && matchesFilter;
     });
   }, [members, searchTerm, filter]);
+
+  // Reset display count when filters change
+  useEffect(() => {
+    setDisplayCount(INITIAL_ITEMS);
+  }, [searchTerm, filter]);
+
+  // Only render up to displayCount items
+  const visibleMembers = useMemo(() => {
+    return filteredMembers.slice(0, displayCount);
+  }, [filteredMembers, displayCount]);
+
+  const hasMore = displayCount < filteredMembers.length;
+
+  // Load more when sentinel comes into view
+  const loadMore = useCallback(() => {
+    setDisplayCount(prev => Math.min(prev + LOAD_MORE_COUNT, filteredMembers.length));
+  }, [filteredMembers.length]);
+
+  // IntersectionObserver for infinite scroll
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          loadMore();
+        }
+      },
+      { rootMargin: '200px' } // Start loading before user reaches bottom
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasMore, loadMore]);
   
   return (
     <section className="py-12 px-4" aria-label="Community leaderboard">
@@ -94,15 +134,28 @@ export default function Leaderboard({ onSelectMember }: LeaderboardProps) {
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
           role="list"
         >
-          {filteredMembers.map((member) => (
-            <ContributorCard 
-              key={member.login} 
-              member={member} 
+          {visibleMembers.map((member) => (
+            <ContributorCard
+              key={member.login}
+              member={member}
               onClick={() => onSelectMember(member)}
             />
           ))}
         </div>
-        
+
+        {/* Sentinel for infinite scroll - triggers loading more */}
+        {hasMore && (
+          <div
+            ref={sentinelRef}
+            className="flex justify-center py-8"
+            aria-hidden="true"
+          >
+            <div className="text-text-secondary text-sm">
+              Loading more contributors...
+            </div>
+          </div>
+        )}
+
         {filteredMembers.length === 0 && (
           <div className="text-center py-12 text-text-secondary">
             No contributors found matching your criteria.
