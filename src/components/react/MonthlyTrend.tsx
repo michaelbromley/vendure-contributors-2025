@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useCallback } from 'react';
+import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
 import { useDataContext, useSnowMode } from '../../App';
 import type { Release } from '../../types';
 import {
@@ -11,6 +11,11 @@ import {
 } from '@floating-ui/react';
 
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// Easing function for smooth animation
+function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
 
 // Inline styles for SVG elements
 const chartStyles = {
@@ -75,6 +80,12 @@ export default function MonthlyTrend() {
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
   const isTooltipHoveredRef = useRef(false);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Animation state
+  const [animationProgress, setAnimationProgress] = useState(0);
+  const [lineProgress, setLineProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { refs, floatingStyles } = useFloating({
     open: !!tooltip,
@@ -142,11 +153,34 @@ export default function MonthlyTrend() {
       month: months[i]
     }));
 
-    // Create line path
-    const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+    // Create smooth curved line path using bezier curves
+    const createSmoothPath = (pts: typeof points) => {
+      if (pts.length < 2) return '';
 
-    // Create area path
-    const areaPath = `${linePath} L ${points[points.length - 1]?.x || padding.left} ${padding.top + chartHeight} L ${padding.left} ${padding.top + chartHeight} Z`;
+      let path = `M ${pts[0].x} ${pts[0].y}`;
+
+      for (let i = 1; i < pts.length; i++) {
+        const prev = pts[i - 1];
+        const curr = pts[i];
+        const tension = 0.3;
+
+        const cp1x = prev.x + (curr.x - prev.x) * tension;
+        const cp1y = prev.y;
+        const cp2x = curr.x - (curr.x - prev.x) * tension;
+        const cp2y = curr.y;
+
+        path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${curr.x} ${curr.y}`;
+      }
+
+      return path;
+    };
+
+    const linePath = createSmoothPath(points);
+
+    // Create area path with smooth curve
+    const areaPath = linePath +
+      ` L ${points[points.length - 1]?.x || padding.left} ${padding.top + chartHeight}` +
+      ` L ${padding.left} ${padding.top + chartHeight} Z`;
 
     // Grid lines
     const gridLines = [0, 0.25, 0.5, 0.75, 1].map(pct => ({
@@ -229,8 +263,58 @@ export default function MonthlyTrend() {
     scheduleHide();
   }, [scheduleHide]);
 
+  // Intersection observer to trigger animation when visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isVisible]);
+
+  // Animation loop
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const dotDuration = 1500; // 1.5 seconds for dots
+    const lineDuration = 3000; // 3 seconds for line
+    const startTime = Date.now();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+
+      // Dots complete faster with easing
+      const dotProgress = Math.min(elapsed / dotDuration, 1);
+      const easedDotProgress = easeOutCubic(dotProgress);
+
+      // Line draws more slowly
+      const lineProgressVal = Math.min(elapsed / lineDuration, 1);
+
+      setAnimationProgress(easedDotProgress);
+      setLineProgress(lineProgressVal);
+
+      if (lineProgressVal < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isVisible]);
+
+  // Path length for stroke animation
+  const pathLength = 2000;
+
   return (
-    <div className="glass-card p-4 md:p-6" role="region" aria-label="Monthly activity trend chart">
+    <div ref={containerRef} className="glass-card p-4 md:p-6" role="region" aria-label="Monthly activity trend chart">
       <style>{`
         .trend-data-point { transition: r 0.2s ease; }
         .trend-data-point:hover { r: 8; }
@@ -345,32 +429,47 @@ export default function MonthlyTrend() {
             })}
 
             {/* Area and line */}
-            <path d={areaPath} style={chartStyles.area} />
+            <path
+              d={areaPath}
+              style={{
+                ...chartStyles.area,
+                opacity: lineProgress,
+                transition: 'opacity 0.3s ease',
+              }}
+            />
             <path
               d={linePath}
               style={{
                 ...chartStyles.line,
                 stroke: isKitz ? '#14b8c6' : '#17c1ff',
+                strokeDasharray: pathLength,
+                strokeDashoffset: pathLength * (1 - lineProgress),
               }}
             />
 
             {/* Data points */}
-            {points.map((point) => (
-              <circle
-                key={point.month}
-                cx={point.x}
-                cy={point.y}
-                r={5}
-                className="trend-data-point"
-                style={{
-                  ...chartStyles.dataPoint,
-                  fill: isKitz ? '#14b8c6' : '#17c1ff',
-                  stroke: isKitz ? '#e5e7eb' : '#0a1929',
-                }}
-                onMouseEnter={(e) => handlePointEnter(point, e.currentTarget)}
-                onMouseLeave={handleElementLeave}
-              />
-            ))}
+            {points.map((point, i) => {
+              const pointProgress = i / (points.length - 1 || 1);
+              const pointVisible = animationProgress >= pointProgress;
+
+              return (
+                <circle
+                  key={point.month}
+                  cx={point.x}
+                  cy={point.y}
+                  r={pointVisible ? 5 : 0}
+                  className="trend-data-point"
+                  style={{
+                    ...chartStyles.dataPoint,
+                    fill: isKitz ? '#14b8c6' : '#17c1ff',
+                    stroke: isKitz ? '#e5e7eb' : '#0a1929',
+                    transition: 'r 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => handlePointEnter(point, e.currentTarget)}
+                  onMouseLeave={handleElementLeave}
+                />
+              );
+            })}
 
             {/* X axis labels */}
             {months.map((month, i) => (

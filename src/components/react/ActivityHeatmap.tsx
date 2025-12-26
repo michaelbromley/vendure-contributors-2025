@@ -206,8 +206,8 @@ export default function ActivityHeatmap() {
     <div className="glass-card p-4 md:p-6" role="region" aria-label="Activity heatmap">
       <h3 className="text-lg font-semibold text-text-primary mb-4">Activity Heatmap</h3>
 
-      <div className="overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0">
-        <div className="min-w-[700px] md:min-w-0">
+      <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+        <div className="inline-block min-w-max">
           {/* Month labels */}
           <div className="flex mb-1 text-xs text-text-secondary">
             {monthLabels.map(m => (
