@@ -63,13 +63,10 @@ export default function StarGrowth() {
       }
     });
 
-    // Get current week number to filter incomplete future weeks
-    const currentWeek = getWeekNumber(new Date());
-
-    // Convert to array and sort by week
+    // Convert to array and sort by total stars (chronological order)
+    // Can't sort by week number because ISO weeks wrap at year boundary
+    // (Dec 29 2025 is week 1 of 2026, which would put it at the start)
     const weeks: WeeklyData[] = Array.from(weekMap.entries())
-      .filter(([week]) => week <= currentWeek)
-      .sort((a, b) => a[0] - b[0])
       .map(([week, data]) => {
         const weekStart = getWeekStart(2025, week);
         const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -81,13 +78,17 @@ export default function StarGrowth() {
           gained: data.gained,
           total: data.lastTotal,
         };
-      });
+      })
+      .sort((a, b) => a.total - b.total);
 
     return weeks;
   }, []);
 
   const startOfYearStars = starsData.starsAtStartOf2025;
-  const currentTotal = weeklyData[weeklyData.length - 1]?.total || startOfYearStars;
+  // Get current total from the raw data (last daily entry) since week sorting
+  // doesn't work at year boundaries (Dec 29 is ISO week 1 of 2026)
+  const dailyData = starsData.daily2025;
+  const currentTotal = dailyData[dailyData.length - 1]?.total || startOfYearStars;
   const totalGained = currentTotal - startOfYearStars;
 
   // Intersection observer to trigger animation when visible
